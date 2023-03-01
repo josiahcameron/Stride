@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
 
 
@@ -50,6 +51,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,3 +141,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Substituting Custom User
 # https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-AUTH_USER_MODEL
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# https://whitenoise.readthedocs.io/en/latest/
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

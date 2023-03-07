@@ -59,12 +59,10 @@ INSTALLED_APPS = [
     'dj_rest_auth',
 
 
-
-
-
     # Local
     'accounts.apps.AccountsConfig',
     'frontend.apps.FrontendConfig',
+    'habits.apps.HabitsConfig',
 ]
 
 REST_FRAMEWORK = {

@@ -8,4 +8,4 @@ Technologies:
 
 Packages:
 
--
+-   https://pypi.org/project/django-recurrence/

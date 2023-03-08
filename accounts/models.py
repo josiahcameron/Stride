@@ -7,7 +7,8 @@ from django.conf import settings
 
 
 class CustomUser(AbstractUser):
-    pass
+    # Setting up friends field in our user model
+    friends = models.ManyToManyField("CustomUser", blank=True)
 
 
 class Profile(models.Model):
@@ -36,3 +37,14 @@ class Log(models.Model):
     text = models.TextField(blank=True)
     created_at = models.DateTimeField(null=True, auto_now=True)
     updated_at = models.DateTimeField(null=True, auto_now=True)
+
+
+class Friend_Request(models.Model):
+    # related_name is used when there's a reverse relation from the User model to this model
+    # User who sends the request
+    from_user = models.ForeignKey(
+        CustomUser, related_name='from_user', on_delete=models.CASCADE)
+
+    # User receiving the request
+    to_user = models.ForeignKey(
+        CustomUser, related_name="to_user", on_delete=models.CASCADE)

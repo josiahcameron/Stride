@@ -7,13 +7,15 @@ from django.conf import settings
 
 # Base habit model
 class Habit(models.Model):
-    DAILY = 'daily'
-    WEEKLY = 'weekly'
-    MONTHLY = 'monthly'
+    # Goal tiers
+    D_GOAL = 'stroll'
+    W_GOAL = 'jaunt'
+    M_GOAL = 'parade'
+
     FREQUENCY_OPTIONS = [
-        (DAILY, 'daily'),
-        (WEEKLY, 'weekly'),
-        (MONTHLY, 'monthly'),
+        (D_GOAL, 'stroll'),
+        (W_GOAL, 'jaunt'),
+        (M_GOAL, 'parade'),
     ]
     # Who has the habit
     user = models.ForeignKey(settings.AUTH_USER_MODEL,

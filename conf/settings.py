@@ -165,6 +165,14 @@ REACT_APP_DIR = os.path.join(BASE_DIR, "frontend/static")
 # Loads other static files
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/static/build/static"),)
 
+# Managing files
+# https://docs.djangoproject.com/en/3.1/topics/files/#managing-files - url to documentation
+
+# MEDIA_ROOT is the path to the root directory where the files are getting stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL is the URL that will serve the media files; creates Media directory; Every time a media file is stored, it's url will contain /media/ prefixed
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

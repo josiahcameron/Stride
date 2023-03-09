@@ -1,4 +1,5 @@
 import axios from "axios";
+import http from "../../http-common";
 import { useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
@@ -10,41 +11,56 @@ import Card from "react-bootstrap/Card";
 function HomePage() {
 	const [response, setResponse] = useState(null);
 	const secretKey = process.env.REACT_APP_API_KEY;
+	const [habits, setHabits] = useState(null);
 	const [habit, setHabit] = useState({
 		title: "",
 	});
+
+	useEffect(() => {
+		const fetchHabits = async () => {
+			try {
+				const res = await axios.get("/api_v1/habits");
+				setHabits(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		// Trigger the API Call
+		fetchHabits();
+		console.log(habits);
+	}, []);
 
 	const handleError = (err) => {
 		console.warn(err);
 	};
 
 	const handleInput = (event) => {
-		const { title, value } = event.target;
+		const { name, value } = event.target;
 		setHabit({
 			...habit,
-			[title]: value,
+			[name]: value,
 		});
 	};
 
-	const fetchQuotes = async () => {
-		try {
-			const res = await axios.get(
-				"https://quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com/quote",
-				{
-					headers: {
-						"X-RapidAPI-Key": secretKey,
-						"X-RapidAPI-Host":
-							"quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com",
-					},
-					params: { token: "ipworld.info" },
-				}
-			);
-			setResponse(res.data);
-		} catch (err) {
-			console.log(err);
-		}
-	};
 	useEffect(() => {
+		const fetchQuotes = async () => {
+			try {
+				const res = await axios.get(
+					"https://quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com/quote",
+					{
+						headers: {
+							"X-RapidAPI-Key": secretKey,
+							"X-RapidAPI-Host":
+								"quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com",
+						},
+						params: { token: "ipworld.info" },
+					}
+				);
+				setResponse(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
 		// Trigger the API Call
 		fetchQuotes();
 	}, []);
@@ -54,22 +70,24 @@ function HomePage() {
 		setHabit({
 			...habit,
 		});
-		const formData = new FormData();
-		formData.append("title", habit.title);
-
 		const options = {
 			method: "POST",
 			headers: {
 				"X-CSRFToken": Cookies.get("csrftoken"),
 			},
-			body: formData,
 		};
-
-		const response = await fetch("/api_v1/add-habit/", options);
-		const data = await response.json();
-		setHabit([habit, data]);
-		console.log(formData);
-		console.log({ data });
+		try {
+			const response = await axios.post(
+				"/api_v1/add-habit/",
+				habit,
+				options
+			);
+			const data = response.data;
+			console.log(data);
+			setHabits([...habits, data]);
+		} catch (error) {
+			handleError(error);
+		}
 	};
 
 	return (
@@ -102,8 +120,8 @@ function HomePage() {
 						<Form.Control
 							type="text"
 							className="form-control"
-							name="text"
-							value={habit.text}
+							name="title"
+							value={habit.title}
 							onChange={handleInput}
 							placeholder="Add Habit"
 						/>

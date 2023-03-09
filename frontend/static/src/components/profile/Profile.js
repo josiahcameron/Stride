@@ -1,64 +1,27 @@
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+
 function Profile() {
 	return (
-		<div class="container d-flex justify-content-center">
-			<div class="card p-3 py-4">
-				<div class="text-center">
-					<img
-						src="https://i.imgur.com/stD0Q19.jpg"
-						width="100"
-						class="rounded-circle"
-						alt="profile"
-					/>
-					<h3 class="mt-2">Maria Smantha</h3>
-					<span class="mt-1 clearfix">Android Developer</span>
-
-					<div class="row mt-3 mb-3">
-						<div class="col-md-4">
-							<h5>Projects</h5>
-							<span class="num">10</span>
-						</div>
-						<div class="col-md-4">
-							<h5>Projects</h5>
-							<span class="num">10</span>
-						</div>
-						<div class="col-md-4">
-							<h5>Projects</h5>
-							<span class="num">10</span>
-						</div>
-					</div>
-
-					<hr class="line" />
-
-					<small class="mt-4">
-						I am an android developer working at google Inc at
-						california,USA
-					</small>
-					<div class="social-buttons mt-5">
-						<button class="neo-button">
-							<i class="fa fa-facebook fa-1x"></i>{" "}
-						</button>
-						<button class="neo-button">
-							<i class="fa fa-linkedin fa-1x"></i>
-						</button>
-						<button class="neo-button">
-							<i class="fa fa-google fa-1x"></i>{" "}
-						</button>
-						<button class="neo-button">
-							<i class="fa fa-youtube fa-1x"></i>{" "}
-						</button>
-						<button class="neo-button">
-							<i class="fa fa-twitter fa-1x"></i>{" "}
-						</button>
-					</div>
-
-					<div class="profile mt-5">
-						<button class="profile_button px-5">
-							View profile
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		<Card style={{ width: "18rem" }}>
+			<Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+			<Card.Body>
+				<Card.Title>Card Title</Card.Title>
+				<Card.Text>
+					Some quick example text to build on the card title and make
+					up the bulk of the card's content.
+				</Card.Text>
+			</Card.Body>
+			<ListGroup className="list-group-flush">
+				<ListGroup.Item>Cras justo odio</ListGroup.Item>
+				<ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+				<ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+			</ListGroup>
+			<Card.Body>
+				<Card.Link href="#">Card Link</Card.Link>
+				<Card.Link href="#">Another Link</Card.Link>
+			</Card.Body>
+		</Card>
 	);
 }
 

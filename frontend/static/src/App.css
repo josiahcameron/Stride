@@ -1,5 +1,10 @@
 @import url("./styles/profile.css");
+@import url("./styles/home.css");
 
+.all-content-wrapper {
+	min-height: 100vh;
+	height: 100%;
+}
 .App {
 	text-align: center;
 }

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import nanoid from "nanoid";
 
 function APITest() {
 	const [response, setResponse] = useState(null);

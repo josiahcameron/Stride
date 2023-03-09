@@ -10,22 +10,18 @@ function Header() {
 			<h1 className="title">STRIDE</h1>
 			<nav className="top-nav">
 				<button type="button" className="btn btn-primary top-button">
-					<NavLink className="nav-text" to="/register">
+					<NavLink className="nav-text" to="register">
 						Register
 					</NavLink>
 				</button>
 				<button type="button" className="btn btn-primary top-button ">
-					<NavLink className="nav-text" to="/login">
+					<NavLink className="nav-text" to="login">
 						Login
 					</NavLink>
 				</button>
+
 				<button type="button" className="btn btn-primary top-button">
-					<NavLink className="nav-text" to="/drafts">
-						Drafts
-					</NavLink>
-				</button>
-				<button type="button" className="btn btn-primary top-button">
-					<NavLink className="nav-text" to="/home">
+					<NavLink className="nav-text" to="home">
 						Home
 					</NavLink>
 				</button>

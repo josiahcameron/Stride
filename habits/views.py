@@ -19,6 +19,9 @@ class HabitsAPIView(generics.ListCreateAPIView):
     serializer_class = serializers.HabitsSerializer
     queryset = models.Habit.objects.all()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class HabitMetaAPIView(generics.RetrieveAPIView):
     serializer_class = serializers.HabitMetaSerializer

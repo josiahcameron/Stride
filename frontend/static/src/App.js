@@ -13,11 +13,11 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Header from "./components/header/Header";
 import Profile from "./components/profile/Profile";
 
-function App() {
+const App = () => {
 	const { isAuthenticated } = useContext(AuthContext);
 
 	return (
-		<div>
+		<div className="all-content-wrapper">
 			{/* {isAuthenticated ? <AuthenticatedHeader /> : <UnauthenticatedHeader />} */}
 			<Header />
 			<Routes>
@@ -31,6 +31,6 @@ function App() {
 			{/* <Footer /> */}
 		</div>
 	);
-}
+};
 
 export default App;

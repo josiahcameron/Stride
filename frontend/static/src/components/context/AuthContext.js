@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 // Context creates a central location for our stately values
 export const AuthContext = createContext();

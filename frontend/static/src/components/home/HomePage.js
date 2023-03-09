@@ -1,12 +1,16 @@
 import axios from "axios";
-import http from "../../http-common";
+
 import { useState, useEffect } from "react";
 
+import Habits from "../../habits/Habits";
+
 import Cookies from "js-cookie";
+import { AuthContext } from "../context/AuthContext";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
+import { Col } from "react-bootstrap";
 
 function HomePage() {
 	const [response, setResponse] = useState(null);
@@ -17,9 +21,10 @@ function HomePage() {
 	});
 
 	useEffect(() => {
+		console.log("firing");
 		const fetchHabits = async () => {
 			try {
-				const res = await axios.get("/api_v1/habits");
+				const res = await axios.get("/api_v1/habits/");
 				setHabits(res.data);
 			} catch (err) {
 				console.log(err);
@@ -27,7 +32,6 @@ function HomePage() {
 		};
 		// Trigger the API Call
 		fetchHabits();
-		console.log(habits);
 	}, []);
 
 	const handleError = (err) => {
@@ -63,7 +67,7 @@ function HomePage() {
 		};
 		// Trigger the API Call
 		fetchQuotes();
-	}, []);
+	}, [secretKey]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -90,6 +94,14 @@ function HomePage() {
 		}
 	};
 
+	if (habits === null) {
+		return <div>Is loading ...</div>;
+	}
+
+	const habitsHTML = habits.map((habit) => (
+		<Habits key={habit.id} habit={habit} habits={habits} />
+	));
+
 	return (
 		<div className="homepage-wrapper">
 			<Card className="homepage-top">
@@ -111,26 +123,37 @@ function HomePage() {
 
 			<section className="set-steps">
 				<h2>Today's Steps: </h2>
-				<Form onSubmit={handleSubmit}>
-					<Form.Group className="mb-3" controlId="formBasicCheckbox">
-						<Form.Check type="checkbox" label="Check me out" />
-					</Form.Group>
-					<Form.Group className="mb-3" controlId="habit-form">
-						<Form.Label>Add Habit</Form.Label>
-						<Form.Control
-							type="text"
-							className="form-control"
-							name="title"
-							value={habit.title}
-							onChange={handleInput}
-							placeholder="Add Habit"
-						/>
-					</Form.Group>
+				<Card>
+					<Card.Body>
+						<Form onSubmit={handleSubmit}>
+							<Form.Group
+								className="mb-3"
+								controlId="formBasicCheckbox"
+							>
+								<Form.Check
+									type="checkbox"
+									label="Check me out"
+								/>
+							</Form.Group>
+							<Form.Group className="mb-3" controlId="habit-form">
+								<Form.Label>Add Habit</Form.Label>
+								<Form.Control
+									type="text"
+									className="form-control"
+									name="title"
+									value={habit.title}
+									onChange={handleInput}
+									placeholder="Add Habit"
+								/>
+							</Form.Group>
 
-					<Button variant="primary" type="submit">
-						Submit
-					</Button>
-				</Form>
+							<Button variant="primary" type="submit">
+								Submit
+							</Button>
+						</Form>
+					</Card.Body>
+				</Card>
+				<Col>{habits && habitsHTML}</Col>
 			</section>
 
 			<section className="completed-steps">

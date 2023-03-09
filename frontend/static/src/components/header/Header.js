@@ -21,7 +21,7 @@ function Header() {
 				</button>
 
 				<button type="button" className="btn btn-primary top-button">
-					<NavLink className="nav-text" to="home">
+					<NavLink className="nav-text" to="/">
 						Home
 					</NavLink>
 				</button>

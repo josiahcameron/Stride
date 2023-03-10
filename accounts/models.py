@@ -48,3 +48,11 @@ class Friend_Request(models.Model):
     # User receiving the request
     to_user = models.ForeignKey(
         CustomUser, related_name="to_user", on_delete=models.CASCADE)
+
+
+class Activity(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+    date = models.DateField(null=True, auto_now=True)
+    streak = models.IntegerField(blank=True)
+    progress = models.IntegerField(blank=True)

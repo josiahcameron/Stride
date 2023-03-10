@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from rest_framework import generics
 
 from . import models
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ActivitySerializer
 
 # Create your views here.
 
@@ -14,6 +14,16 @@ from .serializers import UserSerializer
 class UserCreateAPIView(generics.CreateAPIView):
     queryset = models.CustomUser.objects.all()
     serializer_class = UserSerializer
+
+
+class ActivityRecordCreateAPIView(generics.CreateAPIView):
+    serializer_class = ActivitySerializer
+
+    def get_queryset(self):
+        return models.ActivityLog.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 # @login_required

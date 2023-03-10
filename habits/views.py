@@ -19,7 +19,6 @@ class HabitsAPIView(generics.ListCreateAPIView):
     serializer_class = serializers.HabitsSerializer
 
     def get_queryset(self):
-        # Need to add a condition to only render if the article isn't submitted
         if self.request.user.is_superuser:
             return models.Habit.objects.all()
         else:

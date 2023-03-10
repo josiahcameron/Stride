@@ -8,14 +8,14 @@ from django.conf import settings
 # Base habit model
 class Habit(models.Model):
     # Goal tiers
-    D_GOAL = 'stroll'
-    W_GOAL = 'jaunt'
-    M_GOAL = 'parade'
+    D_GOAL = 'daily'
+    W_GOAL = 'weekly'
+    M_GOAL = 'monthly'
 
-    FREQUENCY_OPTIONS = [
-        (D_GOAL, 'stroll'),
-        (W_GOAL, 'jaunt'),
-        (M_GOAL, 'parade'),
+    HABIT_TYPES = [
+        (D_GOAL, 'daily'),
+        (W_GOAL, 'weekly'),
+        (M_GOAL, 'monthly'),
     ]
     # Who has the habit
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -24,6 +24,13 @@ class Habit(models.Model):
     title = models.CharField(max_length=255, blank=True)
     # Amount of times the habit has been completed
     # recurrences = models.IntegerField(null=True)
+
+    type = models.CharField(
+        null=True,
+        max_length=255,
+        choices=HABIT_TYPES,
+        default=D_GOAL,
+    )
 
     def __str__(self):
         return self.title

@@ -50,9 +50,29 @@ class Friend_Request(models.Model):
         CustomUser, related_name="to_user", on_delete=models.CASCADE)
 
 
-class Activity(models.Model):
+# Each instance will be a record of a user completing a phase
+class ActivityLog(models.Model):
+    # Goal tiers
+    D_GOAL = 'daily'
+    W_GOAL = 'weekly'
+    M_GOAL = 'monthly'
+
+    HABIT_TYPES = [
+        (D_GOAL, 'daily'),
+        (W_GOAL, 'weekly'),
+        (M_GOAL, 'monthly'),
+    ]
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
     date = models.DateField(null=True, auto_now=True)
-    streak = models.IntegerField(blank=True)
-    progress = models.IntegerField(blank=True)
+
+    type = models.CharField(
+        null=True,
+        max_length=255,
+        choices=HABIT_TYPES,
+        default=D_GOAL,
+    )
+
+    def __str__(self):
+        return (f"{self.user.username}-{self.date}-{self.type}")

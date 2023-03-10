@@ -18,6 +18,7 @@ function HomePage() {
 	const [habits, setHabits] = useState(null);
 	const [habit, setHabit] = useState({
 		title: "",
+		type: "",
 	});
 
 	useEffect(() => {
@@ -39,6 +40,14 @@ function HomePage() {
 	};
 
 	const handleInput = (event) => {
+		const { name, value } = event.target;
+		setHabit({
+			...habit,
+			[name]: value,
+		});
+	};
+
+	const handleSelection = (event) => {
 		const { name, value } = event.target;
 		setHabit({
 			...habit,
@@ -129,12 +138,7 @@ function HomePage() {
 							<Form.Group
 								className="mb-3"
 								controlId="formBasicCheckbox"
-							>
-								<Form.Check
-									type="checkbox"
-									label="Check me out"
-								/>
-							</Form.Group>
+							></Form.Group>
 							<Form.Group className="mb-3" controlId="habit-form">
 								<Form.Label>Add Habit</Form.Label>
 								<Form.Control
@@ -145,6 +149,18 @@ function HomePage() {
 									onChange={handleInput}
 									placeholder="Add Habit"
 								/>
+								<Form.Select
+									aria-label="Habit-Type"
+									className="form-control mb-3"
+									id="type"
+									name="type"
+									onChange={handleSelection}
+								>
+									<option>Open this select menu</option>
+									<option value="daily">Stroll</option>
+									<option value="weekly">Weekly</option>
+									<option value="monthly">Trek</option>
+								</Form.Select>
 							</Form.Group>
 
 							<Button variant="primary" type="submit">
@@ -153,7 +169,7 @@ function HomePage() {
 						</Form>
 					</Card.Body>
 				</Card>
-				<Col>{habits && habitsHTML}</Col>
+				<Col>{habitsHTML}</Col>
 			</section>
 
 			<section className="completed-steps">

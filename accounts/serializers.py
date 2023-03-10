@@ -8,5 +8,12 @@ from . import models
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.User
+        model = models.CustomUser
+        fields = '__all__'
+
+
+class ActivitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ActivityLog
         fields = '__all__'

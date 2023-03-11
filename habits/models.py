@@ -38,22 +38,12 @@ class Habit(models.Model):
 
 # In-Depth information of habit instances
 class HabitMeta(models.Model):
-    COMPLETE = 'complete'
-    INCOMPLETE = 'incomplete'
-    PHASES = [(COMPLETE, 'Complete'), (INCOMPLETE, 'Incomplete'), ]
-    habit = models.ForeignKey(
-        Habit, on_delete=models.CASCADE)
-    # What exactly the habit is
-    summary = models.CharField(max_length=255, blank=True)
+    habit = models.OneToOneField(
+        Habit, on_delete=models.CASCADE, primary_key=True)
     # Day the habit is created
     date = models.DateField(null=True, auto_now_add=True)
     # Checks whether or not the habit is completed
-    phase = models.CharField(
-        null=True,
-        max_length=255,
-        choices=PHASES,
-        default=INCOMPLETE,
-    )
+    is_completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.habit

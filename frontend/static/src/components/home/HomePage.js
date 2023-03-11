@@ -20,6 +20,9 @@ function HomePage() {
 		title: "",
 		type: "",
 	});
+	const [habit_meta, setHabit_Meta] = useState({
+		is_completed: false,
+	});
 
 	useEffect(() => {
 		console.log("firing");
@@ -91,8 +94,9 @@ function HomePage() {
 		};
 		try {
 			const response = await axios.post(
-				"/api_v1/add-habit/",
+				"/api_v1/update-habit/",
 				habit,
+				habit_meta,
 				options
 			);
 			const data = response.data;
@@ -108,7 +112,12 @@ function HomePage() {
 	}
 
 	const habitsHTML = habits.map((habit) => (
-		<Habits key={habit.id} habit={habit} habits={habits} />
+		<Habits
+			key={habit.id}
+			setHabit_Meta={setHabit_Meta}
+			habit={habit}
+			habits={habits}
+		/>
 	));
 
 	return (

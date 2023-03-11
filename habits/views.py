@@ -22,10 +22,22 @@ class HabitsAPIView(generics.ListCreateAPIView):
         if self.request.user.is_superuser:
             return models.Habit.objects.all()
         else:
-            return models.Habit.objects.filter(user=self.request.user)
+            # Fix this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return models.Habit.objects.filter(user=self.request.user),
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class UpdateHabitAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.HabitsSerializer, serializers.HabitMetaSerializer
+    queryset = models.Habit.objects.all(), models.HabitMeta.objects.all(),
+
+    def perform_destroy(self, instance):
+        instance.delete()
+
+    def perform_update(self, serializer):
+        serializer.save()
 
 
 class HabitMetaAPIView(generics.RetrieveAPIView):

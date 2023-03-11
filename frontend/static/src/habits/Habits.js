@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import { Col } from "react-bootstrap";
 
-function Habits({ habits, habit }) {
+function Habits({ habits, habit, setHabit_Meta }) {
 	const [record, setRecord] = useState({
 		type: "",
 	});
@@ -39,6 +39,31 @@ function Habits({ habits, habit }) {
 		}
 	};
 
+	const completeHabit = async (event) => {
+		event.preventDefault();
+		setHabit_Meta(true);
+
+		const csrftoken = Cookies.get("csrftoken");
+
+		// axios.defaults.headers.common["X-CSRFToken"] = csrftoken;
+
+		const options = {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				"X-CSRFToken": csrftoken,
+			},
+		};
+
+		const response = await axios.patch(
+			`/api_v1/update-habit/${habit.id}/`,
+			`is_complete: ${event.target}`,
+			options
+		);
+		const data = response.data;
+		console.log(data);
+	};
+
 	return (
 		<Col key={habit.id}>
 			<div className="post-container">
@@ -51,9 +76,9 @@ function Habits({ habits, habit }) {
 						type="checkbox"
 						label="Completed"
 						className="form-control mb-3"
-						name={habit.type}
-						value={habit.type}
-						onChange={submitRecord}
+						name="is_complete"
+						value="true"
+						onChange={completeHabit}
 					/>
 					{/* <div className="post-info flexbox">
 

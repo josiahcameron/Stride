@@ -12,14 +12,16 @@ import HomePage from "./components/home/HomePage";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Header from "./components/header/Header";
 import Profile from "./components/profile/Profile";
+import HabitPage from "./components/pages/HabitPage";
 
 const App = () => {
 	const { isAuthenticated } = useContext(AuthContext);
 
 	return (
 		<div className="all-content-wrapper">
+			<HabitPage />
 			{/* {isAuthenticated ? <AuthenticatedHeader /> : <UnauthenticatedHeader />} */}
-			<Header />
+			{/* <Header />
 			<Routes>
 				<Route path="login" element={<LoginForm />} />
 				<Route path="register" element={<RegisterForm />} />
@@ -27,7 +29,7 @@ const App = () => {
 				<Route path="/" element={<ProtectedRoute />}>
 					<Route index element={<HomePage />} />
 				</Route>
-			</Routes>
+			</Routes> */}
 			{/* <Footer /> */}
 		</div>
 	);

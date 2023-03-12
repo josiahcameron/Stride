@@ -46,3 +46,88 @@ form h2::before {
 	border-width: 0px 0px 2px 0px;
 	border-color: #cd7acd;
 }
+.login-dark .input-box input[type="password"] {
+	width: 100%;
+	font-size: 26px;
+	margin: 16px 0px;
+	outline: none;
+	border-width: 0px 0px 2px 0px;
+	border-color: #cd7acd;
+}
+.login-dark .input-box label {
+	position: absolute;
+	left: 0;
+	top: 12px;
+	font-size: 26px;
+	color: #0000009e;
+	pointer-events: none;
+	transition: 0.2s;
+}
+.login-dark .input-box input:focus + label,
+.login-dark .input-box input:valid + label {
+	top: -7px;
+	font-size: 18px;
+	color: blue;
+}
+.login-dark .input-box .password_checkbox {
+	width: 100%;
+	font-size: 18px;
+	display: flex;
+	justify-content: flex-end;
+}
+.login-dark .input-box .password_checkbox p {
+	margin-left: 8px;
+}
+
+.login-dark .input_box .password_checkbox {
+	width: 100%;
+	font-size: 18px;
+	display: flex;
+	justify-content: flex-end;
+}
+.login-dark .input_box .password_checkbox p {
+	margin-left: 8px;
+}
+.login-dark .forgot_password {
+	margin-top: 20px;
+	display: inline-block;
+	transition: 0.2s;
+}
+.login-dark .forgot_password a {
+	color: #000;
+	font-size: 18px;
+	text-decoration: none;
+}
+.login-dark .forgot_password:hover {
+	text-decoration: underline;
+	text-underline-position: under;
+}
+.login-dark .login-button {
+	width: 100%;
+	background: linear-gradient(45deg, #875cff, #ff66d7);
+	border: none;
+	padding: 10px 16px;
+	margin-top: 30px;
+	font-size: 30px;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 50px;
+	transition: 0.2s;
+}
+.login-dark .login-button:active {
+	transform: scale3d(0.9, 0.9, 0.9);
+}
+.login-dark .signup_link {
+	font-size: 20px;
+	margin-top: 30px;
+	width: 100%;
+	text-align: center;
+}
+.login-dark .signup_link a {
+	color: #000;
+	text-decoration: none;
+}
+.login-dark .signup_link a:hover {
+	text-decoration: underline;
+	text-underline-position: under;
+}

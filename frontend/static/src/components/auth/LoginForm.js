@@ -40,16 +40,17 @@ const LoginForm = () => {
 					{/* <div className="illustration">
 				<i className="icon ion-ios-locked-outline">
 					</i></div> */}
-					<div className="form-group">
+					<div className="form-group input-box">
 						<input
-							className="form-control input-box"
+							className="form-control"
 							id="username"
 							type="text"
-							placeholder="Enter Username"
 							name="username"
 							value={formData.username}
 							onChange={handleInput}
+							required
 						/>
+						<label>Enter Username</label>
 					</div>
 
 					<div className="form-group input-box">
@@ -57,19 +58,30 @@ const LoginForm = () => {
 							className="form-control"
 							id="password"
 							type="password"
-							placeholder="Enter Password"
 							name="password"
 							value={formData.password}
 							onChange={handleInput}
+							required
 						/>
+						<label>Enter Password</label>
+						<div class="password_checkbox">
+							<input type="checkbox" />
+							<p>Show Password</p>
+						</div>
 					</div>
-					<div className="form-group">
-						<button
-							onClick={handleSubmit}
-							className="btn btn-primary btn-block"
-						>
-							Log In
-						</button>
+					<div class="forgot_password">
+						<a href="forgot">Forgot Password ?</a>
+					</div>
+					{/* <div className="form-group login-button-box"> */}
+					<button
+						onClick={handleSubmit}
+						className="btn btn-primary btn-block login-button"
+					>
+						Log In
+					</button>
+					{/* </div> */}
+					<div class="signup_link">
+						<a href="signup.html">Don't have an Account ?</a>
 					</div>
 				</form>
 			</div>

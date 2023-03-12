@@ -33,7 +33,7 @@ const LoginForm = () => {
 	}
 
 	return (
-		<>
+		<div className="login-container">
 			<div className="login-dark">
 				<form>
 					<h2 className="sr-only">Login Form</h2>
@@ -42,7 +42,7 @@ const LoginForm = () => {
 					</i></div> */}
 					<div className="form-group">
 						<input
-							className="form-control"
+							className="form-control input-box"
 							id="username"
 							type="text"
 							placeholder="Enter Username"
@@ -52,7 +52,7 @@ const LoginForm = () => {
 						/>
 					</div>
 
-					<div className="form-group">
+					<div className="form-group input-box">
 						<input
 							className="form-control"
 							id="password"
@@ -73,7 +73,7 @@ const LoginForm = () => {
 					</div>
 				</form>
 			</div>
-		</>
+		</div>
 	);
 };
 

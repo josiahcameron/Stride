@@ -1,6 +1,7 @@
 @import url("./styles/profile.css");
 @import url("./styles/home.css");
 @import url("./styles/header.css");
+@import url("./styles/login.css");
 
 .all-content-wrapper {
 	min-height: 100vh;

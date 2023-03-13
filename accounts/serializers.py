@@ -15,5 +15,5 @@ class UserSerializer(serializers.ModelSerializer):
 class ActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.ActivityLog
+        model = models.UserActivityLog
         fields = '__all__'

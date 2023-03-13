@@ -3,11 +3,8 @@ from django.conf import settings
 
 
 # Create your models here.
-
-
-# Base habit model
 class Habit(models.Model):
-    # Goal tiers
+
     D_GOAL = 'daily'
     W_GOAL = 'weekly'
     M_GOAL = 'monthly'
@@ -17,33 +14,34 @@ class Habit(models.Model):
         (W_GOAL, 'weekly'),
         (M_GOAL, 'monthly'),
     ]
-    # Who has the habit
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, blank=True)
-    # The name of the habit
     title = models.CharField(max_length=255, blank=True)
-    # Amount of times the habit has been completed
-    # recurrences = models.IntegerField(null=True)
-
-    type = models.CharField(
+    frequency = models.CharField(
         null=True,
         max_length=255,
         choices=HABIT_TYPES,
         default=D_GOAL,
     )
+# Logic to check whether or not User's habit is active
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
 
-# In-Depth information of habit instances
 class HabitMeta(models.Model):
-    habit = models.OneToOneField(
-        Habit, on_delete=models.CASCADE, primary_key=True)
-    # Day the habit is created
-    date = models.DateField(null=True, auto_now_add=True)
-    # Checks whether or not the habit is completed
-    is_completed = models.BooleanField(default=False)
+    habit = models.ForeignKey(Habit, on_delete=models.CASCADE, blank=True)
+    date_completed = models.DateField(auto_now=True)
 
-    def __str__(self):
-        return self.habit
+
+# Each instance will be a record of a user completing a phase
+
+
+# x    habit = models.OneToOneField(
+#     Habit, on_delete=models.CASCADE, primary_key=True)
+
+
+# class GroupHabit(models.Model):
+#     users = models.ManyToManyField(settings.AUTH_USER_MODEL)

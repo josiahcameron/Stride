@@ -19,6 +19,7 @@ const App = () => {
 
 	return (
 		<div className="all-content-wrapper">
+			<Header />
 			<HabitPage />
 			{/* {isAuthenticated ? <AuthenticatedHeader /> : <UnauthenticatedHeader />} */}
 			{/* <Header />

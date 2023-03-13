@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { Card, Form, Col, Row, Container } from "react-bootstrap";
+
 const INITIAL_HABITS = [
 	{ title: "Brush Teeth", completed: "false" },
 	{ title: "Exercise", completed: "false" },
@@ -20,7 +22,32 @@ function HabitPage() {
 	const [quote, setQuote] = useState(INITIAL_QUOTE);
 	const denominator = habits.length;
 
-	console.log(quote[0].text);
+	const habitHTML = habits.map((habit) => (
+		<Row key={habit.id} className="align-items-start">
+			<Col className="">
+				<div className="post-container">
+					<Card className="bg-dark text-white single-post h-100 w-80 mt-5">
+						{/* <Card.Img src={article.image} alt="post-image" /> */}
+						{/* <Card.ImgOverlay> */}
+						<Card.Text>{habit.title}</Card.Text>
+						<Card.Text>{habit.type}</Card.Text>
+						<Form.Check
+							type="checkbox"
+							label="Completed"
+							className="form-control "
+							name="is_complete"
+							value="true"
+						/>
+						{/* <div className="post-info flexbox">
+
+						</div>
+					</Card.ImgOverlay> */}
+					</Card>
+				</div>
+			</Col>
+		</Row>
+	));
+
 	return (
 		<div className="habit-page wrapper">
 			<div className="box progress-qotd">
@@ -42,6 +69,11 @@ function HabitPage() {
 						</div>
 					</div>
 				</section>
+			</div>
+			<div className="box habit-list">
+				<Container className="m-0 p-0">
+					<section className="habits">{habitHTML}</section>
+				</Container>
 			</div>
 		</div>
 	);

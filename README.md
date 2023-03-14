@@ -9,3 +9,5 @@ Technologies:
 Packages:
 
 -   https://pypi.org/project/django-recurrence/
+
+-   https://www.npmjs.com/package/react-circular-progressbar

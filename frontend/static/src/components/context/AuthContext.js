@@ -26,6 +26,9 @@ export const AuthContextProvider = ({ children }) => {
 
 		Cookies.set("Authorization", `Token ${data.key}`);
 		setIsAuthenticated(true);
+		if (isAuthenticated) {
+			console.log("Authentication Successful");
+		}
 		console.log(isAuthenticated);
 		navigate("/");
 	};
@@ -58,7 +61,7 @@ export const AuthContextProvider = ({ children }) => {
 			// Fetch request to retrieve whoever is currently logged in
 			const response = await axios.get("/dj-rest-auth/user/");
 
-			if (!response.ok) {
+			if (!response.status) {
 				setIsAuthenticated(false);
 				return;
 			}

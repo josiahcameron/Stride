@@ -26,8 +26,8 @@ class HabitsAPIView(generics.ListCreateAPIView):
         else:
             return models.Habit.objects.filter(user=self.request.user)
 
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 # class UpdateHabitAPIView(generics.RetrieveUpdateDestroyAPIView):

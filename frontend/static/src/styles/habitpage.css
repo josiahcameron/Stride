@@ -2,7 +2,7 @@
 	width: 100%;
 	background: linear-gradient(45deg, rgb(135 129 255), rgb(255 110 110));
 	position: relative;
-	padding: 20px 6% 0 6%;
+	padding: 20px 10% 0 10%;
 	min-height: 100vh;
 }
 
@@ -87,4 +87,20 @@
 }
 .habit-type-selection-wrapper {
 	margin-top: 40px;
+}
+.habit-cards {
+	width: 100%;
+}
+.habit-container {
+	padding: 0px;
+}
+
+.progress {
+	width: 10%;
+	height: 100%;
+	background: transparent;
+}
+
+.habit-card {
+	height: 100px;
 }

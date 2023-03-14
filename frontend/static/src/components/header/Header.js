@@ -34,6 +34,14 @@ function Header() {
 						className="btn btn-primary top-button"
 					>
 						<NavLink className="nav-text" to="/">
+							Habits
+						</NavLink>
+					</button>
+					<button
+						type="button"
+						className="btn btn-primary top-button"
+					>
+						<NavLink className="nav-text" to="home">
 							Home
 						</NavLink>
 					</button>

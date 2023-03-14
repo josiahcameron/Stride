@@ -10,68 +10,77 @@ export const AuthContextProvider = ({ children }) => {
 	// Front-end authentication filter for conditional rendering in React
 	const [isAuthenticated, setIsAuthenticated] = useState(null);
 	const navigate = useNavigate();
+	const handleError = (err) => {
+		console.warn(err);
+	};
 
 	const login = async (user) => {
 		const options = {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
 				"X-CSRFToken": Cookies.get("csrftoken"),
 			},
-			body: JSON.stringify(user),
 		};
 
-		const response = await fetch("/dj-rest-auth/login/", options);
-
-		if (!response.ok) {
-			throw new Error("Network response was not OK");
+		try {
+			const response = await axios.post(
+				"/dj-rest-auth/login/",
+				user,
+				options
+			);
+			const data = await response.json();
+			Cookies.set("Authorization", `Token ${data.key}`);
+			setIsAuthenticated(true);
+			navigate("/profile");
+		} catch (error) {
+			handleError(error);
 		}
-		const data = await response.json();
-		Cookies.set("Authorization", `Token ${data.key}`);
-		setIsAuthenticated(true);
-		navigate("/profile");
 	};
 
 	const register = async (user) => {
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"X-CSRFToken": Cookies.get("csrftoken"),
-			},
-			body: JSON.stringify(user),
-		};
+		const csrfToken = document
+			.querySelector('meta[name="csrf-token"]')
+			.getAttribute("content");
 
-		const response = await fetch("/dj-rest-auth/registration/", options);
+		axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
 
-		if (!response.ok) {
-			throw new Error("Network response was not OK");
+		console.log(user);
+
+		try {
+			const response = await axios.post(
+				"/dj-rest-auth/registration/",
+				user
+			);
+			const data = await response.json();
+			Cookies.set("Authorization", `Token ${data.key}`);
+			setIsAuthenticated(true);
+			navigate("/");
+		} catch (error) {
+			handleError(error);
 		}
-		const data = await response.json();
-		Cookies.set("Authorization", `Token ${data.key}`);
-		setIsAuthenticated(true);
-		navigate("/");
 	};
 
 	const logout = async () => {
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"X-CSRFToken": Cookies.get("csrftoken"),
-			},
-		};
+		const csrfToken = document
+			.querySelector('meta[name="csrf-token"]')
+			.getAttribute("content");
 
-		await fetch("/dj-rest-auth/logout/", options);
-		Cookies.remove("Authorization");
-		setIsAuthenticated(false);
-		navigate("/login");
+		axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+		try {
+			const response = await axios.post("/dj-rest-auth/logout/");
+			const data = await response.json();
+			Cookies.set("Authorization", `Token ${data.key}`);
+			setIsAuthenticated(true);
+			navigate("/login");
+		} catch (error) {
+			handleError(error);
+		}
 	};
 
 	useEffect(() => {
 		const getUser = async () => {
 			// Fetch request to retrieve whoever is currently logged in
-			const response = await fetch("/dj-rest-auth/user/");
+			const response = await axios.get("/dj-rest-auth/user/");
 
 			if (!response.ok) {
 				setIsAuthenticated(false);
@@ -84,9 +93,9 @@ export const AuthContextProvider = ({ children }) => {
 		getUser();
 	}, []);
 
-	if (isAuthenticated === null) {
-		return <div>Is loading ...</div>;
-	}
+	// if (isAuthenticated === null) {
+	// 	return <div>Is loading ...</div>;
+	// }
 
 	return (
 		<AuthContext.Provider

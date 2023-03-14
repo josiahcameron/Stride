@@ -19,18 +19,17 @@ const App = () => {
 
 	return (
 		<div className="all-content-wrapper">
-			<Header />
-			<HabitPage />
 			{/* {isAuthenticated ? <AuthenticatedHeader /> : <UnauthenticatedHeader />} */}
-			{/* <Header />
+			<Header />
 			<Routes>
 				<Route path="login" element={<LoginForm />} />
 				<Route path="register" element={<RegisterForm />} />
 				<Route path="profile" element={<Profile />} />
+				<Route path="home" element={<HomePage />} />
 				<Route path="/" element={<ProtectedRoute />}>
-					<Route index element={<HomePage />} />
+					<Route index element={<HabitPage />} />
 				</Route>
-			</Routes> */}
+			</Routes>
 			{/* <Footer /> */}
 		</div>
 	);

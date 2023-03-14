@@ -24,7 +24,6 @@ const LoginForm = () => {
 	// login is a function given by the context; will send a post request with the formData to log the user in
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(formData);
 		login(formData);
 	};
 
@@ -64,12 +63,12 @@ const LoginForm = () => {
 							required
 						/>
 						<label>Enter Password</label>
-						<div class="password_checkbox">
+						<div className="password_checkbox">
 							<input type="checkbox" />
 							<p>Show Password</p>
 						</div>
 					</div>
-					<div class="forgot_password">
+					<div className="forgot_password">
 						<a href="forgot">Forgot Password ?</a>
 					</div>
 					{/* <div className="form-group login-button-box"> */}
@@ -80,7 +79,7 @@ const LoginForm = () => {
 						Log In
 					</button>
 					{/* </div> */}
-					<div class="signup_link">
+					<div className="signup_link">
 						<a href="signup.html">Don't have an Account ?</a>
 					</div>
 				</form>

@@ -29,7 +29,7 @@ const RegisterForm = () => {
 		if (formData.password1 === formData.password2) {
 			// submit the form data
 			register(formData);
-			console.log(formData);
+			// console.log(formData);
 		} else {
 			setPasswordMatch(false);
 		}
@@ -64,7 +64,6 @@ const RegisterForm = () => {
 														Username
 													</Form.Label>
 													<Form.Control
-														id="username"
 														type="username"
 														placeholder="Enter username"
 														name="username"
@@ -84,7 +83,6 @@ const RegisterForm = () => {
 														Email address
 													</Form.Label>
 													<Form.Control
-														id="email"
 														type="email"
 														placeholder="Enter email"
 														name="email"
@@ -102,7 +100,6 @@ const RegisterForm = () => {
 														Password
 													</Form.Label>
 													<Form.Control
-														id="password1"
 														type="password"
 														placeholder="Enter password"
 														name="password1"
@@ -115,13 +112,12 @@ const RegisterForm = () => {
 												</Form.Group>
 												<Form.Group
 													className="mb-3"
-													controlId="formBasicPassword"
+													controlId="formBasicPassword2"
 												>
 													<Form.Label>
 														Confirm Password
 													</Form.Label>
 													<Form.Control
-														id="password2"
 														type="password"
 														placeholder="Confirm Password"
 														name="password2"

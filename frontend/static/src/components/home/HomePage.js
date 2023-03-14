@@ -12,6 +12,8 @@ import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import { Col } from "react-bootstrap";
 
+const INITIAL_PROFILE = [{}];
+
 function HomePage() {
 	const [response, setResponse] = useState(null);
 	const secretKey = process.env.REACT_APP_API_KEY;
@@ -122,18 +124,27 @@ function HomePage() {
 
 	return (
 		<div className="homepage-wrapper">
-			<Card className="homepage-top">
-				<Card.Header as="h5">Streak: </Card.Header>
-				<Card.Body>
-					<blockquote className="blockquote mb-0">
-						{response && <p>{response.text}</p>}
-						<footer className="blockquote-footer">
-							{response && response.author}
-							<cite title="Source Title"></cite>
-						</footer>
-					</blockquote>
-				</Card.Body>
-			</Card>
+			<div className="homepage-top-container">
+				<div class="about-me-img">
+					<img
+						src="https://images.pexels.com/photos/13734058/pexels-photo-13734058.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+						alt=""
+						class="img-me img-circle"
+					/>
+				</div>
+				<Card className="homepage-top">
+					<Card.Header as="h5">Streak: </Card.Header>
+					<Card.Body>
+						<blockquote className="blockquote mb-0">
+							{response && <p>{response.text}</p>}
+							<footer className="blockquote-footer">
+								{response && response.author}
+								<cite title="Source Title"></cite>
+							</footer>
+						</blockquote>
+					</Card.Body>
+				</Card>
+			</div>
 
 			<section className="days-of-the-week">
 				<h2>Days of the Week:</h2>

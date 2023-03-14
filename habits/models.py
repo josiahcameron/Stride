@@ -33,7 +33,10 @@ class Habit(models.Model):
 
 class HabitMeta(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, blank=True)
-    date_completed = models.DateField(auto_now=True)
+    date_completed = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return (f"{self.date_completed}-{self.habit.title}")
 
 
 # Each instance will be a record of a user completing a phase

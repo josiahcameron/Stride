@@ -125,11 +125,11 @@ function HomePage() {
 	return (
 		<div className="homepage-wrapper">
 			<div className="homepage-top-container">
-				<div class="about-me-img">
+				<div className="about-me-img">
 					<img
 						src="https://images.pexels.com/photos/13734058/pexels-photo-13734058.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
 						alt=""
-						class="img-me img-circle"
+						className="img-me img-circle"
 					/>
 				</div>
 				<Card className="homepage-top">

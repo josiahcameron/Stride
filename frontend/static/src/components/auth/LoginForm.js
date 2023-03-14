@@ -24,6 +24,7 @@ const LoginForm = () => {
 	// login is a function given by the context; will send a post request with the formData to log the user in
 	const handleSubmit = (event) => {
 		event.preventDefault();
+		console.log(formData);
 		login(formData);
 	};
 

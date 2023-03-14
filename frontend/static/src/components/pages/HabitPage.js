@@ -23,29 +23,27 @@ function HabitPage() {
 	const denominator = habits.length;
 
 	const habitHTML = habits.map((habit) => (
-		<Row key={habit.id} className="align-items-start">
-			<Col className="">
-				<div className="post-container">
-					<Card className="bg-dark text-white single-post h-100 w-80 mt-5">
-						{/* <Card.Img src={article.image} alt="post-image" /> */}
-						{/* <Card.ImgOverlay> */}
-						<Card.Text>{habit.title}</Card.Text>
-						<Card.Text>{habit.type}</Card.Text>
-						<Form.Check
-							type="checkbox"
-							label="Completed"
-							className="form-control "
-							name="is_complete"
-							value="true"
-						/>
-						{/* <div className="post-info flexbox">
+		<Col key={habit.title} className="align-items-start">
+			<div className="post-container">
+				<Card className="bg-dark text-white single-post h-100 w-80 mt-5">
+					{/* <Card.Img src={article.image} alt="post-image" /> */}
+					{/* <Card.ImgOverlay> */}
+					<Card.Text>{habit.title}</Card.Text>
+					<Card.Text>{habit.type}</Card.Text>
+					<Form.Check
+						type="checkbox"
+						label="Completed"
+						className="form-control "
+						name="is_complete"
+						value="true"
+					/>
+					{/* <div className="post-info flexbox">
 
 						</div>
 					</Card.ImgOverlay> */}
-					</Card>
-				</div>
-			</Col>
-		</Row>
+				</Card>
+			</div>
+		</Col>
 	));
 
 	return (
@@ -68,6 +66,49 @@ function HabitPage() {
 							<p className="quote-author">- {quote[0].author}</p>
 						</div>
 					</div>
+				</section>
+			</div>
+			<div className="habit-type-selection-wrapper">
+				<h5>My Steps:</h5>
+				<section className="habit-type-selection-navbar">
+					<ul className="nav nav-pills nav-fill">
+						<li className="nav-item">
+							<a
+								className="nav-link active"
+								aria-current="page"
+								href="c"
+							>
+								Daily Strolls
+							</a>
+						</li>
+						<li className="nav-item">
+							<a
+								className="nav-link "
+								aria-current="page"
+								href="c"
+							>
+								Weekly Jaunts
+							</a>
+						</li>
+						<li className="nav-item">
+							<a
+								className="nav-link "
+								aria-current="page"
+								href="c"
+							>
+								Monthly Treks
+							</a>
+						</li>
+						<li className="nav-item">
+							<a
+								className="nav-link "
+								aria-current="page"
+								href="c"
+							>
+								Overview
+							</a>
+						</li>
+					</ul>
 				</section>
 			</div>
 			<div className="box habit-list">

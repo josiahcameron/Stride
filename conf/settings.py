@@ -67,9 +67,14 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
+    # Setting the permission policy
+    # https://www.django-rest-framework.org/api-guide/permissions/#setting-the-permission-policy
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    # Setting the authentication scheme
+    # https://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',

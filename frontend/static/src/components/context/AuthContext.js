@@ -15,66 +15,42 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const login = async (user) => {
-		const options = {
-			method: "POST",
-			headers: {
-				"X-CSRFToken": Cookies.get("csrftoken"),
-			},
-		};
-
-		try {
-			const response = await axios.post(
-				"/dj-rest-auth/login/",
-				user,
-				options
-			);
-			const data = await response.json();
-			Cookies.set("Authorization", `Token ${data.key}`);
-			setIsAuthenticated(true);
-			navigate("/profile");
-		} catch (error) {
-			handleError(error);
+		const csrftoken = Cookies.get("csrftoken");
+		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+		const response = await axios.post("/dj-rest-auth/login/", user);
+		if (!response.status) {
+			throw new Error("Network response was not OK");
 		}
+
+		const data = await response.data;
+
+		Cookies.set("Authorization", `Token ${data.key}`);
+		setIsAuthenticated(true);
+		console.log(isAuthenticated);
+		navigate("/");
 	};
 
 	const register = async (user) => {
-		const csrfToken = document
-			.querySelector('meta[name="csrf-token"]')
-			.getAttribute("content");
-
-		axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
-
-		console.log(user);
-
-		try {
-			const response = await axios.post(
-				"/dj-rest-auth/registration/",
-				user
-			);
-			const data = await response.json();
-			Cookies.set("Authorization", `Token ${data.key}`);
-			setIsAuthenticated(true);
-			navigate("/");
-		} catch (error) {
-			handleError(error);
+		const csrftoken = Cookies.get("csrftoken");
+		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+		const response = await axios.post("/dj-rest-auth/registration/", user);
+		if (!response.status) {
+			throw new Error("Network response was not OK");
 		}
+		const data = await response.data;
+		Cookies.set("Authorization", `Token ${data.key}`);
+		setIsAuthenticated(true);
+		navigate("/");
 	};
 
 	const logout = async () => {
-		const csrfToken = document
-			.querySelector('meta[name="csrf-token"]')
-			.getAttribute("content");
+		const csrftoken = Cookies.get("csrftoken");
+		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+		await axios.post("/dj-rest-auth/logout/");
 
-		axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
-		try {
-			const response = await axios.post("/dj-rest-auth/logout/");
-			const data = await response.json();
-			Cookies.set("Authorization", `Token ${data.key}`);
-			setIsAuthenticated(true);
-			navigate("/login");
-		} catch (error) {
-			handleError(error);
-		}
+		Cookies.remove("Authorization");
+		setIsAuthenticated(false);
+		navigate("/login");
 	};
 
 	useEffect(() => {
@@ -93,9 +69,9 @@ export const AuthContextProvider = ({ children }) => {
 		getUser();
 	}, []);
 
-	// if (isAuthenticated === null) {
-	// 	return <div>Is loading ...</div>;
-	// }
+	if (isAuthenticated === null) {
+		return <div>Is loading ...</div>;
+	}
 
 	return (
 		<AuthContext.Provider

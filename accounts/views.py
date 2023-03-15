@@ -25,7 +25,7 @@ class ProfileCreateAPIView(generics.CreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class ProfileAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ProfileAPIView(generics.ListAPIView):
     serializer_class = ProfileSerializer
 
     def get_queryset(self):

@@ -12,7 +12,7 @@ class HabitMetaSerializer(serializers.ModelSerializer):
 
 
 class HabitSerializer(serializers.ModelSerializer):
-    habit_meta = HabitMetaSerializer()
+    # habit_meta = HabitMetaSerializer()
 
     class Meta:
         model = models.Habit

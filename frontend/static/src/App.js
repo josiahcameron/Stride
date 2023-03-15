@@ -13,7 +13,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Header from "./components/header/Header";
 import Profile from "./components/profile/Profile";
 import HabitPage from "./components/pages/HabitPage";
-import CreateProfile from "./pages/CreateProfile";
+import CreateProfile from "./components/pages/CreateProfile";
 
 const App = () => {
 	const { isAuthenticated } = useContext(AuthContext);

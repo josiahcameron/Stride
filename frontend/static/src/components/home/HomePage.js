@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { useState, useEffect } from "react";
 
-import Habits from "../../habits/Habits";
+import Habits from "../habits/Habits";
 
 import Cookies from "js-cookie";
 import { AuthContext } from "../context/AuthContext";

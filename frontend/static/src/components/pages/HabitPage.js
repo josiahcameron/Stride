@@ -13,14 +13,6 @@ import { Card, Form, Col, Row, Container, Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const INITIAL_HABITS = [
-	{
-		title: "Brush Teeth",
-
-		frequency: "daily",
-		is_active: true,
-	},
-];
 const INITIAL_FORM_DATA = {
 	title: "",
 
@@ -36,8 +28,11 @@ const INITIAL_QUOTE = [
 ];
 
 function HabitPage() {
+	const csrftoken = Cookies.get("csrftoken");
+	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 	const { user } = useContext(AuthContext);
-	console.log(user);
+
+	const [profile, setProfile] = useState(null);
 	const [habits, setHabits] = useState(null);
 	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [quote, setQuote] = useState(INITIAL_QUOTE);
@@ -73,11 +68,19 @@ function HabitPage() {
 	// 		throw new Error("Network response was not OK");
 	// 	}
 	// };
-
 	useEffect(() => {
-		const csrftoken = Cookies.get("csrftoken");
-		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
-		console.log("firing");
+		const fetchProfile = async () => {
+			try {
+				const res = await axios.get(`/api_v1/profile/`);
+				setProfile(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		// Trigger the API Call
+		fetchProfile();
+	}, []);
+	useEffect(() => {
 		const fetchHabits = async () => {
 			try {
 				const res = await axios.get("/api_v1/habits/");
@@ -89,8 +92,27 @@ function HabitPage() {
 		// Trigger the API Call
 		fetchHabits();
 	}, []);
+
 	const handleError = (err) => {
 		console.warn(err);
+	};
+
+	const handleDelete = async (habit) => {
+		const csrftoken = Cookies.get("csrftoken");
+		axios.defaults.headers.delete["X-CSRFToken"] = csrftoken;
+
+		try {
+			const response = await axios.delete(
+				`/api_v1/update-habit/${habit.id}`
+			);
+
+			if (response.status !== 200) {
+				throw new Error("Network response was not OK");
+			}
+			const data = response.data;
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const handleInput = (event) => {
@@ -101,15 +123,14 @@ function HabitPage() {
 		}));
 	};
 	const handleSubmit = async (event) => {
-		const csrftoken = Cookies.get("csrftoken");
-		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 		event.preventDefault();
-		try {
-			const response = axios.post("/api_v1/add-habit/", formData);
-			const data = await response.data;
-			setHabits([...habits, data]);
-		} catch (error) {
-			handleError(error);
+
+		const response = await axios.post("/api_v1/add-habit/", formData);
+		const data = await response.data;
+		setHabits([...habits, formData]);
+
+		if (!response.status) {
+			throw new Error("Network response was not OK");
 		}
 	};
 	if (habits === null) {
@@ -136,6 +157,14 @@ function HabitPage() {
 						</div>
 					</Card.ImgOverlay> */}
 			</Card>
+			<Button
+				className="danger delete-habit"
+				onClick={() => {
+					handleDelete(habit);
+				}}
+			>
+				Delete Habit
+			</Button>
 		</Col>
 	));
 	return (

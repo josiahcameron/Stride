@@ -29,7 +29,10 @@ class ProfileAPIView(generics.ListAPIView):
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
-        models.Profile.objects.filter(user=self.request.user)
+        if self.request.user.is_superuser:
+            return models.Profile.objects.all()
+        else:
+            return models.Profile.objects.filter(user=self.request.user)
 
 
 class ActivityRecordCreateAPIView(generics.CreateAPIView):

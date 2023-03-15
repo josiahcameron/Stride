@@ -30,9 +30,16 @@ const INITIAL_QUOTE = [
 function HabitPage() {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.delete["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.patch["X-CSRFToken"] = csrftoken;
 	const { user } = useContext(AuthContext);
+	const handleError = (err) => {
+		console.warn(err);
+	};
 
 	const [profile, setProfile] = useState(null);
+	const [tier, setTier] = useState(null);
 	const [habits, setHabits] = useState(null);
 	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [quote, setQuote] = useState(INITIAL_QUOTE);
@@ -40,46 +47,49 @@ function HabitPage() {
 
 	// if (habits){const denominator = habits.length;
 	let habitsCompleted = 0;
+	let denominator = 0;
+	let maxHabits = denominator;
+	let habitCount = 0;
+	if (habits) {
+		habitCount = habits.length;
+	}
+	const incrementHabit = async (habit) => {
+		// habit.completed = true;
+		// habitsCompleted += 1;
 
-	// const incrementHabit = async (habit) => {
-	// 	const csrftoken = Cookies.get("csrftoken");
-	// 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
-	// 	habit.completed = true;
-	// 	habitsCompleted += 1;
-	// 	const response = await axios.patch(
-	// 		`/api_v1/update-habit/${habit.id}/`,
-	// 		habit
-	// 	);
-	// 	if (!response.status) {
-	// 		throw new Error("Network response was not OK");
-	// 	}
-	// };
+		const response = await axios.post(`/api_v1/add-habit-meta/`, {
+			habit: habit.id,
+		});
+		if (!response.status) {
+			throw new Error("Network response was not OK");
+		}
+	};
 	// const decrementHabit = async (habit) => {
-	// 	const csrftoken = Cookies.get("csrftoken");
-	// 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 	// 	habit.completed = false;
 	// 	habitsCompleted -= 1;
 
-	// 	const response = await axios.patch(
-	// 		`/api_v1/update-habit/${habit.id}/`,
-	// 		habit
+	// 	const response = await axios.delete(
+	// 		`/api_v1/update-habit-meta/${habit.id}/`
 	// 	);
 	// 	if (!response.status) {
 	// 		throw new Error("Network response was not OK");
 	// 	}
 	// };
-	useEffect(() => {
-		const fetchProfile = async () => {
-			try {
-				const res = await axios.get(`/api_v1/profile/`);
-				setProfile(res.data);
-			} catch (err) {
-				console.log(err);
+
+	const handleDelete = async (habit) => {
+		try {
+			const response = await axios.delete(
+				`/api_v1/update-habit/${habit.id}`
+			);
+			if (response.status !== 200) {
+				throw new Error("Network response was not OK");
 			}
-		};
-		// Trigger the API Call
-		fetchProfile();
-	}, []);
+			const data = response.data;
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	useEffect(() => {
 		const fetchHabits = async () => {
 			try {
@@ -93,25 +103,43 @@ function HabitPage() {
 		fetchHabits();
 	}, []);
 
-	const handleError = (err) => {
-		console.warn(err);
-	};
-
-	const handleDelete = async (habit) => {
-		const csrftoken = Cookies.get("csrftoken");
-		axios.defaults.headers.delete["X-CSRFToken"] = csrftoken;
-
-		try {
-			const response = await axios.delete(
-				`/api_v1/update-habit/${habit.id}`
-			);
-
-			if (response.status !== 200) {
-				throw new Error("Network response was not OK");
+	useEffect(() => {
+		const fetchProfile = async () => {
+			try {
+				const response = await axios.get(`/api_v1/profile/`);
+				setProfile(response.data[0]);
+				setTier(response.data[0].tier);
+				setDenominator(tier);
+			} catch (err) {
+				console.log(err);
 			}
-			const data = response.data;
-		} catch (error) {
-			console.error(error);
+		};
+		// Trigger the API Call
+		fetchProfile();
+	}, []);
+
+	const setDenominator = (tier) => {
+		switch (tier) {
+			case "first":
+				denominator = 4;
+				break;
+			case "second":
+				denominator = 6;
+				break;
+			case "third":
+				denominator = 8;
+				break;
+			case "fourth":
+				denominator = 10;
+				break;
+			case "fifth":
+				denominator = 10;
+				break;
+			case "master":
+				denominator = 15;
+				break;
+			default:
+				console.log("error");
 		}
 	};
 
@@ -122,6 +150,7 @@ function HabitPage() {
 			[name]: value,
 		}));
 	};
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
@@ -133,9 +162,11 @@ function HabitPage() {
 			throw new Error("Network response was not OK");
 		}
 	};
+
 	if (habits === null) {
 		return <div>Is loading ...</div>;
 	}
+
 	const habitHTML = habits.map((habit) => (
 		<Col key={habit.id} className="align-items-start col-md-4 ">
 			<Card className="single-post habit-card mt-5">
@@ -146,9 +177,7 @@ function HabitPage() {
 					className=" habit-checkbox border-0"
 					id={habit.title}
 					label={habit.title}
-					// onClick={() => {
-					// 	!habit.completed
-					// 		? incrementHabit(habit)
+					onClick={() => incrementHabit(habit)}
 					// 		: decrementHabit(habit);
 					// }}
 				/>

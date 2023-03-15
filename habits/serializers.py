@@ -5,11 +5,24 @@ from rest_framework import serializers
 from . import models
 
 
+class HabitMetaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.HabitMeta
+        fields = '__all__'
+
+
 class HabitSerializer(serializers.ModelSerializer):
+    habit_meta = HabitMetaSerializer()
 
     class Meta:
         model = models.Habit
         fields = '__all__'
+
+    def create(self, validated_data):
+        habit_meta_data = validated_data.pop('habit_meta')
+        habit = models.Habit.objects.create(**validated_data)
+        models.HabitMeta.objects.create(habit=habit, **habit_meta_data)
+        return habit
 
 
 # class HabitMetaSerializer(serializers.ModelSerializer):

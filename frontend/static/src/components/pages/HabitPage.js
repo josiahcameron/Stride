@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 import {
 	CircularProgressbar,
 	CircularProgressbarWithChildren,
@@ -15,14 +16,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const INITIAL_HABITS = [
 	{
 		title: "Brush Teeth",
-		completed: "false",
+
 		frequency: "daily",
 		is_active: true,
 	},
 ];
 const INITIAL_FORM_DATA = {
 	title: "",
-	completed: "false",
+
 	frequency: "daily",
 	is_active: true,
 };
@@ -35,36 +36,47 @@ const INITIAL_QUOTE = [
 ];
 
 function HabitPage() {
-	const csrftoken = Cookies.get("csrftoken");
-	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
-	const [habits, setHabits] = useState(INITIAL_HABITS);
-	const [habitsCompleted, setHabitsCompleted] = useState(0);
+	const { user } = useContext(AuthContext);
+	console.log(user);
+	const [habits, setHabits] = useState(null);
 	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [quote, setQuote] = useState(INITIAL_QUOTE);
-	const denominator = habits.length;
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
-	const habitHTML = habits.map((habit) => (
-		<Col key={habit.title} className="align-items-start col-md-4 ">
-			<Card className="single-post habit-card mt-5">
-				{/* <Card.Img src={article.image} alt="post-image" /> */}
-				{/* <Card.ImgOverlay> */}
-				<Form.Check
-					type="radio"
-					className="form-control habit-checkbox border-0"
-					name="is_complete"
-					value="true"
-					id={habit.title}
-					label={habit.title}
-				/>
-				{/* <div className="post-info flexbox">
 
-						</div>
-					</Card.ImgOverlay> */}
-			</Card>
-		</Col>
-	));
+	// if (habits){const denominator = habits.length;
+	let habitsCompleted = 0;
+
+	// const incrementHabit = async (habit) => {
+	// 	const csrftoken = Cookies.get("csrftoken");
+	// 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+	// 	habit.completed = true;
+	// 	habitsCompleted += 1;
+	// 	const response = await axios.patch(
+	// 		`/api_v1/update-habit/${habit.id}/`,
+	// 		habit
+	// 	);
+	// 	if (!response.status) {
+	// 		throw new Error("Network response was not OK");
+	// 	}
+	// };
+	// const decrementHabit = async (habit) => {
+	// 	const csrftoken = Cookies.get("csrftoken");
+	// 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+	// 	habit.completed = false;
+	// 	habitsCompleted -= 1;
+
+	// 	const response = await axios.patch(
+	// 		`/api_v1/update-habit/${habit.id}/`,
+	// 		habit
+	// 	);
+	// 	if (!response.status) {
+	// 		throw new Error("Network response was not OK");
+	// 	}
+	// };
 
 	useEffect(() => {
+		const csrftoken = Cookies.get("csrftoken");
+		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 		console.log("firing");
 		const fetchHabits = async () => {
 			try {
@@ -89,16 +101,43 @@ function HabitPage() {
 		}));
 	};
 	const handleSubmit = async (event) => {
+		const csrftoken = Cookies.get("csrftoken");
+		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 		event.preventDefault();
-		console.log(formData);
 		try {
 			const response = axios.post("/api_v1/add-habit/", formData);
-			const data = (await response).data;
+			const data = await response.data;
 			setHabits([...habits, data]);
 		} catch (error) {
 			handleError(error);
 		}
 	};
+	if (habits === null) {
+		return <div>Is loading ...</div>;
+	}
+	const habitHTML = habits.map((habit) => (
+		<Col key={habit.id} className="align-items-start col-md-4 ">
+			<Card className="single-post habit-card mt-5">
+				{/* <Card.Img src={article.image} alt="post-image" /> */}
+				{/* <Card.ImgOverlay> */}
+				<Form.Check
+					type="checkbox"
+					className=" habit-checkbox border-0"
+					id={habit.title}
+					label={habit.title}
+					// onClick={() => {
+					// 	!habit.completed
+					// 		? incrementHabit(habit)
+					// 		: decrementHabit(habit);
+					// }}
+				/>
+				{/* <div className="post-info flexbox">
+
+						</div>
+					</Card.ImgOverlay> */}
+			</Card>
+		</Col>
+	));
 	return (
 		<div className="habit-page wrapper">
 			<div className="box progress-qotd">
@@ -190,7 +229,7 @@ function HabitPage() {
 			<div className="box habit-list">
 				{/* <Container className="m-0  habit-container "> */}
 				<Row className=" row align-items-start habit-cards ">
-					{habitHTML}
+					{habits && habitHTML}
 					<Col className="align-items-start col-md-4 ">
 						<Card className="single-post mt-5 habit-card add-habit">
 							<form>

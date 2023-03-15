@@ -13,7 +13,7 @@ export const AuthContextProvider = ({ children }) => {
 	const handleError = (err) => {
 		console.warn(err);
 	};
-
+	const [user, setUser] = useState(null);
 	const login = async (user) => {
 		const csrftoken = Cookies.get("csrftoken");
 		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
@@ -63,9 +63,10 @@ export const AuthContextProvider = ({ children }) => {
 
 			if (!response.status) {
 				setIsAuthenticated(false);
+
 				return;
 			}
-
+			setUser(response.data);
 			setIsAuthenticated(true);
 		};
 
@@ -78,7 +79,7 @@ export const AuthContextProvider = ({ children }) => {
 
 	return (
 		<AuthContext.Provider
-			value={{ isAuthenticated, login, register, logout }}
+			value={{ isAuthenticated, login, register, logout, user }}
 		>
 			{children}
 		</AuthContext.Provider>

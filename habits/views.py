@@ -30,15 +30,15 @@ class HabitsAPIView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
-# class UpdateHabitAPIView(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = serializers.HabitsSerializer, serializers.HabitMetaSerializer
-#     queryset = models.Habit.objects.all(), models.HabitMeta.objects.all(),
+class UpdateHabitAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.HabitSerializer
+    queryset = models.Habit.objects.all()
 
-#     def perform_destroy(self, instance):
-#         instance.delete()
+    def perform_destroy(self, instance):
+        instance.delete()
 
-#     def perform_update(self, serializer):
-#         serializer.save()
+    def perform_update(self, serializer):
+        serializer.save()
 
 
 # class HabitMetaAPIView(generics.RetrieveUpdateDestroyAPIView):

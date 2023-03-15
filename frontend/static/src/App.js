@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Header from "./components/header/Header";
 import Profile from "./components/profile/Profile";
 import HabitPage from "./components/pages/HabitPage";
+import CreateProfile from "./pages/CreateProfile";
 
 const App = () => {
 	const { isAuthenticated } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const App = () => {
 			<Routes>
 				<Route path="login" element={<LoginForm />} />
 				<Route path="register" element={<RegisterForm />} />
+				<Route path="create-profile" element={<CreateProfile />} />
 				<Route path="profile" element={<Profile />} />
 				<Route path="home" element={<HomePage />} />
 				<Route path="/" element={<ProtectedRoute />}>

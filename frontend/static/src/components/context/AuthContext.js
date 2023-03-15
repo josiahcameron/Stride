@@ -43,7 +43,7 @@ export const AuthContextProvider = ({ children }) => {
 		const data = await response.data;
 		Cookies.set("Authorization", `Token ${data.key}`);
 		setIsAuthenticated(true);
-		navigate("/");
+		navigate("/create-profile");
 	};
 
 	const logout = async () => {

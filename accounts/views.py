@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from rest_framework import generics
 
 from . import models
-from .serializers import UserSerializer, ActivitySerializer
+from .serializers import UserSerializer, ActivitySerializer, ProfileSerializer
 
 # Create your views here.
 
@@ -14,6 +14,22 @@ from .serializers import UserSerializer, ActivitySerializer
 class UserCreateAPIView(generics.CreateAPIView):
     queryset = models.CustomUser.objects.all()
     serializer_class = UserSerializer
+
+
+class ProfileCreateAPIView(generics.CreateAPIView):
+    queryset = models.Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+    def perform_create(self, serializer):
+        # serializer.save(user=get_object_or_404(User, id=1))
+        serializer.save(user=self.request.user)
+
+
+class ProfileAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        models.Profile.objects.filter(user=self.request.user)
 
 
 class ActivityRecordCreateAPIView(generics.CreateAPIView):

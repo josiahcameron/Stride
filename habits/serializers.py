@@ -18,11 +18,11 @@ class HabitSerializer(serializers.ModelSerializer):
         model = models.Habit
         fields = '__all__'
 
-    def create(self, validated_data):
-        habit_meta_data = validated_data.pop('habit_meta')
-        habit = models.Habit.objects.create(**validated_data)
-        models.HabitMeta.objects.create(habit=habit, **habit_meta_data)
-        return habit
+    # def create(self, validated_data):
+    #     habit_meta_data = validated_data.pop('habit_meta')
+    #     habit = models.Habit.objects.create(**validated_data)
+    #     models.HabitMeta.objects.create(habit=habit, **habit_meta_data)
+    #     return habit
 
 
 # class HabitMetaSerializer(serializers.ModelSerializer):

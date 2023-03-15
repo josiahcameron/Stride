@@ -4,6 +4,11 @@ from django.conf import settings
 
 
 class CustomUser(AbstractUser):
+    # Setting up friends field in our user model
+    friends = models.ManyToManyField("CustomUser", blank=True)
+
+
+class Profile(models.Model):
     # Goal tiers
     f_tier = 'first'
     d_tier = 'second'
@@ -21,8 +26,12 @@ class CustomUser(AbstractUser):
         (m_tier, 'master'),
     ]
 
-    # Setting up friends field in our user model
-    friends = models.ManyToManyField("CustomUser", blank=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+
+    avatar = models.ImageField(upload_to='add-profile/', blank=True)
+    display_name = models.CharField(max_length=32)
+
     # Determines how many habits a user can set
     tier = models.CharField(
         null=True,
@@ -30,14 +39,6 @@ class CustomUser(AbstractUser):
         choices=USER_TIERS,
         default=f_tier,
     )
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
-
-    avatar = models.ImageField(upload_to='profiles/', blank=True)
-    username = models.CharField(max_length=32)
 
     def __str__(self):
         return self.user.username

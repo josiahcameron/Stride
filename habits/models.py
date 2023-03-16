@@ -24,6 +24,7 @@ class Habit(models.Model):
         choices=HABIT_TYPES,
         default=D_GOAL,
     )
+    is_completed = models.BooleanField(default=False)
 # Logic to check whether or not User's habit is active
     is_active = models.BooleanField(default=True)
 
@@ -34,6 +35,12 @@ class Habit(models.Model):
 class HabitMeta(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, blank=True)
     date_completed = models.DateField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['habit', 'date_completed'], name='habit_date')
+        ]
 
     def __str__(self):
         return (f"{self.date_completed}-{self.habit.title}")

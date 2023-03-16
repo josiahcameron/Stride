@@ -26,6 +26,17 @@ const INITIAL_QUOTE = [
 		author: "Dolly Parton",
 	},
 ];
+function dateFormat(date) {
+	const day = date.getDate();
+	const month = date.getMonth() + 1;
+	const year = date.getFullYear();
+
+	if (month.length < 1) {
+		return `${year}-0${month}-${day}`;
+	} else {
+		return `${year}-0${month}-${day}`;
+	}
+}
 
 function HabitPage() {
 	const csrftoken = Cookies.get("csrftoken");
@@ -63,18 +74,19 @@ function HabitPage() {
 		if (!response.status) {
 			throw new Error("Network response was not OK");
 		}
+		console.log(response.data);
 	};
-	// const decrementHabit = async (habit) => {
-	// 	habit.completed = false;
-	// 	habitsCompleted -= 1;
+	const decrementHabit = async (habit) => {
+		habit.completed = false;
+		habitsCompleted -= 1;
 
-	// 	const response = await axios.delete(
-	// 		`/api_v1/update-habit-meta/${habit.id}/`
-	// 	);
-	// 	if (!response.status) {
-	// 		throw new Error("Network response was not OK");
-	// 	}
-	// };
+		// const response = await axios.delete(
+		// 	`/api_v1/update-habit-meta/${habit.id}/`
+		// );
+		// if (!response.status) {
+		// 	throw new Error("Network response was not OK");
+		// }
+	};
 
 	const handleDelete = async (habit) => {
 		try {
@@ -177,9 +189,11 @@ function HabitPage() {
 					className=" habit-checkbox border-0"
 					id={habit.title}
 					label={habit.title}
-					onClick={() => incrementHabit(habit)}
-					// 		: decrementHabit(habit);
-					// }}
+					onClick={() => {
+						!habit.completed
+							? incrementHabit(habit)
+							: decrementHabit(habit);
+					}}
 				/>
 				{/* <div className="post-info flexbox">
 

@@ -4,11 +4,14 @@
 @import url("./styles/login.css");
 @import url("./styles/register.css");
 @import url("./styles/habitpage.css");
+@import url("./styles/journal.css");
 
 .all-content-wrapper {
 	min-height: 100vh;
 	height: 100%;
 	background: linear-gradient(45deg, rgb(135 129 255), rgb(255 110 110));
+	padding-left: 5%;
+	padding-right: 5%;
 }
 .App {
 	text-align: center;

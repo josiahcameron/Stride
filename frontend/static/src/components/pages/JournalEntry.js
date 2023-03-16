@@ -48,6 +48,7 @@ function JournalEntry() {
 				<Form.Control
 					type="password"
 					id="inputPassword5"
+					className="journal-input"
 					aria-describedby="passwordHelpBlock"
 					placeholder="Hello Future Me..."
 				/>

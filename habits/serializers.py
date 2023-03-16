@@ -16,31 +16,27 @@ class HabitMetaSerializer(serializers.ModelSerializer):
 
 
 class HabitSerializer(serializers.ModelSerializer):
+    is_completed = serializers.SerializerMethodField()
+
     class Meta:
         model = Habit
-        fields = ('user', 'title', 'frequency', 'is_completed', 'is_active')
+        fields = ('id', 'user', 'title', 'frequency',
+                  'is_completed', 'is_active')
 
-    def habit_completed_check(self, habit):
+    def get_is_completed(self, habit):
+
         current_date = date.today()
         # retrieves the data from HabitMeta
-        habit_data = HabitMeta.objects.filter(date_completed=current_date)
+        habit_data = HabitMeta.objects.filter(
+            date_completed=current_date).filter(habit=habit)
 
         if habit_data.exists():
             habit.is_completed = True
+
         else:
             habit.is_completed = False
 
-
-# Sets the is_completed field of a Habit instance based on related HabitMeta instances when the instance is being serialized.
-    # def to_representation(self, instance):
-    #     ret = super().to_representation(instance)
-    #     self.habit_completed_check(instance)
-    #     return ret
-        # # Checks the data on the habitmeta
-        # if habit_data.date_completed == date.today():
-        #     return habit.is_completed = True
-        # else:
-        #     return habit.is_completed =
+        return habit.is_completed
 
     # def create(self, validated_data):
     #     habit_meta_data = validated_data.pop('habit_meta')

@@ -65,6 +65,7 @@ function HabitPage() {
 		habitCount = habits.length;
 	}
 	const incrementHabit = async (habit) => {
+		console.log({ firing: habit });
 		// habit.completed = true;
 		// habitsCompleted += 1;
 
@@ -120,8 +121,6 @@ function HabitPage() {
 			try {
 				const response = await axios.get(`/api_v1/profile/`);
 				setProfile(response.data[0]);
-				setTier(response.data[0].tier);
-				setDenominator(tier);
 			} catch (err) {
 				console.log(err);
 			}
@@ -129,6 +128,7 @@ function HabitPage() {
 		// Trigger the API Call
 		fetchProfile();
 	}, []);
+	profile && setTier(profile.tier);
 
 	const setDenominator = (tier) => {
 		switch (tier) {
@@ -153,7 +153,9 @@ function HabitPage() {
 			default:
 				console.log("error");
 		}
+		console.log(denominator);
 	};
+	tier && setDenominator(tier);
 
 	const handleInput = (event) => {
 		const { name, value } = event.target;
@@ -179,37 +181,77 @@ function HabitPage() {
 		return <div>Is loading ...</div>;
 	}
 
-	const habitHTML = habits.map((habit) => (
-		<Col key={habit.id} className="align-items-start col-md-4 ">
-			<Card className="single-post habit-card mt-5">
-				{/* <Card.Img src={article.image} alt="post-image" /> */}
-				{/* <Card.ImgOverlay> */}
-				<Form.Check
-					type="checkbox"
-					className=" habit-checkbox border-0"
-					id={habit.title}
-					label={habit.title}
-					onClick={() => {
-						!habit.completed
-							? incrementHabit(habit)
-							: decrementHabit(habit);
-					}}
-				/>
-				{/* <div className="post-info flexbox">
+	const habitHTML = habits
+		.filter(function (habit) {
+			return habit.is_completed === false;
+		})
+		.map((habit) => (
+			<Col key={habit.id} className="align-items-start col-md-4 ">
+				<Card className="single-post habit-card mt-5">
+					{/* <Card.Img src={article.image} alt="post-image" /> */}
+					{/* <Card.ImgOverlay> */}
+
+					<Form.Check
+						type="checkbox"
+						className=" habit-checkbox border-0"
+						label={habit.title}
+						onClick={() => {
+							!habit.completed
+								? incrementHabit(habit)
+								: decrementHabit(habit);
+						}}
+					/>
+					{/* <div className="post-info flexbox">
 
 						</div>
 					</Card.ImgOverlay> */}
-			</Card>
-			<Button
-				className="danger delete-habit"
-				onClick={() => {
-					handleDelete(habit);
-				}}
-			>
-				Delete Habit
-			</Button>
-		</Col>
-	));
+				</Card>
+				<Button
+					className="danger delete-habit"
+					onClick={() => {
+						handleDelete(habit);
+					}}
+				>
+					Delete Habit
+				</Button>
+			</Col>
+		));
+	const completedHabitsHTML = habits
+		.filter(function (habit) {
+			return habit.is_completed === true;
+		})
+		.map((habit) => (
+			<Col key={habit.id} className="align-items-start col-md-4 ">
+				<Card className="single-post habit-card mt-5">
+					{/* <Card.Img src={article.image} alt="post-image" /> */}
+					{/* <Card.ImgOverlay> */}
+
+					<Form.Check
+						type="checkbox"
+						className=" habit-checkbox border-0"
+						label={habit.title}
+						onClick={() => {
+							!habit.completed
+								? incrementHabit(habit)
+								: decrementHabit(habit);
+						}}
+					/>
+					{/* <div className="post-info flexbox">
+
+						</div>
+					</Card.ImgOverlay> */}
+				</Card>
+				<Button
+					className="danger delete-habit"
+					onClick={() => {
+						handleDelete(habit);
+					}}
+				>
+					Delete Habit
+				</Button>
+			</Col>
+		));
+
 	return (
 		<div className="habit-page wrapper">
 			<div className="box progress-qotd">
@@ -327,6 +369,12 @@ function HabitPage() {
 					</Col>
 				</Row>
 				{/* </Container> */}
+			</div>
+			<div className="box completed-habits">
+				<h5>Completed Steps:</h5>
+				<Row className=" row align-items-start habit-cards ">
+					{habits && completedHabitsHTML}
+				</Row>
 			</div>
 		</div>
 	);

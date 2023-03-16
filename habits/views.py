@@ -41,7 +41,7 @@ class UpdateHabitAPIView(generics.RetrieveUpdateDestroyAPIView):
         serializer.save()
 
 
-class HabitMetaAPIView(generics.CreateAPIView):
+class HabitMetaAPIView(generics.ListCreateAPIView):
     serializer_class = serializers.HabitMetaSerializer
     queryset = models.HabitMeta.objects.all()
 

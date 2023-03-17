@@ -29,7 +29,7 @@ const App = () => {
 					<Route path="register" element={<RegisterForm />} />
 					<Route path="create-profile" element={<CreateProfile />} />
 					<Route path="profile" element={<Profile />} />
-					<Route path="home" element={<HomePage />} />
+					{/* <Route path="home" element={<HomePage />} /> */}
 					<Route path="journal" element={<JournalEntry />} />
 
 					<Route path="/" element={<ProtectedRoute />}>

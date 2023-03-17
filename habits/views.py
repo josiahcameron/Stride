@@ -3,9 +3,11 @@ from datetime import date, timedelta
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework import permissions
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 from . import models
@@ -52,13 +54,29 @@ class HabitMetaAPIView(generics.ListCreateAPIView):
 
 class UpdateHabitMetaAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.HabitMetaSerializer
+
     queryset = models.HabitMeta.objects.all()
+   # def get_queryset(self, habit):
+   #     current_date = date.today()
+   #     models.HabitMeta.objects.filter(
+   #         date_completed=current_date).filter(habit=habit)
 
     def perform_destroy(self, instance):
         instance.delete()
 
     def perform_update(self, serializer):
         serializer.save()
+
+
+class RemoveHabitMetaByHabitAPIView(APIView):
+    def delete(self, request, pk):
+        current_date = date.today()
+        # .get targets individual instance; filter gives an array, get gives an object
+        # Retrieves
+        habit_meta = models.HabitMeta.objects.get(
+            habit=pk, date_completed=current_date)
+        habit_meta.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 ###################

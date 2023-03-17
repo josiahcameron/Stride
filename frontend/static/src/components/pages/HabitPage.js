@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Habits from "../habits/Habits";
 import { AuthContext } from "../context/AuthContext";
 import {
 	CircularProgressbar,
@@ -54,7 +55,6 @@ function HabitPage() {
 	const [habits, setHabits] = useState(null);
 	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [quote, setQuote] = useState(INITIAL_QUOTE);
-	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
 	// if (habits){const denominator = habits.length;
 	let habitsCompleted = 0;
@@ -64,72 +64,22 @@ function HabitPage() {
 	if (habits) {
 		habitCount = habits.length;
 	}
-	const incrementHabit = async (habit) => {
-		console.log({ firing: habit });
-		// habit.completed = true;
-		// habitsCompleted += 1;
-
-		const response = await axios.post(`/api_v1/add-habit-meta/`, {
-			habit: habit.id,
-		});
-		if (!response.status) {
-			throw new Error("Network response was not OK");
-		}
-		console.log(response.data);
-	};
-	const decrementHabit = async (habit) => {
-		habit.completed = false;
-		habitsCompleted -= 1;
-
-		// const response = await axios.delete(
-		// 	`/api_v1/update-habit-meta/${habit.id}/`
-		// );
-		// if (!response.status) {
-		// 	throw new Error("Network response was not OK");
-		// }
-	};
-
-	const handleDelete = async (habit) => {
-		try {
-			const response = await axios.delete(
-				`/api_v1/update-habit/${habit.id}`
-			);
-			if (response.status !== 200) {
-				throw new Error("Network response was not OK");
-			}
-			const data = response.data;
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	useEffect(() => {
-		const fetchHabits = async () => {
-			try {
-				const res = await axios.get("/api_v1/habits/");
-				setHabits(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		// Trigger the API Call
-		fetchHabits();
-	}, []);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
-			try {
-				const response = await axios.get(`/api_v1/profile/`);
-				setProfile(response.data[0]);
-			} catch (err) {
-				console.log(err);
+			const response = await axios.get(`/api_v1/profile/`);
+			setProfile(response.data[0]);
+			if (!response.status) {
+				throw new Error("Network response was not OK");
 			}
+			const data = await response.data;
 		};
 		// Trigger the API Call
 		fetchProfile();
 	}, []);
-	profile && setTier(profile.tier);
-
+	if (profile === null) {
+		return <div>Loading...</div>;
+	}
 	const setDenominator = (tier) => {
 		switch (tier) {
 			case "first":
@@ -153,104 +103,8 @@ function HabitPage() {
 			default:
 				console.log("error");
 		}
-		console.log(denominator);
 	};
-	tier && setDenominator(tier);
-
-	const handleInput = (event) => {
-		const { name, value } = event.target;
-		setFormData((prevFormData) => ({
-			...prevFormData,
-			[name]: value,
-		}));
-	};
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-
-		const response = await axios.post("/api_v1/add-habit/", formData);
-		const data = await response.data;
-		setHabits([...habits, formData]);
-
-		if (!response.status) {
-			throw new Error("Network response was not OK");
-		}
-	};
-
-	if (habits === null) {
-		return <div>Is loading ...</div>;
-	}
-
-	const habitHTML = habits
-		.filter(function (habit) {
-			return habit.is_completed === false;
-		})
-		.map((habit) => (
-			<Col key={habit.id} className="align-items-start col-md-4 ">
-				<Card className="single-post habit-card mt-5">
-					{/* <Card.Img src={article.image} alt="post-image" /> */}
-					{/* <Card.ImgOverlay> */}
-
-					<Form.Check
-						type="checkbox"
-						className=" habit-checkbox border-0"
-						label={habit.title}
-						onClick={() => {
-							!habit.completed
-								? incrementHabit(habit)
-								: decrementHabit(habit);
-						}}
-					/>
-					{/* <div className="post-info flexbox">
-
-						</div>
-					</Card.ImgOverlay> */}
-				</Card>
-				<Button
-					className="danger delete-habit"
-					onClick={() => {
-						handleDelete(habit);
-					}}
-				>
-					Delete Habit
-				</Button>
-			</Col>
-		));
-	const completedHabitsHTML = habits
-		.filter(function (habit) {
-			return habit.is_completed === true;
-		})
-		.map((habit) => (
-			<Col key={habit.id} className="align-items-start col-md-4 ">
-				<Card className="single-post habit-card mt-5">
-					{/* <Card.Img src={article.image} alt="post-image" /> */}
-					{/* <Card.ImgOverlay> */}
-
-					<Form.Check
-						type="checkbox"
-						className=" habit-checkbox border-0"
-						label={habit.title}
-						onClick={() => {
-							!habit.completed
-								? incrementHabit(habit)
-								: decrementHabit(habit);
-						}}
-					/>
-					{/* <div className="post-info flexbox">
-
-						</div>
-					</Card.ImgOverlay> */}
-				</Card>
-				<Button
-					className="danger delete-habit"
-					onClick={() => {
-						handleDelete(habit);
-					}}
-				>
-					Delete Habit
-				</Button>
-			</Col>
-		));
+	setDenominator(profile.tier);
 
 	return (
 		<div className="habit-page wrapper">
@@ -340,42 +194,7 @@ function HabitPage() {
 					</ul>
 				</section>
 			</div>
-			<div className="box habit-list">
-				{/* <Container className="m-0  habit-container "> */}
-				<Row className=" row align-items-start habit-cards ">
-					{habits && habitHTML}
-					<Col className="align-items-start col-md-4 ">
-						<Card className="single-post mt-5 habit-card add-habit">
-							<form>
-								<div className="form-group input-box">
-									<input
-										className="form-control"
-										id="title"
-										type="text"
-										name="title"
-										value={formData.title}
-										onChange={handleInput}
-									/>
-									<label>Add Habit</label>
-								</div>
-								<button
-									onClick={handleSubmit}
-									className="btn btn-primary btn-block"
-								>
-									Submit
-								</button>
-							</form>
-						</Card>
-					</Col>
-				</Row>
-				{/* </Container> */}
-			</div>
-			<div className="box completed-habits">
-				<h5>Completed Steps:</h5>
-				<Row className=" row align-items-start habit-cards ">
-					{habits && completedHabitsHTML}
-				</Row>
-			</div>
+			<Habits denominator={denominator} />
 		</div>
 	);
 }

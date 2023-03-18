@@ -158,7 +158,7 @@ function HabitPage() {
 			</div>
 			<div className="habit-type-selection-wrapper">
 				<h5>My Steps:</h5>
-				<section className="habit-type-selection-navbar">
+				{/* <section className="habit-type-selection-navbar">
 					<ul className="nav nav-pills nav-fill">
 						<li className="nav-item">
 							<a
@@ -197,7 +197,7 @@ function HabitPage() {
 							</a>
 						</li>
 					</ul>
-				</section>
+				</section> */}
 			</div>
 			<div className="habits-wrapper">
 				<Habits

@@ -104,3 +104,13 @@
 .habit-card {
 	height: 100px;
 }
+
+.input-preview {
+	border: none;
+	margin-left: 0;
+	min-height: 16px;
+	background-color: white;
+	padding: 0;
+	color: black;
+	resize: none;
+}

@@ -36,10 +36,24 @@ function Habits({ denominator, logUserActivity }) {
 	const [habits, setHabits] = useState(null);
 	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+	const [editMode, setEditMode] = useState(false);
+	const [text, setText] = useState("");
 	let habitsCompleted;
 
 	let maxHabits = denominator;
 	let habitCount = 0;
+
+	const saveEdit = async (e) => {
+		e.preventDefault();
+
+		const response = await axios.patch("/api_v1/add-habit/", formData);
+		const data = await response.data;
+		setHabits([...habits, formData]);
+
+		if (!response.status) {
+			throw new Error("Network response was not OK");
+		}
+	};
 
 	useEffect(() => {
 		const fetchHabits = async () => {
@@ -53,15 +67,17 @@ function Habits({ denominator, logUserActivity }) {
 		// Trigger the API Call
 		fetchHabits();
 	}, []);
-
+	console.log(habits);
 	if (habits === null) {
-		return <div>Is loading ...</div>;
+		return <div>Loading...</div>;
 	}
-	habitCount = habits.length;
-	habitsCompleted = habits.filter(function (habit) {
+	if (!habits.length) {
+		return <div>Loading...</div>;
+	}
+
+	habitsCompleted = habits.filter((habit) => {
 		return habit.is_completed;
 	}).length;
-
 	const completeHabit = async (habit) => {
 		// console.log({ firing: habit });
 		habit.is_completed = true;
@@ -76,6 +92,7 @@ function Habits({ denominator, logUserActivity }) {
 		if (habitsCompleted / denominator >= 1) {
 			logUserActivity();
 		}
+		setHabits([...habits, habit]);
 	};
 
 	const incompleteHabit = async (habit) => {
@@ -94,6 +111,7 @@ function Habits({ denominator, logUserActivity }) {
 			throw new Error("Network response was not OK");
 
 		const data = response.data;
+		setHabits([...habits, habit]);
 	};
 
 	const makeInactive = async (habit) => {
@@ -107,22 +125,24 @@ function Habits({ denominator, logUserActivity }) {
 				throw new Error("Network response was not OK");
 			}
 			const data = response.data;
-			setHabits([...habits, data]);
+			setHabits([...habits]);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
 	const handleDelete = async (habit) => {
-		try {
-			const response = await axios.delete(`/api_v1/update-habit/`, habit);
-			if (response.status !== 200) {
-				throw new Error("Network response was not OK");
-			}
-			const data = response.data;
-		} catch (error) {
-			console.error(error);
+		const response = await axios.delete(`/api_v1/update-habit/${habit.id}`);
+		console.log(habits);
+		if (response.status !== 204) {
+			throw new Error("Network response was not OK");
 		}
+		const data = response.data;
+
+		const index = habits.indexOf(habit);
+		habits.splice([index, 1]);
+		console.log(habits);
+		setHabits(habits);
 	};
 	const handleInput = (event) => {
 		const { name, value } = event.target;
@@ -134,11 +154,10 @@ function Habits({ denominator, logUserActivity }) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
 		const response = await axios.post("/api_v1/add-habit/", formData);
 		const data = await response.data;
-		setHabits([...habits, formData]);
-
+		setHabits([...habits, data]);
+		console.log(data);
 		if (!response.status) {
 			throw new Error("Network response was not OK");
 		}
@@ -155,20 +174,47 @@ function Habits({ denominator, logUserActivity }) {
 					<Form.Check
 						type="checkbox"
 						className=" habit-checkbox border-0"
-						label={habit.title}
 						onClick={() => {
 							completeHabit(habit);
 						}}
 					/>
+					<textarea
+						id="title"
+						name="title"
+						onChange={handleInput}
+						type="text"
+						className={`${!editMode && "input-preview"}`}
+						disabled={!editMode}
+						value={`${editMode ? formData.title : habit.title}`}
+					/>
+					<div className="draft-options">
+						{editMode ? (
+							<button
+								type="button"
+								className="btn btn-primary save-button"
+								onClick={(e) => saveEdit()}
+							>
+								Save
+							</button>
+						) : (
+							<button
+								type="button"
+								className="btn btn-primary edit-button"
+								onClick={() => setEditMode(true)}
+							>
+								Edit
+							</button>
+						)}
 
-					<Button
-						className="danger delete-habit"
-						onClick={() => {
-							makeInactive(habit);
-						}}
-					>
-						Send to bank
-					</Button>
+						<Button
+							className="danger delete-habit"
+							onClick={() => {
+								makeInactive(habit);
+							}}
+						>
+							Send to bank
+						</Button>
+					</div>
 				</Card>
 			</Col>
 		));
@@ -211,7 +257,7 @@ function Habits({ denominator, logUserActivity }) {
 				<Card className="single-post habit-card mt-5">
 					{habit.title}
 					<Button
-						className="danger delete-habit"
+						className="btn-danger delete-habit"
 						onClick={() => {
 							handleDelete(habit);
 						}}
@@ -236,7 +282,7 @@ function Habits({ denominator, logUserActivity }) {
 										id="title"
 										type="text"
 										name="title"
-										value={formData.title}
+										// value={formData.title}
 										onChange={handleInput}
 									/>
 									<label>Add Habit</label>

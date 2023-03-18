@@ -58,8 +58,15 @@ class UserActivityLog(models.Model):
     # How many times a user has completed all steps consecutively
     streak = models.BigIntegerField(blank=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'date'], name='record_date')
+        ]
+
     def __str__(self):
-        return (f"{self.user.username}-{self.date}-{self.tier}")
+        return (f"{self.user.username}-{self.date}")
+
 
 # User's monthly message to themselves
 

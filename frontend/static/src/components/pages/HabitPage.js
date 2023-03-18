@@ -57,7 +57,6 @@ function HabitPage() {
 	const [quote, setQuote] = useState(INITIAL_QUOTE);
 
 	// if (habits){const denominator = habits.length;
-	let habitsCompleted = 0;
 	let denominator = 0;
 	let maxHabits = denominator;
 	let habitCount = 0;
@@ -105,7 +104,13 @@ function HabitPage() {
 		}
 	};
 	setDenominator(profile.tier);
-
+	const logUserActivity = async () => {
+		const response = await axios.post(`/add-user-record/`, user);
+		if (!response.status) {
+			throw new Error("Network response was not OK");
+		}
+		const data = await response.data;
+	};
 	return (
 		<div className="habit-page wrapper">
 			<div className="box progress-qotd">
@@ -194,7 +199,12 @@ function HabitPage() {
 					</ul>
 				</section>
 			</div>
-			<Habits denominator={denominator} />
+			<div className="habits-wrapper">
+				<Habits
+					denominator={denominator}
+					logUserActivity={logUserActivity}
+				/>
+			</div>
 		</div>
 	);
 }

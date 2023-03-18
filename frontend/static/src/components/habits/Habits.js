@@ -23,7 +23,7 @@ const INITIAL_QUOTE = [
 	},
 ];
 
-function Habits({ denominator }) {
+function Habits({ denominator, logUserActivity }) {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
@@ -36,8 +36,8 @@ function Habits({ denominator }) {
 	const [habits, setHabits] = useState(null);
 	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+	let habitsCompleted;
 
-	let habitsCompleted = 0;
 	let maxHabits = denominator;
 	let habitCount = 0;
 
@@ -54,23 +54,34 @@ function Habits({ denominator }) {
 		fetchHabits();
 	}, []);
 
-	const completeHabit = async (habit) => {
-		console.log({ firing: habit });
-		// habit.completed = true;
-		// habitsCompleted += 1;
+	if (habits === null) {
+		return <div>Is loading ...</div>;
+	}
+	habitCount = habits.length;
+	habitsCompleted = habits.filter(function (habit) {
+		return habit.is_completed;
+	}).length;
 
+	const completeHabit = async (habit) => {
+		// console.log({ firing: habit });
+		habit.is_completed = true;
+		habitsCompleted += 1;
+		console.log(habitsCompleted);
 		const response = await axios.post(`/api_v1/add-habit-meta/`, {
 			habit: habit.id,
 		});
 		if (!response.status) {
 			throw new Error("Network response was not OK");
 		}
+		if (habitsCompleted / denominator >= 1) {
+			logUserActivity();
+		}
 	};
 
 	const incompleteHabit = async (habit) => {
-		// habit.completed = false;
-		// habitsCompleted -= 1;
-		console.log(habit);
+		// console.log({ firing: habit });
+		habitsCompleted -= 1;
+
 		habit.is_completed = false;
 
 		const response = await axios.delete(
@@ -133,10 +144,6 @@ function Habits({ denominator }) {
 		}
 	};
 
-	if (habits === null) {
-		return <div>Is loading ...</div>;
-	}
-	habitCount = habits.length;
 	// Active and uncompleted habits
 	const habitHTML = habits
 		.filter(function (habit) {

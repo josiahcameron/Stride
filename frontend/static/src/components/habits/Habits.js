@@ -3,11 +3,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
+import { Button, Form, Card, Col, Row } from "react-bootstrap";
 
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Card";
-import { Col, Row } from "react-bootstrap";
+import IncompleteHabits from "../habitHTML/IncompleteHabits";
+import CompletedHabits from "../habitHTML/CompletedHabits";
+import BankedHabits from "../habitHTML/BankedHabits";
 
 const INITIAL_FORM_DATA = {
 	title: "",
@@ -37,22 +37,16 @@ function Habits({ denominator, logUserActivity }) {
 	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	const [editMode, setEditMode] = useState(false);
-	const [text, setText] = useState("");
+	const [title, setTitle] = useState("");
 	let habitsCompleted;
 
 	let maxHabits = denominator;
 	let habitCount = 0;
-
-	const saveEdit = async (e) => {
-		e.preventDefault();
-
-		const response = await axios.patch("/api_v1/add-habit/", formData);
-		const data = await response.data;
-		setHabits([...habits, formData]);
-
-		if (!response.status) {
-			throw new Error("Network response was not OK");
-		}
+	const updateHabit = (updatedHabit) => {
+		const updatedHabits = [...habits];
+		const index = habits.findIndex((habit) => habit.id === updatedHabit.id);
+		updatedHabits[index] = updatedHabit;
+		setHabits(updatedHabits);
 	};
 
 	useEffect(() => {
@@ -67,7 +61,7 @@ function Habits({ denominator, logUserActivity }) {
 		// Trigger the API Call
 		fetchHabits();
 	}, []);
-	console.log(habits);
+
 	if (habits === null) {
 		return <div>Loading...</div>;
 	}
@@ -83,16 +77,17 @@ function Habits({ denominator, logUserActivity }) {
 		habit.is_completed = true;
 		habitsCompleted += 1;
 		console.log(habitsCompleted);
-		const response = await axios.post(`/api_v1/add-habit-meta/`, {
-			habit: habit.id,
-		});
-		if (!response.status) {
-			throw new Error("Network response was not OK");
+		try {
+			const response = await axios.post(`/api_v1/add-habit-meta/`, {
+				habit: habit.id,
+			});
+			if (habitsCompleted / denominator >= 1) {
+				logUserActivity();
+			}
+			setHabits([...habits]);
+		} catch (err) {
+			console.log(err);
 		}
-		if (habitsCompleted / denominator >= 1) {
-			logUserActivity();
-		}
-		setHabits([...habits, habit]);
 	};
 
 	const incompleteHabit = async (habit) => {
@@ -111,7 +106,7 @@ function Habits({ denominator, logUserActivity }) {
 			throw new Error("Network response was not OK");
 
 		const data = response.data;
-		setHabits([...habits, habit]);
+		setHabits([...habits]);
 	};
 
 	const makeInactive = async (habit) => {
@@ -130,19 +125,42 @@ function Habits({ denominator, logUserActivity }) {
 			console.log(error);
 		}
 	};
+	const makeActive = async (habit) => {
+		habit.is_active = true;
+		try {
+			const response = await axios.patch(
+				`/api_v1/update-habit/${habit.id}/`,
+				habit
+			);
+			if (response.status !== 200) {
+				throw new Error("Network response was not OK");
+			}
+			const data = response.data;
+			setHabits([...habits]);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleDelete = async (habit) => {
-		const response = await axios.delete(`/api_v1/update-habit/${habit.id}`);
-		console.log(habits);
-		if (response.status !== 204) {
-			throw new Error("Network response was not OK");
+		try {
+			const response = await axios.delete(
+				`/api_v1/update-habit/${habit.id}`
+			);
+			const data = response.data;
+		} catch (error) {
+			console.log(error);
 		}
-		const data = response.data;
-
-		const index = habits.indexOf(habit);
-		habits.splice([index, 1]);
-		console.log(habits);
-		setHabits(habits);
+		try {
+			const res = await axios.get("/api_v1/habits/");
+			setHabits(res.data);
+		} catch (err) {
+			console.log(err);
+		}
+		// const index = habits.indexOf(habit);
+		// habits.splice([index, 1]);
+		// console.log(habits);
+		// setHabits(habits);
 	};
 	const handleInput = (event) => {
 		const { name, value } = event.target;
@@ -169,54 +187,20 @@ function Habits({ denominator, logUserActivity }) {
 			return habit.is_completed === false && habit.is_active === true;
 		})
 		.map((habit) => (
-			<Col key={habit.id} className="align-items-start col-md-4 ">
-				<Card className="single-post habit-card mt-5">
-					<Form.Check
-						type="checkbox"
-						className=" habit-checkbox border-0"
-						onClick={() => {
-							completeHabit(habit);
-						}}
-					/>
-					<textarea
-						id="title"
-						name="title"
-						onChange={handleInput}
-						type="text"
-						className={`${!editMode && "input-preview"}`}
-						disabled={!editMode}
-						value={`${editMode ? formData.title : habit.title}`}
-					/>
-					<div className="draft-options">
-						{editMode ? (
-							<button
-								type="button"
-								className="btn btn-primary save-button"
-								onClick={(e) => saveEdit()}
-							>
-								Save
-							</button>
-						) : (
-							<button
-								type="button"
-								className="btn btn-primary edit-button"
-								onClick={() => setEditMode(true)}
-							>
-								Edit
-							</button>
-						)}
-
-						<Button
-							className="danger delete-habit"
-							onClick={() => {
-								makeInactive(habit);
-							}}
-						>
-							Send to bank
-						</Button>
-					</div>
-				</Card>
-			</Col>
+			<IncompleteHabits
+				key={habit.id}
+				habit={habit}
+				habits={habits}
+				setHabits={setHabits}
+				incompleteHabit={incompleteHabit}
+				setTitle={setTitle}
+				setEditMode={setEditMode}
+				editMode={editMode}
+				completeHabit={completeHabit}
+				title={title}
+				makeInactive={makeInactive}
+				updateHabit={updateHabit}
+			/>
 		));
 
 	// Completed habits
@@ -225,26 +209,12 @@ function Habits({ denominator, logUserActivity }) {
 			return habit.is_completed === true && habit.is_active === true;
 		})
 		.map((habit) => (
-			<Col key={habit.id} className="align-items-start col-md-4 ">
-				<Card className="single-post habit-card mt-5">
-					<Form.Check
-						type="checkbox"
-						className=" habit-checkbox border-0"
-						label={habit.title}
-						onClick={() => {
-							incompleteHabit(habit);
-						}}
-					/>
-				</Card>
-				<Button
-					className="danger delete-habit"
-					onClick={() => {
-						handleDelete(habit);
-					}}
-				>
-					Delete Habit
-				</Button>
-			</Col>
+			<CompletedHabits
+				key={habit.id}
+				habit={habit}
+				incompleteHabit={incompleteHabit}
+				handleDelete={handleDelete}
+			/>
 		));
 
 	// Inactive habits
@@ -253,19 +223,12 @@ function Habits({ denominator, logUserActivity }) {
 			return habit.is_active === false;
 		})
 		.map((habit) => (
-			<Col key={habit.id} className="align-items-start col-md-4 ">
-				<Card className="single-post habit-card mt-5">
-					{habit.title}
-					<Button
-						className="btn-danger delete-habit"
-						onClick={() => {
-							handleDelete(habit);
-						}}
-					>
-						Delete Habit
-					</Button>
-				</Card>
-			</Col>
+			<BankedHabits
+				key={habit.id}
+				handleDelete={handleDelete}
+				habit={habit}
+				makeActive={makeActive}
+			/>
 		));
 
 	return (

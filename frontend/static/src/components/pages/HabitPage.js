@@ -66,12 +66,14 @@ function HabitPage() {
 
 	useEffect(() => {
 		const fetchProfile = async () => {
-			const response = await axios.get(`/api_v1/profile/`);
-			setProfile(response.data[0]);
-			if (!response.status) {
-				throw new Error("Network response was not OK");
+			try {
+				const response = await axios.get(`/api_v1/profile/`);
+				const data = await response.data[0];
+				setProfile(data);
+				console.log(profile);
+			} catch (err) {
+				console.log(err);
 			}
-			const data = await response.data;
 		};
 		// Trigger the API Call
 		fetchProfile();
@@ -113,48 +115,56 @@ function HabitPage() {
 	};
 	return (
 		<div className="habit-page wrapper">
-			<div className="box progress-qotd">
-				<section className="progress-QOTD">
-					<div className="progress">
-						<CircularProgressbarWithChildren
-							value={75}
-							strokeWidth={8}
-							styles={buildStyles({
-								pathColor: "#f00",
-								trailColor: "transparent",
-							})}
-						>
-							{/*
+			<div className="profile">
+				<div className="profile-image"></div>
+				<div className="profile-info">{profile.streak}</div>
+			</div>
+			<div className="page-top">
+				<div className="box progress-qotd">
+					<section className="progress-QOTD">
+						<div className="progress">
+							<CircularProgressbarWithChildren
+								value={75}
+								strokeWidth={8}
+								styles={buildStyles({
+									pathColor: "#f00",
+									trailColor: "transparent",
+								})}
+							>
+								{/*
           Width here needs to be (100 - 2 * strokeWidth)% 
           in order to fit exactly inside the outer progressbar.
         */}
-							<div style={{ width: "84%" }}>
-								<CircularProgressbarWithChildren
-									value={70}
-									styles={buildStyles({
-										trailColor: "transparent",
-									})}
-								>
-									<div style={{ width: "84%" }}>
-										<CircularProgressbar
-											value={70}
-											styles={buildStyles({
-												pathColor: "green",
-												trailColor: "transparent",
-											})}
-										/>
-									</div>
-								</CircularProgressbarWithChildren>
-							</div>
-						</CircularProgressbarWithChildren>
-					</div>
-					<div className="qotd-container">
-						<div className="qotd">
-							<p className="quote">{quote[0].text}</p>
-							<p className="quote-author">- {quote[0].author}</p>
+								<div style={{ width: "84%" }}>
+									<CircularProgressbarWithChildren
+										value={70}
+										styles={buildStyles({
+											trailColor: "transparent",
+										})}
+									>
+										<div style={{ width: "84%" }}>
+											<CircularProgressbar
+												value={70}
+												styles={buildStyles({
+													pathColor: "green",
+													trailColor: "transparent",
+												})}
+											/>
+										</div>
+									</CircularProgressbarWithChildren>
+								</div>
+							</CircularProgressbarWithChildren>
 						</div>
-					</div>
-				</section>
+						<div className="qotd-container">
+							<div className="qotd">
+								<p className="quote">{quote[0].text}</p>
+								<p className="quote-author">
+									- {quote[0].author}
+								</p>
+							</div>
+						</div>
+					</section>
+				</div>
 			</div>
 			<div className="habit-type-selection-wrapper">
 				<h5>My Steps:</h5>

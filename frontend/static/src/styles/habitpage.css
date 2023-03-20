@@ -114,3 +114,9 @@
 	color: black;
 	resize: none;
 }
+
+.profile {
+	display: block;
+	height: 100px;
+	width: 100px;
+}

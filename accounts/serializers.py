@@ -25,6 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     tier = serializers.SerializerMethodField()
+    # streak = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Profile
@@ -45,6 +46,14 @@ class ProfileSerializer(serializers.ModelSerializer):
             profile.tier = 'first'
             print(profile.tier)
         return profile.tier
+
+    # def get_streak(self, profile):
+    #     if models.UserActivityLog.objects.all():
+    #         activity = models.UserActivityLog.objects.filter(
+    #             user=self.context['request'].user).latest('date')
+
+    #         if activity.streak
+
     # def get_tier(self, profile):
     #     request = self.context.get('request')
     #     if request:

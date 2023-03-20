@@ -6,13 +6,11 @@ import { Button, Form, Card, Col } from "react-bootstrap";
 function IncompleteHabits({
 	habit,
 	incompleteHabit,
-
 	setEditMode,
 	editMode,
 	habits,
 	completeHabit,
 	setHabits,
-
 	makeInactive,
 	updateHabit,
 }) {

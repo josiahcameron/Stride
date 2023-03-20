@@ -92,21 +92,30 @@ function Habits({ denominator, logUserActivity }) {
 
 	const incompleteHabit = async (habit) => {
 		// console.log({ firing: habit });
+		console.log(habit);
 		habitsCompleted -= 1;
-
 		habit.is_completed = false;
 
-		const response = await axios.delete(
-			`/api_v1/update-habit-meta/${habit.id}`,
-
-			{ data: { habit: habit } }
-		);
-
-		if (response.status !== 200)
-			throw new Error("Network response was not OK");
-
-		const data = response.data;
-		setHabits([...habits]);
+		try {
+			const response = await axios.delete(
+				`/api_v1/update-habit-meta/${habit.id}`
+			);
+		} catch (err) {
+			console.log("Network response was not OK");
+		}
+		try {
+			const response = await axios.patch(
+				`/api_v1/update-habit/${habit.id}/`,
+				habit
+			);
+			if (response.status !== 200) {
+				throw new Error("Network response was not OK");
+			}
+			const data = response.data;
+			setHabits([...habits]);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const makeInactive = async (habit) => {
@@ -234,6 +243,7 @@ function Habits({ denominator, logUserActivity }) {
 	return (
 		<>
 			<div className="box habit-list">
+				<div className="add-habit"></div>
 				<Row className=" row align-items-start habit-cards ">
 					{habits && habitHTML}
 					<Col className="align-items-start col-md-4 ">

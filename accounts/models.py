@@ -50,7 +50,7 @@ class UserActivityLog(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
-    date = models.DateField(null=True, auto_now=True)
+    date = models.DateField(null=True, auto_now=True,)
 
     # How many times a user has completed all habits
     count = models.IntegerField(blank=True)

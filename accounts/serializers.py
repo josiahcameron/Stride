@@ -25,40 +25,39 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     tier = serializers.SerializerMethodField()
+    streak = serializers.SerializerMethodField()
     # streak = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Profile
         fields = '__all__'
 
-    def get_tier(self, profile):
-        if models.UserActivityLog.objects.all():
-            progress = models.UserActivityLog.objects.filter(
-                user=self.context['request'].user).latest('date')
+    def get_tier(self, obj):
+        try:
+            instance = models.UserActivityLog.objects.filter(
+                user=obj.user).latest('date')
+        except:
+            return "first"
 
-            if progress.count <= 14:
-                profile.tier = 'second'
-            elif progress.count <= 21:
-                profile.tier = 'third'
-            elif progress.count <= 28:
-                profile.tier = 'fourth'
+        if instance.count >= 14:
+            tier = 'second'
+        elif instance.count >= 21:
+            tier = 'third'
+        elif instance.count >= 28:
+            tier = 'fourth'
         else:
-            profile.tier = 'first'
-            print(profile.tier)
-        return profile.tier
+            tier = 'first'
 
-    # def get_streak(self, profile):
-    #     if models.UserActivityLog.objects.all():
-    #         activity = models.UserActivityLog.objects.filter(
-    #             user=self.context['request'].user).latest('date')
+        return tier
 
-    #         if activity.streak
-
-    # def get_tier(self, profile):
-    #     request = self.context.get('request')
-    #     if request:
-    #         progress = models.UserActivityLog.objects.filter(
-    #             user=request.user).latest('date')
-    #         return progress.tier
-    #     else:
-    #         return None
+    def get_streak(self, obj):
+        try:
+            instance = models.UserActivityLog.objects.filter(
+                user=obj.user).latest('date')
+        except:
+            return 1
+        if instance.streak is 0:
+            streak = 1
+        else:
+            streak = instance.streak
+        return streak

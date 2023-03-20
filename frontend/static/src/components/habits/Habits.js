@@ -16,13 +16,6 @@ const INITIAL_FORM_DATA = {
 	is_active: true,
 };
 
-const INITIAL_QUOTE = [
-	{
-		text: "The way I see it, if you want the rainbows, you gotta put up with the rain",
-		author: "Dolly Parton",
-	},
-];
-
 function Habits({ denominator, logUserActivity }) {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
@@ -38,10 +31,12 @@ function Habits({ denominator, logUserActivity }) {
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	const [editMode, setEditMode] = useState(false);
 	const [title, setTitle] = useState("");
-	let habitsCompleted;
+	const [addHabit, setAddHabit] = useState(false);
+	const [activeHabits, setActiveHabits] = useState(0);
+	const [habitLimit, setHabitLimit] = useState(false);
 
+	let habitsCompleted;
 	let maxHabits = denominator;
-	let habitCount = 0;
 	const updateHabit = (updatedHabit) => {
 		const updatedHabits = [...habits];
 		const index = habits.findIndex((habit) => habit.id === updatedHabit.id);
@@ -54,6 +49,11 @@ function Habits({ denominator, logUserActivity }) {
 			try {
 				const res = await axios.get("/api_v1/habits/");
 				setHabits(res.data);
+				setActiveHabits(
+					res.data.filter(function (habit) {
+						return (habit.is_active === true).length;
+					})
+				);
 			} catch (err) {
 				console.log(err);
 			}
@@ -69,9 +69,6 @@ function Habits({ denominator, logUserActivity }) {
 		return <div>Loading...</div>;
 	}
 
-	habitsCompleted = habits.filter((habit) => {
-		return habit.is_completed;
-	}).length;
 	const completeHabit = async (habit) => {
 		// console.log({ firing: habit });
 		habit.is_completed = true;
@@ -243,11 +240,18 @@ function Habits({ denominator, logUserActivity }) {
 	return (
 		<>
 			<div className="box habit-list">
-				<div className="add-habit"></div>
 				<Row className=" row align-items-start habit-cards ">
 					{habits && habitHTML}
+
 					<Col className="align-items-start col-md-4 ">
 						<Card className="single-post mt-5 habit-card add-habit">
+							<div
+								className={`${
+									!addHabit && "habit-form-cover"
+								} ${habitLimit && "add-habits-locked"}`}
+							>
+								Click here to add a new step
+							</div>
 							<form>
 								<div className="form-group input-box">
 									<input
@@ -270,18 +274,19 @@ function Habits({ denominator, logUserActivity }) {
 						</Card>
 					</Col>
 				</Row>
-			</div>
-			<div className="box completed-habits">
-				<h5>Completed Steps:</h5>
-				<Row className=" row align-items-start habit-cards ">
-					{habits && completedHabitsHTML}
-				</Row>
-			</div>
-			<div className="box banked-habits">
-				<h5>Habit Bank:</h5>
-				<Row className=" row align-items-start habit-cards ">
-					{habits && inactiveHabitsHTML}
-				</Row>
+
+				<div className="box completed-habits">
+					<h5>Completed Steps:</h5>
+					<Row className=" row align-items-start habit-cards ">
+						{habits && completedHabitsHTML}
+					</Row>
+				</div>
+				<div className="box banked-habits">
+					<h5>Habit Bank:</h5>
+					<Row className=" row align-items-start habit-cards ">
+						{habits && inactiveHabitsHTML}
+					</Row>
+				</div>
 			</div>
 		</>
 	);

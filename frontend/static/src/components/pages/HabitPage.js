@@ -14,19 +14,6 @@ import { Card, Form, Col, Row, Container, Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const INITIAL_FORM_DATA = {
-	title: "",
-
-	frequency: "daily",
-	is_active: true,
-};
-
-const INITIAL_QUOTE = [
-	{
-		text: "The way I see it, if you want the rainbows, you gotta put up with the rain",
-		author: "Dolly Parton",
-	},
-];
 function dateFormat(date) {
 	const day = date.getDate();
 	const month = date.getMonth() + 1;
@@ -54,16 +41,37 @@ function HabitPage() {
 	const [tier, setTier] = useState(null);
 	const [habits, setHabits] = useState(null);
 	const [habitCompletion, setHabitCompletion] = useState(false);
-	const [quote, setQuote] = useState(INITIAL_QUOTE);
+	const [quote, setQuote] = useState(null);
+	const [progress, setProgress] = useState(0);
 
 	// if (habits){const denominator = habits.length;
 	let denominator = 0;
 	let maxHabits = denominator;
 	let habitCount = 0;
-	if (habits) {
-		habitCount = habits.length;
-	}
 
+	const secretKey = process.env.REACT_APP_API_KEY;
+	useEffect(() => {
+		const fetchQuotes = async () => {
+			try {
+				const res = await axios.get(
+					"https://quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com/quote",
+					{
+						headers: {
+							"X-RapidAPI-Key": secretKey,
+							"X-RapidAPI-Host":
+								"quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com",
+						},
+						params: { token: "ipworld.info" },
+					}
+				);
+				setQuote(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		// Trigger the API Call
+		fetchQuotes();
+	}, [secretKey]);
 	useEffect(() => {
 		const fetchProfile = async () => {
 			try {
@@ -78,7 +86,7 @@ function HabitPage() {
 		// Trigger the API Call
 		fetchProfile();
 	}, []);
-	if (profile === null) {
+	if (profile === null || quote === null) {
 		return <div>Loading...</div>;
 	}
 	const setDenominator = (tier) => {
@@ -113,15 +121,28 @@ function HabitPage() {
 		}
 		const data = await response.data;
 	};
+	if (habits) {
+		habitCount = habits.length;
+	}
 	return (
 		<div className="habit-page wrapper">
-			<div className="profile">
-				<div className="profile-image"></div>
-				<div className="profile-info">{profile.streak}</div>
-			</div>
 			<div className="page-top">
 				<div className="box progress-qotd">
 					<section className="progress-QOTD">
+						<div className="profile">
+							<div className="profile-image">
+								<img src={profile.avatar} alt="" />
+							</div>
+							<div className="profile-info">
+								<p>{profile.display_name}</p>
+							</div>
+						</div>
+						<div className="qotd-container">
+							<div className="qotd">
+								<p className="quote">{quote.text}</p>
+								<p className="quote-author">- {quote.author}</p>
+							</div>
+						</div>
 						<div className="progress">
 							<CircularProgressbarWithChildren
 								value={75}
@@ -155,20 +176,26 @@ function HabitPage() {
 								</div>
 							</CircularProgressbarWithChildren>
 						</div>
-						<div className="qotd-container">
-							<div className="qotd">
-								<p className="quote">{quote[0].text}</p>
-								<p className="quote-author">
-									- {quote[0].author}
-								</p>
-							</div>
-						</div>
 					</section>
 				</div>
 			</div>
 			<div className="habit-type-selection-wrapper">
 				<h5>My Steps:</h5>
-				{/* <section className="habit-type-selection-navbar">
+			</div>
+			<div className="habits-wrapper">
+				<Habits
+					denominator={denominator}
+					logUserActivity={logUserActivity}
+				/>
+			</div>
+		</div>
+	);
+}
+
+export default HabitPage;
+
+{
+	/* <section className="habit-type-selection-navbar">
 					<ul className="nav nav-pills nav-fill">
 						<li className="nav-item">
 							<a
@@ -207,16 +234,5 @@ function HabitPage() {
 							</a>
 						</li>
 					</ul>
-				</section> */}
-			</div>
-			<div className="habits-wrapper">
-				<Habits
-					denominator={denominator}
-					logUserActivity={logUserActivity}
-				/>
-			</div>
-		</div>
-	);
+				</section> */
 }
-
-export default HabitPage;

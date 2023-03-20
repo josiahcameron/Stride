@@ -8,8 +8,10 @@
 
 .progress-QOTD {
 	display: flex;
+	justify-content: space-between;
+	gap: 30px;
 	background-color: #fff;
-	padding: 25px 7% 45px 7%;
+	padding: 25px 7% 45px 10px;
 	border-radius: 20px;
 }
 
@@ -116,7 +118,30 @@
 }
 
 .profile {
-	display: block;
-	height: 100px;
-	width: 100px;
+	height: 200px;
+	width: 300px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #227ded;
+}
+.habit-form-cover {
+	position: absolute;
+	background-color: white;
+	color: black;
+	height: 100%;
+	width: 100%;
+}
+.profile-image {
+	position: relative;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	margin: 0px auto;
+	border: 10px solid white;
+}
+.profile-image img {
+	position: absolute;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
 }

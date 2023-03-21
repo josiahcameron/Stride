@@ -32,10 +32,10 @@ function Habits({ denominator, logUserActivity }) {
 	const [editMode, setEditMode] = useState(false);
 	const [title, setTitle] = useState("");
 	const [addHabit, setAddHabit] = useState(false);
-	const [activeHabits, setActiveHabits] = useState(0);
+	// const [activeHabits, setActiveHabits] = useState(0);
 	const [habitLimit, setHabitLimit] = useState(false);
 
-	let habitsCompleted;
+	const [habitsCompleted, setHabitsCompleted] = useState(0);
 	let maxHabits = denominator;
 	const updateHabit = (updatedHabit) => {
 		const updatedHabits = [...habits];
@@ -46,12 +46,12 @@ function Habits({ denominator, logUserActivity }) {
 
 	useEffect(() => {
 		const fetchHabits = async () => {
-			try {
-				const res = await axios.get("/api_v1/habits/");
-				setHabits(res.data);
-			} catch (err) {
-				console.log(err);
+			const res = await axios.get("/api_v1/habits/");
+			if (!res.status) {
+				throw new Error("Network response was not OK");
 			}
+			const data = await res.data;
+			setHabits(data);
 		};
 		// Trigger the API Call
 		fetchHabits();
@@ -66,14 +66,19 @@ function Habits({ denominator, logUserActivity }) {
 
 	const completeHabit = async (habit) => {
 		// console.log({ firing: habit });
+		// setHabitsCompleted()
+
 		habit.is_completed = true;
-		habitsCompleted += 1;
-		console.log(habitsCompleted);
+		const completedHabits = habits.filter(
+			(habit) => habit.is_completed === true
+		).length;
+
+		console.log(completedHabits);
 		try {
 			const response = await axios.post(`/api_v1/add-habit-meta/`, {
 				habit: habit.id,
 			});
-			if (habitsCompleted / denominator >= 1) {
+			if (completedHabits / denominator >= 1) {
 				logUserActivity();
 			}
 			setHabits([...habits]);
@@ -85,8 +90,10 @@ function Habits({ denominator, logUserActivity }) {
 	const incompleteHabit = async (habit) => {
 		// console.log({ firing: habit });
 		console.log(habit);
-		habitsCompleted -= 1;
 		habit.is_completed = false;
+		const completedHabits = habits.filter(
+			(habit) => habit.is_completed === true
+		).length;
 
 		try {
 			const response = await axios.delete(
@@ -122,11 +129,9 @@ function Habits({ denominator, logUserActivity }) {
 			}
 			const data = response.data;
 			setHabits([...habits]);
-			setActiveHabits(
-				habits.filter(function (habit) {
-					return (habit.is_active === true).length;
-				})
-			);
+			const activeHabits = habits.filter(function (habit) {
+				return habit.is_active === true;
+			}).length;
 			if (activeHabits >= denominator) {
 				setHabitLimit(true);
 			} else if (activeHabits < denominator) {
@@ -137,6 +142,9 @@ function Habits({ denominator, logUserActivity }) {
 		}
 	};
 	const makeActive = async (habit) => {
+		let activeHabits = habits.filter(function (habit) {
+			return habit.is_active === true;
+		}).length;
 		if (activeHabits >= denominator) {
 			setHabitLimit(true);
 			setAddHabit(false);
@@ -173,11 +181,9 @@ function Habits({ denominator, logUserActivity }) {
 		try {
 			const res = await axios.get("/api_v1/habits/");
 			setHabits(res.data);
-			setActiveHabits(
-				habits.filter(function (habit) {
-					return (habit.is_active === true).length;
-				})
-			);
+			const activeHabits = habits.filter(function (habit) {
+				return habit.is_active === true;
+			}).length;
 			if (activeHabits >= denominator) {
 				setHabitLimit(true);
 			} else if (activeHabits < denominator) {
@@ -202,31 +208,30 @@ function Habits({ denominator, logUserActivity }) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setActiveHabits(
-			habits.filter(function (habit) {
-				return (habit.is_active === true).length;
-			})
-		);
-		if (activeHabits >= denominator) {
-			setHabitLimit(true);
-		}
-		const response = await axios.post("/api_v1/add-habit/", formData);
-		const data = await response.data;
-		setHabits([...habits, data]);
 
-		if (!response.status) {
-			throw new Error("Network response was not OK");
-		}
-		setActiveHabits(
-			habits.filter(function (habit) {
-				return (habit.is_active === true).length;
-			})
-		);
+		let activeHabits = habits.filter(function (habit) {
+			return habit.is_active === true;
+		}).length;
+
 		if (activeHabits >= denominator) {
 			setHabitLimit(true);
-		} else if (activeHabits < denominator) {
-			setHabitLimit(false);
-			setAddHabit(false);
+		} else {
+			const response = await axios.post("/api_v1/add-habit/", formData);
+			const data = await response.data;
+			setHabits([...habits, data]);
+			activeHabits = habits.filter(function (habit) {
+				return habit.is_active === true;
+			}).length;
+			if (!response.status) {
+				throw new Error("Network response was not OK");
+			}
+
+			if (activeHabits >= denominator) {
+				setHabitLimit(true);
+			} else if (activeHabits < denominator) {
+				setHabitLimit(false);
+				setAddHabit(false);
+			}
 		}
 	};
 

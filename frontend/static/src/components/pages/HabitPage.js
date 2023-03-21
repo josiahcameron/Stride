@@ -114,8 +114,9 @@ function HabitPage() {
 		}
 	};
 	setDenominator(profile.tier);
+
 	const logUserActivity = async () => {
-		const response = await axios.post(`/add-user-record/`, user);
+		const response = await axios.post(`/api_v1/add-user-record/`);
 		if (!response.status) {
 			throw new Error("Network response was not OK");
 		}
@@ -157,7 +158,7 @@ function HabitPage() {
           Width here needs to be (100 - 2 * strokeWidth)% 
           in order to fit exactly inside the outer progressbar.
         */}
-								<div style={{ width: "84%" }}>
+								{/* <div style={{ width: "84%" }}>
 									<CircularProgressbarWithChildren
 										value={70}
 										styles={buildStyles({
@@ -174,7 +175,7 @@ function HabitPage() {
 											/>
 										</div>
 									</CircularProgressbarWithChildren>
-								</div>
+								</div> */}
 							</CircularProgressbarWithChildren>
 						</div>
 					</section>

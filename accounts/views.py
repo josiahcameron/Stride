@@ -51,7 +51,6 @@ class ActivityRecordCreateAPIView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         streak = 0  # consecutive
         count = 0  # not consecutive
-        tier = 'first'
 
         # def check_streak(self):
         today = date.today() - timedelta(days=0)

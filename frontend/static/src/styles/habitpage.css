@@ -14,7 +14,20 @@
 	padding: 25px 7% 45px 10px;
 	border-radius: 20px;
 }
-
+.profile-image {
+	position: relative;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	margin: 0px auto;
+	border: 10px solid white;
+}
+.profile-image img {
+	position: absolute;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+}
 .progress-bar-wrap {
 	width: 150px;
 	height: 150px;
@@ -124,24 +137,30 @@
 	padding-right: 10px;
 	background-color: #227ded;
 }
-.habit-form-cover {
+
+.hide-form {
 	position: absolute;
 	background-color: white;
 	color: black;
 	height: 100%;
 	width: 100%;
 }
-.profile-image {
-	position: relative;
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	margin: 0px auto;
-	border: 10px solid white;
+
+.logo-wrapper img {
+	height: 100px;
+	width: 100px;
 }
-.profile-image img {
-	position: absolute;
-	border-radius: 50%;
-	width: 100%;
+/* #input-box {
+	display: block;
 	height: 100%;
+	width: 100%;
+} */
+.show-button {
+	display: inline-block;
+}
+.hide-button {
+	display: none;
+}
+.hide {
+	display: none;
 }

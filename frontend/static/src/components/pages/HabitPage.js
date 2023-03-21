@@ -134,6 +134,7 @@ function HabitPage() {
 								<img src={profile.avatar} alt="" />
 							</div>
 							<div className="profile-info">
+								<p>Streak: {profile.streak}</p>
 								<p>{profile.display_name}</p>
 							</div>
 						</div>

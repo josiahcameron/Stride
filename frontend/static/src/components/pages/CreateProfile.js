@@ -4,17 +4,31 @@ import { Button, Form, Card, Col, Row, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+const INITIAL_FORM_DATA = {
+	title: "",
 
+	frequency: "daily",
+	is_active: true,
+};
 function CreateProfile() {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.delete["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.patch["X-CSRFToken"] = csrftoken;
+	const handleError = (err) => {
+		console.warn(err);
+	};
 	const navigate = useNavigate();
 	const [profile, setProfile] = useState({
 		display_name: "",
 		avatar: null,
 		tier: "first",
 	});
+	const [habits, setHabits] = useState(null);
 	const [preview, setPreview] = useState("");
+	const [addHabitMode, setAddHabitMode] = useState(false);
+	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	let { profileId } = useParams();
 	console.log({ profileId });
 
@@ -50,7 +64,25 @@ function CreateProfile() {
 		const response = await axios.post("/api_v1/add-profile/", formData);
 		const data = await response.data;
 		console.log({ data });
+		setAddHabitMode(true);
+	};
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		const response = await axios.post("/api_v1/add-habit/", formData);
+		const data = await response.data;
+
+		if (!response.status) {
+			throw new Error("Network response was not OK");
+		}
 		navigate("/");
+	};
+	const handleHabit = (event) => {
+		const { name, value } = event.target;
+		setFormData((prevFormData) => ({
+			...prevFormData,
+			[name]: value,
+		}));
 	};
 
 	return (
@@ -93,9 +125,14 @@ function CreateProfile() {
 													type="file"
 													name="avatar"
 													onChange={handleImage}
+													// className="add-profile-image"
 												/>
 												{profile.avatar && (
-													<img src={preview} alt="" />
+													<img
+														src={preview}
+														alt=""
+														className="add-profile-image"
+													/>
 												)}
 											</Form.Group>
 											<div className="d-grid">
@@ -113,6 +150,25 @@ function CreateProfile() {
 						</Col>
 					</Row>
 				</Container>
+				<form className={`${addHabitMode ? "show-form" : "hide"}`}>
+					<div id="input-box" className="form-group input-box">
+						<input
+							className="form-control"
+							id="title"
+							type="text"
+							name="title"
+							// value={formData.title}
+							onChange={handleHabit}
+						/>
+						<label>Add Habit</label>
+					</div>
+					<Button
+						onClick={handleSubmit}
+						className="btn btn-primary btn-block "
+					>
+						Submit
+					</Button>
+				</form>
 			</div>
 		</>
 	);

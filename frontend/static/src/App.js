@@ -15,13 +15,19 @@ import Profile from "./components/profile/Profile";
 import HabitPage from "./components/pages/HabitPage";
 import CreateProfile from "./components/pages/CreateProfile";
 import JournalEntry from "./components/pages/JournalEntry";
+import AuthenticatedHeader from "./components/header/AuthenticatedHeader";
+import UnauthenticatedHeader from "./components/header/UnauthenticatedHeader";
 
 const App = () => {
 	const { isAuthenticated } = useContext(AuthContext);
 
 	return (
 		<>
-			{/* {isAuthenticated ? <AuthenticatedHeader /> : <UnauthenticatedHeader />} */}
+			{/* {isAuthenticated ? (
+				<AuthenticatedHeader />
+			) : (
+				<UnauthenticatedHeader />
+			)} */}
 			<Header />
 			<div className="all-content-wrapper">
 				<Routes>

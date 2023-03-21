@@ -49,11 +49,6 @@ function Habits({ denominator, logUserActivity }) {
 			try {
 				const res = await axios.get("/api_v1/habits/");
 				setHabits(res.data);
-				setActiveHabits(
-					res.data.filter(function (habit) {
-						return (habit.is_active === true).length;
-					})
-				);
 			} catch (err) {
 				console.log(err);
 			}
@@ -127,24 +122,42 @@ function Habits({ denominator, logUserActivity }) {
 			}
 			const data = response.data;
 			setHabits([...habits]);
+			setActiveHabits(
+				habits.filter(function (habit) {
+					return (habit.is_active === true).length;
+				})
+			);
+			if (activeHabits >= denominator) {
+				setHabitLimit(true);
+			} else if (activeHabits < denominator) {
+				setHabitLimit(false);
+			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
 	const makeActive = async (habit) => {
-		habit.is_active = true;
-		try {
-			const response = await axios.patch(
-				`/api_v1/update-habit/${habit.id}/`,
-				habit
-			);
-			if (response.status !== 200) {
-				throw new Error("Network response was not OK");
+		if (activeHabits >= denominator) {
+			setHabitLimit(true);
+			setAddHabit(false);
+		}
+		if (activeHabits < denominator) {
+			habit.is_active = true;
+			try {
+				const response = await axios.patch(
+					`/api_v1/update-habit/${habit.id}/`,
+					habit
+				);
+				if (response.status !== 200) {
+					throw new Error("Network response was not OK");
+				}
+				const data = response.data;
+				setHabits([...habits]);
+			} catch (error) {
+				console.log(error);
 			}
-			const data = response.data;
-			setHabits([...habits]);
-		} catch (error) {
-			console.log(error);
+			setHabitLimit(false);
+			setAddHabit(false);
 		}
 	};
 
@@ -160,6 +173,17 @@ function Habits({ denominator, logUserActivity }) {
 		try {
 			const res = await axios.get("/api_v1/habits/");
 			setHabits(res.data);
+			setActiveHabits(
+				habits.filter(function (habit) {
+					return (habit.is_active === true).length;
+				})
+			);
+			if (activeHabits >= denominator) {
+				setHabitLimit(true);
+			} else if (activeHabits < denominator) {
+				setHabitLimit(false);
+				setAddHabit(false);
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -178,12 +202,31 @@ function Habits({ denominator, logUserActivity }) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setActiveHabits(
+			habits.filter(function (habit) {
+				return (habit.is_active === true).length;
+			})
+		);
+		if (activeHabits >= denominator) {
+			setHabitLimit(true);
+		}
 		const response = await axios.post("/api_v1/add-habit/", formData);
 		const data = await response.data;
 		setHabits([...habits, data]);
-		console.log(data);
+
 		if (!response.status) {
 			throw new Error("Network response was not OK");
+		}
+		setActiveHabits(
+			habits.filter(function (habit) {
+				return (habit.is_active === true).length;
+			})
+		);
+		if (activeHabits >= denominator) {
+			setHabitLimit(true);
+		} else if (activeHabits < denominator) {
+			setHabitLimit(false);
+			setAddHabit(false);
 		}
 	};
 
@@ -247,13 +290,24 @@ function Habits({ denominator, logUserActivity }) {
 						<Card className="single-post mt-5 habit-card add-habit">
 							<div
 								className={`${
-									!addHabit && "habit-form-cover"
-								} ${habitLimit && "add-habits-locked"}`}
+									habitLimit ? "hide-form" : "hide"
+								}`}
+							>
+								You can't add any more at your current tier
+							</div>
+							<Button
+								className={`${addHabit && "hide"}`}
+								onClick={() => setAddHabit(true)}
 							>
 								Click here to add a new step
-							</div>
-							<form>
-								<div className="form-group input-box">
+							</Button>
+							<form
+								className={`${addHabit ? "show-form" : "hide"}`}
+							>
+								<div
+									id="input-box"
+									className="form-group input-box"
+								>
 									<input
 										className="form-control"
 										id="title"
@@ -264,12 +318,15 @@ function Habits({ denominator, logUserActivity }) {
 									/>
 									<label>Add Habit</label>
 								</div>
-								<button
+								<Button
 									onClick={handleSubmit}
-									className="btn btn-primary btn-block"
+									className="btn btn-primary btn-block "
 								>
 									Submit
-								</button>
+								</Button>
+								<Button onClick={() => setAddHabit(false)}>
+									Cancel
+								</Button>
 							</form>
 						</Card>
 					</Col>

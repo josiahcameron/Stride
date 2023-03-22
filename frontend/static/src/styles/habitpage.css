@@ -1,157 +1,65 @@
 .wrapper {
 	position: relative;
 	width: 100%;
-	background: rgb(40, 40, 40);
-	color: var(--light-gold);
+	color: var(--highlight);
 	position: relative;
-	padding: 20px 10% 0 10%;
+	padding: 20px 5% 0 5%;
 	min-height: 100vh;
 }
-.streak-wrapper,
-.tier-wrapper {
-	position: absolute;
-	text-transform: uppercase;
-	text-align: center;
-	margin-top: 60px;
-}
-
-.streak-wrapper {
-	left: 10px;
-}
-
-.tier-wrapper {
-	right: 10px;
-}
-.progress-QOTD {
-	display: flex;
-	color: var(--dark-grey);
-	gap: 30px;
-	background: radial-gradient(
-			ellipse farthest-corner at right bottom,
-			#fedb37 0%,
-			#fdb931 8%,
-			#9f7928 30%,
-			#8a6e2f 40%,
-			transparent 80%
-		),
-		radial-gradient(
-			ellipse farthest-corner at left top,
-			#ffffff 0%,
-			#ffffac 8%,
-			#d1b464 25%,
-			#5d4a1f 62.5%,
-			#5d4a1f 100%
-		);
-	border-radius: 20px;
-}
-.profile {
-	display: flex;
-	padding-left: 10px;
-	padding-right: 10px;
-
-	align-items: center;
-}
-
-.profile-image {
-	position: relative;
-	width: 400px;
-	height: 400px;
-	border-radius: 50%;
-	margin: 0px auto;
-	border: 10px solid var(--dark);
-}
-.profile-image img {
-	position: absolute;
-	border-radius: 50%;
-	width: 100%;
-	height: 100%;
-}
-.text-wrapper {
+.habit-page.wrapper {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+}
+.user-QOTD-wrapper {
+	padding-right: 10%;
+}
+.user-QOTD {
+	height: 400px;
+	width: 600px;
+	border-radius: 25px;
+	padding: 40px 7% 40px 7%;
+	color: var(--dark-grey);
+}
+.user-wrapper {
+	display: flex;
+	justify-content: space-between;
+	height: 300px;
 	width: 100%;
 }
-.profile-info {
-	display: flex;
-	margin-left: 10px;
-	justify-content: space-between;
-	gap: 100px;
+.user-image {
+	width: 30%;
 }
-
-.progress-bar-wrap {
-	width: 150px;
-	height: 150px;
-	background: #fefcff;
-	border-radius: 50%;
-	border: 1px solid #cdcbd0;
-}
-
-.progress-bar-wrap .progress-bar .mask,
-.progress-bar-wrap .progress-bar .fill {
-	top: 23px;
-	width: 150px;
-	height: 150px;
-	position: absolute;
+.user-image img {
+	width: 100%;
 	border-radius: 50%;
 }
-
-.mask .fill {
-	clip: rect(0px, 75px, 150px, 0px);
-	background-color: #227ded;
-}
-
-.progress-bar-wrap .progress-bar .mask {
-	clip: rect(0px, 150px, 150px, 75px);
-}
-
-.mask.full,
-.progress-bar .fill {
-	animation: fill ease-in-out 3s;
-	transform: rotate(135deg);
-}
-
-@keyframes fill {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(135deg);
-	}
-}
-.progress-bar-wrap .inside-circle {
-	width: 122px;
-	height: 122px;
-	border-radius: 50%;
-	background: #d2eaf1;
-	line-height: 120px;
+.user-meta-wrapper {
 	text-align: center;
-	margin-top: 14px;
-	margin-left: 14px;
-	color: #1e51dc;
-	position: absolute;
-	z-index: 100;
-	font-weight: 700;
-	font-size: 2em;
+	text-transform: uppercase;
+}
+
+.user-info-wrapper {
+	display: flex;
+	gap: 15px;
 }
 
 .qotd-container {
 	width: 100%;
 	font-size: larger;
-	padding-top: 30px;
-	margin-top: 75px;
 }
 
 .qotd {
 	height: 100%;
 	margin: 0 auto;
-	width: 50%;
-	text-align: center;
+
+	text-align: left;
 }
 
 .quote-author {
 	text-align: center;
+	font-size: medium;
 }
+
 .habit-type-selection-wrapper {
 	margin-top: 40px;
 }
@@ -219,4 +127,64 @@
 	justify-content: center;
 	font-size: larger;
 	background: var(--dark-gold);
+}
+
+.habits-wrapper {
+	background: var(--light-blue);
+}
+
+.progress-bar-wrap {
+	width: 150px;
+	height: 150px;
+	background: #fefcff;
+	border-radius: 50%;
+	border: 1px solid #cdcbd0;
+}
+
+.progress-bar-wrap .progress-bar .mask,
+.progress-bar-wrap .progress-bar .fill {
+	top: 23px;
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	border-radius: 50%;
+}
+
+.mask .fill {
+	clip: rect(0px, 75px, 150px, 0px);
+	background-color: #227ded;
+}
+
+.progress-bar-wrap .progress-bar .mask {
+	clip: rect(0px, 150px, 150px, 75px);
+}
+
+.mask.full,
+.progress-bar .fill {
+	animation: fill ease-in-out 3s;
+	transform: rotate(135deg);
+}
+
+@keyframes fill {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(135deg);
+	}
+}
+.progress-bar-wrap .inside-circle {
+	width: 122px;
+	height: 122px;
+	border-radius: 50%;
+	background: #d2eaf1;
+	line-height: 120px;
+	text-align: center;
+	margin-top: 14px;
+	margin-left: 14px;
+	color: #1e51dc;
+	position: absolute;
+	z-index: 100;
+	font-weight: 700;
+	font-size: 2em;
 }

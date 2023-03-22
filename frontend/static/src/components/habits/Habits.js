@@ -321,7 +321,7 @@ function Habits({ denominator, logUserActivity, setProgress }) {
 	//
 	return (
 		<>
-			<div className="progress">
+			{/* <div className="progress">
 				<CircularProgressbarWithChildren
 					value={45}
 					strokeWidth={8}
@@ -330,7 +330,7 @@ function Habits({ denominator, logUserActivity, setProgress }) {
 						trailColor: "transparent",
 					})}
 				></CircularProgressbarWithChildren>
-			</div>
+			</div> */}
 			<div className="box habit-list">
 				<Col
 					className={`${

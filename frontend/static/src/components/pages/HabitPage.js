@@ -110,43 +110,36 @@ function HabitPage() {
 
 	return (
 		<div className="habit-page wrapper">
-			<div className="streak-wrapper">
-				{profile.streak}
-				<p>
-					<b>Streak</b>
-				</p>
-			</div>
-			<div className="tier-wrapper">
-				<p>
-					<b>Tier</b>
-				</p>
-				{profile.tier}
-			</div>
-			<div className="page-top">
-				<div className="box progress-qotd">
-					<section className="progress-QOTD">
-						<div className="profile">
-							<div className="profile-image">
-								<img src={profile.avatar} alt="" />
-							</div>
+			<div className="user-QOTD-wrapper">
+				<Card className="user-QOTD">
+					<div className="user-wrapper">
+						<div className="user-image">
+							<img src={profile.avatar} alt="" />
 						</div>
-						<div className="text-wrapper">
-							<div className="profile-info">
+
+						<div className="user-meta-wrapper">
+							<div className="username">
 								<h4>
 									<b>{profile.display_name}</b>
 								</h4>
 							</div>
-							<div className="qotd-container">
-								<div className="qotd">
-									<p className="quote">{quote.text}</p>
-									<p className="quote-author">
-										- {quote.author}
-									</p>
+							<div className="user-info-wrapper">
+								<div className="streak">
+									<p>Streak: {profile.streak}</p>
+								</div>
+								<div className="tier">
+									<p>Tier: {profile.tier}</p>
 								</div>
 							</div>
 						</div>
-					</section>
-				</div>
+					</div>
+					<div className="qotd-container">
+						<div className="qotd">
+							<p className="quote">{quote.text}</p>
+							<p className="quote-author">- {quote.author}</p>
+						</div>
+					</div>
+				</Card>
 			</div>
 			<div className="habit-type-selection-wrapper"></div>
 			<div className="habits-wrapper">

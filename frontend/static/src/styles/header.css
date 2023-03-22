@@ -2,23 +2,39 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	background:
+	align-items: center;
+	color: white;
+	background: radial-gradient(
+			ellipse farthest-corner at right bottom,
+			#fedb37 0%,
+			#fdb931 8%,
+			#9f7928 30%,
+			#8a6e2f 40%,
+			transparent 80%
+		),
+		radial-gradient(
+			ellipse farthest-corner at left top,
+			rgb(172, 154, 92) 0%,
+			rgb(172, 154, 92) 8%,
+			#d1b464 25%,
+			#5d4a1f 62.5%,
+			#5d4a1f 100%
+		);
 	/* linear-gradient(
 		to top,
-		rgba(0, 0, 0, 0), */ rgba(
-		217,
-		196,
-		133,
-		1
-	);
+		rgba(0, 0, 0, 0),  var(--gold);
+
 	/* ); */
 }
-
+.logo-wrapper img {
+	width: 150px;
+	height: auto;
+}
 .nav-container {
-	width: 100%;
+	margin-right: 10px;
 }
 .top-nav {
-	margin-right: 0;
+	width: 100%;
 }
 .nav-text {
 	color: white;

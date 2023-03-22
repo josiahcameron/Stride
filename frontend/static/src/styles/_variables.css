@@ -1,0 +1,18 @@
+:root {
+	--primary: rgb(96, 86, 227);
+	--gold: rgb(253, 177, 42);
+	--peach: rgb(252, 110, 46);
+	--dark: rgb(49, 35, 33);
+	--highlight: rgb(195, 219, 251);
+	--orange: rgb(247, 75, 25);
+	--dark-gold: rgb(140, 122, 71);
+	--light-gold: rgb(172, 154, 92);
+	--dark-grey: rgb(65, 65, 65);
+	--darker-grey: rgb(40, 40, 40);
+
+	/* --overlay: rgba(218, 82, 32, 0.75);
+    --primary-font: "Lato", sans-serif;
+    --secondary-font: "Oswald", sans-serif;
+    --dark-grey: #444;
+    --light-grey: #777; */
+}

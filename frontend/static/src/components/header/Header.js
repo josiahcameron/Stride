@@ -12,13 +12,13 @@ function Header() {
 		<div className="header-wrapper">
 			<div className="logo-wrapper">
 				<h1 className="title">STRIDE</h1>
-				<img src={stride_logo} alt="" />
+				{/* <img src={stride_logo} alt="" /> */}
 			</div>
 			<div className="nav-container">
 				<nav className="top-nav">
 					<button
 						type="button"
-						className={`btn btn-primary top-button ${
+						className={`btn btn-primary top-button btn-lg ${
 							isAuthenticated && "hide"
 						}`}
 					>
@@ -28,7 +28,7 @@ function Header() {
 					</button>
 					<button
 						type="button"
-						className={`btn btn-primary top-button ${
+						className={`btn btn-primary top-button btn-lg ${
 							isAuthenticated && "hide"
 						}`}
 					>
@@ -39,7 +39,7 @@ function Header() {
 
 					<button
 						type="button"
-						className="btn btn-primary top-button hide"
+						className="btn btn-primary top-button btn-lg hide"
 					>
 						<NavLink className="nav-text " to="/">
 							Habits
@@ -47,7 +47,7 @@ function Header() {
 					</button>
 					<button
 						type="button"
-						className="btn btn-primary top-button hide"
+						className="btn btn-primary top-button btn-lg hide"
 					>
 						{/* <NavLink className="nav-text" to="home">
 							Home
@@ -56,7 +56,7 @@ function Header() {
 					<button
 						onClick={logout}
 						type="button"
-						className={`btn btn-danger logout ${
+						className={`btn btn-danger btn-lg logout ${
 							!isAuthenticated && "hide"
 						}`}
 					>

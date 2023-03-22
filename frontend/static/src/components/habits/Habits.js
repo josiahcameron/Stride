@@ -1,9 +1,15 @@
 import axios from "axios";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Cookies from "js-cookie";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
+
+import {
+	CircularProgressbar,
+	CircularProgressbarWithChildren,
+	buildStyles,
+} from "react-circular-progressbar";
 
 import IncompleteHabits from "../habitHTML/IncompleteHabits";
 import CompletedHabits from "../habitHTML/CompletedHabits";
@@ -16,7 +22,7 @@ const INITIAL_FORM_DATA = {
 	is_active: true,
 };
 
-function Habits({ denominator, logUserActivity }) {
+function Habits({ denominator, logUserActivity, setProgress }) {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
@@ -27,7 +33,6 @@ function Habits({ denominator, logUserActivity }) {
 	};
 
 	const [habits, setHabits] = useState(null);
-	const [habitCompletion, setHabitCompletion] = useState(false);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	const [editMode, setEditMode] = useState(false);
 	const [title, setTitle] = useState("");
@@ -35,15 +40,11 @@ function Habits({ denominator, logUserActivity }) {
 	// const [activeHabits, setActiveHabits] = useState(0);
 	const [habitLimit, setHabitLimit] = useState(false);
 
-	const [habitsCompleted, setHabitsCompleted] = useState(0);
-	let maxHabits = denominator;
-	const updateHabit = (updatedHabit) => {
-		const updatedHabits = [...habits];
-		const index = habits.findIndex((habit) => habit.id === updatedHabit.id);
-		updatedHabits[index] = updatedHabit;
-		setHabits(updatedHabits);
-	};
+	//
+	// ------------------Axios requests------------------
+	//
 
+	// Fetch habits
 	useEffect(() => {
 		const fetchHabits = async () => {
 			const res = await axios.get("/api_v1/habits/");
@@ -57,12 +58,39 @@ function Habits({ denominator, logUserActivity }) {
 		fetchHabits();
 	}, []);
 
-	if (habits === null) {
+	if (habits === null || !habits.length) {
 		return <div>Loading...</div>;
 	}
-	if (!habits.length) {
-		return <div>Loading...</div>;
-	}
+
+	// if (habits.length) {
+	// 	try {
+	// 		setHabitsCompleted(
+	// 			habits.filter(function (habit) {
+	// 				return (
+	// 					habit.is_completed === true && habit.is_active === true
+	// 				);
+	// 			}).length
+	// 		);
+	// 	} catch (err) {
+	// 		console.log("Could not process");
+	// 	}
+	// 	try {
+	// 		if (habitsCompleted > 0) {
+	// 			setProgress(habitsCompleted / denominator);
+	// 		}
+	// 	} catch (err) {
+	// 		console.log("Not good");
+	// 	}
+	// }
+	//
+	// ------------------Methods------------------
+	//
+	const updateHabit = (updatedHabit) => {
+		const updatedHabits = [...habits];
+		const index = habits.findIndex((habit) => habit.id === updatedHabit.id);
+		updatedHabits[index] = updatedHabit;
+		setHabits(updatedHabits);
+	};
 
 	const completeHabit = async (habit) => {
 		// console.log({ firing: habit });
@@ -141,6 +169,7 @@ function Habits({ denominator, logUserActivity }) {
 			console.log(error);
 		}
 	};
+
 	const makeActive = async (habit) => {
 		let activeHabits = habits.filter(function (habit) {
 			return habit.is_active === true;
@@ -198,6 +227,7 @@ function Habits({ denominator, logUserActivity }) {
 		// console.log(habits);
 		// setHabits(habits);
 	};
+
 	const handleInput = (event) => {
 		const { name, value } = event.target;
 		setFormData((prevFormData) => ({
@@ -234,7 +264,9 @@ function Habits({ denominator, logUserActivity }) {
 			}
 		}
 	};
-
+	//
+	// ------------------HTML Mapping------------------
+	//
 	// Active and uncompleted habits
 	const habitHTML = habits
 		.filter(function (habit) {
@@ -284,14 +316,31 @@ function Habits({ denominator, logUserActivity }) {
 				makeActive={makeActive}
 			/>
 		));
-
+	//
+	// ------------------Render------------------
+	//
 	return (
 		<>
+			<div className="progress">
+				<CircularProgressbarWithChildren
+					value={45}
+					strokeWidth={8}
+					styles={buildStyles({
+						pathColor: "#f00",
+						trailColor: "transparent",
+					})}
+				></CircularProgressbarWithChildren>
+			</div>
 			<div className="box habit-list">
-				<Row className=" row align-items-start habit-cards ">
+				<Col
+					className={`${
+						habitLimit ? "hide-form" : "hide"
+					}row align-items-start habit-cards block`}
+				>
+					<h5>My Steps:</h5>
 					{habits && habitHTML}
 
-					<Col className="align-items-start col-md-4 ">
+					<Row className="align-items-start col-md-4 ">
 						<Card className="single-post mt-5 habit-card add-habit">
 							<div
 								className={`${
@@ -334,22 +383,23 @@ function Habits({ denominator, logUserActivity }) {
 								</Button>
 							</form>
 						</Card>
-					</Col>
-				</Row>
+					</Row>
+				</Col>
 
-				<div className="box completed-habits">
+				<Col className="box completed-habits block">
 					<h5>Completed Steps:</h5>
 					<Row className=" row align-items-start habit-cards ">
 						{habits && completedHabitsHTML}
 					</Row>
-				</div>
-				<div className="box banked-habits">
-					<h5>Habit Bank:</h5>
-					<Row className=" row align-items-start habit-cards ">
-						{habits && inactiveHabitsHTML}
-					</Row>
-				</div>
+				</Col>
 			</div>
+			<Row className="box banked-habits block">
+				<h5>Habit Bank:</h5>
+
+				<Row className=" row align-items-start habit-cards ">
+					{habits && inactiveHabitsHTML}
+				</Row>
+			</Row>
 		</>
 	);
 }

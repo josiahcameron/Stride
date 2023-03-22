@@ -14,18 +14,6 @@ import { Card, Form, Col, Row, Container, Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function dateFormat(date) {
-	const day = date.getDate();
-	const month = date.getMonth() + 1;
-	const year = date.getFullYear();
-
-	if (month.length < 1) {
-		return `${year}-0${month}-${day}`;
-	} else {
-		return `${year}-0${month}-${day}`;
-	}
-}
-
 function HabitPage() {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
@@ -38,15 +26,13 @@ function HabitPage() {
 	};
 
 	const [profile, setProfile] = useState(null);
-	const [tier, setTier] = useState(null);
-	const [habits, setHabits] = useState(null);
-	const [habitCompletion, setHabitCompletion] = useState(false);
+
 	const [quote, setQuote] = useState(null);
 	const [progress, setProgress] = useState(0);
+	const [habitsCompleted, setHabitsCompleted] = useState(0);
 
 	// if (habits){const denominator = habits.length;
 	let denominator = 0;
-	let maxHabits = denominator;
 	let habitCount = 0;
 
 	const secretKey = process.env.REACT_APP_API_KEY;
@@ -78,7 +64,6 @@ function HabitPage() {
 				const response = await axios.get(`/api_v1/profile/`);
 				const data = await response.data[0];
 				setProfile(data);
-				console.log(profile);
 			} catch (err) {
 				console.log(err);
 			}
@@ -122,11 +107,21 @@ function HabitPage() {
 		}
 		const data = await response.data;
 	};
-	if (habits) {
-		habitCount = habits.length;
-	}
+
 	return (
 		<div className="habit-page wrapper">
+			<div className="streak-wrapper">
+				{profile.streak}
+				<p>
+					<b>Streak</b>
+				</p>
+			</div>
+			<div className="tier-wrapper">
+				<p>
+					<b>Tier</b>
+				</p>
+				{profile.tier}
+			</div>
 			<div className="page-top">
 				<div className="box progress-qotd">
 					<section className="progress-QOTD">
@@ -134,60 +129,31 @@ function HabitPage() {
 							<div className="profile-image">
 								<img src={profile.avatar} alt="" />
 							</div>
+						</div>
+						<div className="text-wrapper">
 							<div className="profile-info">
-								<p>Streak: {profile.streak}</p>
-								<p>{profile.display_name}</p>
+								<h4>
+									<b>{profile.display_name}</b>
+								</h4>
 							</div>
-						</div>
-						<div className="qotd-container">
-							<div className="qotd">
-								<p className="quote">{quote.text}</p>
-								<p className="quote-author">- {quote.author}</p>
+							<div className="qotd-container">
+								<div className="qotd">
+									<p className="quote">{quote.text}</p>
+									<p className="quote-author">
+										- {quote.author}
+									</p>
+								</div>
 							</div>
-						</div>
-						<div className="progress">
-							<CircularProgressbarWithChildren
-								value={75}
-								strokeWidth={8}
-								styles={buildStyles({
-									pathColor: "#f00",
-									trailColor: "transparent",
-								})}
-							>
-								{/*
-          Width here needs to be (100 - 2 * strokeWidth)% 
-          in order to fit exactly inside the outer progressbar.
-        */}
-								{/* <div style={{ width: "84%" }}>
-									<CircularProgressbarWithChildren
-										value={70}
-										styles={buildStyles({
-											trailColor: "transparent",
-										})}
-									>
-										<div style={{ width: "84%" }}>
-											<CircularProgressbar
-												value={70}
-												styles={buildStyles({
-													pathColor: "green",
-													trailColor: "transparent",
-												})}
-											/>
-										</div>
-									</CircularProgressbarWithChildren>
-								</div> */}
-							</CircularProgressbarWithChildren>
 						</div>
 					</section>
 				</div>
 			</div>
-			<div className="habit-type-selection-wrapper">
-				<h5>My Steps:</h5>
-			</div>
+			<div className="habit-type-selection-wrapper"></div>
 			<div className="habits-wrapper">
 				<Habits
 					denominator={denominator}
 					logUserActivity={logUserActivity}
+					setProgress={setProgress}
 				/>
 			</div>
 		</div>
@@ -237,4 +203,31 @@ export default HabitPage;
 						</li>
 					</ul>
 				</section> */
+}
+
+{
+	/*
+          Width here needs to be (100 - 2 * strokeWidth)% 
+          in order to fit exactly inside the outer progressbar.
+        */
+}
+{
+	/* <div style={{ width: "84%" }}>
+									<CircularProgressbarWithChildren
+										value={70}
+										styles={buildStyles({
+											trailColor: "transparent",
+										})}
+									>
+										<div style={{ width: "84%" }}>
+											<CircularProgressbar
+												value={70}
+												styles={buildStyles({
+													pathColor: "green",
+													trailColor: "transparent",
+												})}
+											/>
+										</div>
+									</CircularProgressbarWithChildren>
+								</div> */
 }

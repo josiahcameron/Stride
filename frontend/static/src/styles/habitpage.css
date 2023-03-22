@@ -2,6 +2,7 @@
 	position: relative;
 	width: 100%;
 	background: rgb(40, 40, 40);
+	color: var(--light-gold);
 	position: relative;
 	padding: 20px 10% 0 10%;
 	min-height: 100vh;
@@ -23,7 +24,7 @@
 }
 .progress-QOTD {
 	display: flex;
-
+	color: var(--dark-grey);
 	gap: 30px;
 	background: radial-gradient(
 			ellipse farthest-corner at right bottom,
@@ -217,4 +218,5 @@
 .habit-card {
 	justify-content: center;
 	font-size: larger;
+	background: var(--dark-gold);
 }

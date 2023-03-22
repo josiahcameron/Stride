@@ -8,6 +8,11 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
 	// Front-end authentication filter for conditional rendering in React
+	const csrftoken = Cookies.get("csrftoken");
+	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.delete["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.patch["X-CSRFToken"] = csrftoken;
 	const [isAuthenticated, setIsAuthenticated] = useState(null);
 	const navigate = useNavigate();
 	const handleError = (err) => {
@@ -15,8 +20,6 @@ export const AuthContextProvider = ({ children }) => {
 	};
 	const [user, setUser] = useState(null);
 	const login = async (user) => {
-		const csrftoken = Cookies.get("csrftoken");
-		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 		const response = await axios.post("/dj-rest-auth/login/", user);
 		if (!response.status) {
 			throw new Error("Network response was not OK");
@@ -34,8 +37,6 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const register = async (user) => {
-		const csrftoken = Cookies.get("csrftoken");
-		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 		const response = await axios.post("/dj-rest-auth/registration/", user);
 		if (!response.status) {
 			throw new Error("Network response was not OK");
@@ -47,8 +48,6 @@ export const AuthContextProvider = ({ children }) => {
 	};
 
 	const logout = async () => {
-		const csrftoken = Cookies.get("csrftoken");
-		axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 		await axios.post("/dj-rest-auth/logout/");
 
 		Cookies.remove("Authorization");
@@ -59,22 +58,20 @@ export const AuthContextProvider = ({ children }) => {
 	useEffect(() => {
 		const getUser = async () => {
 			// Fetch request to retrieve whoever is currently logged in
-			const response = await axios.get("/dj-rest-auth/user/");
-
-			if (!response.status) {
+			try {
+				const response = await axios.get("/dj-rest-auth/user/");
+				setUser(response.data);
+				setIsAuthenticated(true);
+			} catch (err) {
 				setIsAuthenticated(false);
-
-				return;
+				navigate("/login");
 			}
-			setUser(response.data);
-			setIsAuthenticated(true);
 		};
 
 		getUser();
 	}, []);
 
 	if (isAuthenticated === null) {
-		return <div>Is loading ...</div>;
 	}
 
 	return (

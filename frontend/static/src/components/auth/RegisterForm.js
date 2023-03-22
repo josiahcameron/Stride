@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Button, Form, Card, Col, Row, Container } from "react-bootstrap";
 
@@ -148,15 +148,13 @@ const RegisterForm = () => {
 												</div>
 											</Form>
 											<div className="mt-3">
-												<p className="mb-0  text-center">
-													Already have an account??{" "}
-													<a
-														href="{''}"
-														className="text-primary fw-bold"
-													>
-														Sign In
-													</a>
-												</p>
+												Already have an account??{" "}
+												<NavLink
+													className="nav-text text-center"
+													to="/login"
+												>
+													Already have an account??
+												</NavLink>
 											</div>
 										</div>
 									</div>

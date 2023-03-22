@@ -18,3 +18,9 @@
 .block {
 	flex-direction: column;
 }
+.dark-text {
+	color: var(---darker-grey);
+}
+.navigate-text {
+	text-align: center;
+}

@@ -5,6 +5,7 @@ function CompletedHabits({ handleDelete, habit, incompleteHabit, makeActive }) {
 			<Row key={habit.id} className=" align-items-start ">
 				<Card className="single-post habit-card mt-5">
 					<Form.Check
+						checked
 						type="checkbox"
 						className=" habit-checkbox border-0"
 						label={habit.title}

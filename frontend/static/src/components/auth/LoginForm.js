@@ -72,7 +72,7 @@ const LoginForm = () => {
 													className="mb-3"
 													controlId="formBasicPassword"
 												>
-													<Form.Label>
+													<Form.Label className="text-center">
 														Password
 													</Form.Label>
 													<Form.Control
@@ -93,6 +93,7 @@ const LoginForm = () => {
 														<Form.Check
 															type="checkbox"
 															id="custom-switch"
+															className="show-password"
 															label="Show password?"
 															onClick={() =>
 																passwordShown
@@ -128,7 +129,8 @@ const LoginForm = () => {
 											</Form>
 											<div className="mt-3 navigate-text">
 												<NavLink
-													className="nav-text text-center dark-text"
+													className="nav-text text-center dark-text account-check"
+													id="dark-text"
 													to="/register"
 												>
 													Don't have an account?

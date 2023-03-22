@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 
-import { Button, Form, Card, Col } from "react-bootstrap";
+import { Button, Form, Card, Col, Row } from "react-bootstrap";
 function IncompleteHabits({
 	habit,
 	incompleteHabit,
@@ -39,7 +39,7 @@ function IncompleteHabits({
 	};
 	return (
 		<>
-			<Col key={habit.id} className="align-items-start col-md-4 ">
+			<Row key={habit.id} className="align-items-start col-md-9 ">
 				<Card className="single-post habit-card mt-5">
 					<Form.Check
 						type="checkbox"
@@ -86,7 +86,7 @@ function IncompleteHabits({
 						</Button>
 					</div>
 				</Card>
-			</Col>
+			</Row>
 		</>
 	);
 }

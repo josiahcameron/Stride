@@ -88,7 +88,7 @@ function CreateProfile() {
 	return (
 		<>
 			<div className="wrapper">
-				<Container>
+				<Container className={`${!addHabitMode ? "" : "hide"}`}>
 					<Row className="vh-100 d-flex justify-content-center align-items-center">
 						<Col md={8} lg={6} xs={12}>
 							<Card className="px-4">
@@ -150,25 +150,39 @@ function CreateProfile() {
 						</Col>
 					</Row>
 				</Container>
-				<form className={`${addHabitMode ? "show-form" : "hide"}`}>
-					<div id="input-box" className="form-group input-box">
-						<input
-							className="form-control"
-							id="title"
-							type="text"
-							name="title"
-							// value={formData.title}
-							onChange={handleHabit}
-						/>
-						<label>Add Habit</label>
-					</div>
-					<Button
-						onClick={handleSubmit}
-						className="btn btn-primary btn-block "
-					>
-						Submit
-					</Button>
-				</form>
+				<Container>
+					<Card>
+						<form
+							className={`${addHabitMode ? "show-form" : "hide"}`}
+						>
+							<label className="text-center">
+								Let's add a daily goal to set! Keep it simple
+								for now - add a simple goal you can check off
+								during your day
+							</label>
+							<div
+								id="input-box"
+								className="form-group input-box"
+							>
+								<input
+									className="form-control"
+									id="title"
+									type="text"
+									name="title"
+									placeholder="Enter goal here"
+									// value={formData.title}
+									onChange={handleHabit}
+								/>
+							</div>
+							<Button
+								onClick={handleSubmit}
+								className="btn btn-primary btn-block "
+							>
+								Submit
+							</Button>
+						</form>
+					</Card>
+				</Container>
 			</div>
 		</>
 	);

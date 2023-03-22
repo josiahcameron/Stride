@@ -3,61 +3,60 @@
 	width: 100%;
 	color: var(--highlight);
 	position: relative;
-	padding: 20px 5% 0 5%;
+	padding: 20px 5% 50px 5%;
 	min-height: 100vh;
 }
-.habit-page.wrapper {
-	display: flex;
-	flex-direction: column;
-}
+
 .user-QOTD-wrapper {
-	padding-right: 10%;
+	margin: 0 auto;
+}
+
+.user-QOTD-container {
+	display: flex;
+	width: 100%;
 }
 .user-QOTD {
+	margin: 0 auto;
 	height: 400px;
-	width: 600px;
 	border-radius: 25px;
-	padding: 40px 7% 40px 7%;
+	padding: 40px 5% 40px 5%;
+	background-color: rgba(192, 219, 251, 75%);
 	color: var(--dark-grey);
 }
 .user-wrapper {
+	width: 30%;
 	display: flex;
-	justify-content: space-between;
-	height: 300px;
-	width: 100%;
+	flex-direction: column;
+	align-items: center;
 }
 .user-image {
-	width: 30%;
+	width: 50%;
+	margin: 0;
 }
 .user-image img {
 	width: 100%;
 	border-radius: 50%;
 }
 .user-meta-wrapper {
-	text-align: center;
+	margin-top: 10px;
 	text-transform: uppercase;
 }
-
+.username {
+	text-align: center;
+}
 .user-info-wrapper {
 	display: flex;
-	gap: 15px;
+	gap: 10px;
 }
-
 .qotd-container {
-	width: 100%;
-	font-size: larger;
 }
 
 .qotd {
-	height: 100%;
-	margin: 0 auto;
-
-	text-align: left;
+	font-size: larger;
+	margin-top: 80px;
 }
 
 .quote-author {
-	text-align: center;
-	font-size: medium;
 }
 
 .habit-type-selection-wrapper {
@@ -119,18 +118,21 @@
 
 .habit-list {
 	display: flex;
-
-	background: rgb(65, 65, 65);
 }
 
 .habit-card {
 	justify-content: center;
 	font-size: larger;
-	background: var(--dark-gold);
+	background: white;
+	box-shadow: 1px 1px 1px 1px var(--dark-grey);
+	color: var(--darker-grey);
 }
 
 .habits-wrapper {
-	background: var(--light-blue);
+	background-color: rgba(192, 219, 251, 75%);
+	color: var(--darker-grey);
+	border-radius: 25px;
+	padding: 10px 5% 10px 5%;
 }
 
 .progress-bar-wrap {
@@ -187,4 +189,21 @@
 	z-index: 100;
 	font-weight: 700;
 	font-size: 2em;
+}
+
+.text-center,
+.show-password {
+	color: var(--darker-grey);
+}
+
+.account-check {
+	text-decoration: none;
+}
+.dark-text {
+	color: var(--darker-grey);
+}
+
+.banked-habits {
+	margin-top: 30px;
+	margin-bottom: 30px;
 }

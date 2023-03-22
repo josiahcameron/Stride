@@ -112,31 +112,32 @@ function HabitPage() {
 		<div className="habit-page wrapper">
 			<div className="user-QOTD-wrapper">
 				<Card className="user-QOTD">
-					<div className="user-wrapper">
-						<div className="user-image">
-							<img src={profile.avatar} alt="" />
-						</div>
-
-						<div className="user-meta-wrapper">
-							<div className="username">
-								<h4>
-									<b>{profile.display_name}</b>
-								</h4>
+					<div className="user-QOTD-container">
+						<div className="user-wrapper">
+							<div className="user-image">
+								<img src={profile.avatar} alt="" />
 							</div>
-							<div className="user-info-wrapper">
-								<div className="streak">
-									<p>Streak: {profile.streak}</p>
+							<div className="user-meta-wrapper">
+								<div className="username">
+									<h4>
+										<b>{profile.display_name}</b>
+									</h4>
 								</div>
-								<div className="tier">
-									<p>Tier: {profile.tier}</p>
+								<div className="user-info-wrapper">
+									<div className="streak">
+										<p>Streak: {profile.streak}</p>
+									</div>
+									<div className="tier">
+										<p>Tier: {profile.tier}</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="qotd-container">
-						<div className="qotd">
-							<p className="quote">{quote.text}</p>
-							<p className="quote-author">- {quote.author}</p>
+						<div className="qotd-container">
+							<div className="qotd">
+								<p className="quote">{quote.text}</p>
+								<p className="quote-author">- {quote.author}</p>
+							</div>
 						</div>
 					</div>
 				</Card>

@@ -1,10 +1,14 @@
 .header-wrapper {
+	padding-left: 2%;
+	padding-right: 2%;
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 	align-items: center;
 	color: white;
-	background: radial-gradient(
+	background: linear-gradient(to right, rgb(96, 86, 227), rgb(250, 100, 110));
+	box-shadow: 0px 0px 2px darkgray;
+	/*radial-gradient(
 			ellipse farthest-corner at right bottom,
 			#fedb37 0%,
 			#fdb931 8%,
@@ -19,7 +23,7 @@
 			#d1b464 25%,
 			#5d4a1f 62.5%,
 			#5d4a1f 100%
-		);
+		); */
 	/* linear-gradient(
 		to top,
 		rgba(0, 0, 0, 0),  var(--gold);

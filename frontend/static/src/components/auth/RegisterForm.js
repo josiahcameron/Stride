@@ -96,7 +96,7 @@ const RegisterForm = () => {
 													className="mb-3"
 													controlId="formBasicPassword"
 												>
-													<Form.Label>
+													<Form.Label className="text-center">
 														Password
 													</Form.Label>
 													<Form.Control
@@ -114,7 +114,7 @@ const RegisterForm = () => {
 													className="mb-3"
 													controlId="formBasicPassword2"
 												>
-													<Form.Label>
+													<Form.Label className="text-center">
 														Confirm Password
 													</Form.Label>
 													<Form.Control
@@ -148,12 +148,11 @@ const RegisterForm = () => {
 												</div>
 											</Form>
 											<div className="mt-3">
-												Already have an account??{" "}
 												<NavLink
 													className="nav-text text-center"
 													to="/login"
 												>
-													Already have an account??
+													Already have an account?
 												</NavLink>
 											</div>
 										</div>

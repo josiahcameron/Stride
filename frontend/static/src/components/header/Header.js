@@ -36,10 +36,21 @@ function Header() {
 							Login
 						</NavLink>
 					</button>
-
 					<button
 						type="button"
-						className="btn btn-primary top-button btn-lg hide"
+						className={`btn btn-danger btn-lg habits-link ${
+							!isAuthenticated && "hide"
+						}`}
+					>
+						<NavLink className="nav-text " to="/profile">
+							Profile
+						</NavLink>
+					</button>
+					<button
+						type="button"
+						className={`btn btn-danger btn-lg habits-link ${
+							!isAuthenticated && "hide"
+						}`}
 					>
 						<NavLink className="nav-text " to="/">
 							Habits

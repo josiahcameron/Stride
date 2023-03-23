@@ -46,17 +46,34 @@
 }
 .user-info-wrapper {
 	display: flex;
-	gap: 10px;
+	justify-content: center;
+	height: 30px;
+	font-size: 20px;
+	font-weight: 600;
 }
+.user-info-wrapper div {
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.streak {
+	border-right: 1px solid black;
+}
+
 .qotd-container {
+	margin-left: 5%;
 }
 
 .qotd {
-	font-size: larger;
 	margin-top: 80px;
 }
-
+.quote {
+	font-size: 40px;
+}
 .quote-author {
+	font-size: 30px;
+	text-align: end;
 }
 
 .habit-type-selection-wrapper {
@@ -133,6 +150,30 @@
 	color: var(--darker-grey);
 	border-radius: 25px;
 	padding: 10px 5% 10px 5%;
+}
+
+.fade-in-text {
+	animation: fadeIn 5s;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.fade-in-text-longer {
+	animation: fadeIn 8s;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 .progress-bar-wrap {

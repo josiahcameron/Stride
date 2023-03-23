@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     tier = serializers.SerializerMethodField()
     streak = serializers.SerializerMethodField()
-    # streak = serializers.SerializerMethodField()
+    progress = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Profile
@@ -45,6 +45,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             tier = 'third'
         elif instance.count >= 28:
             tier = 'fourth'
+        elif instance.count >= 35:
+            tier = 'master'
         else:
             tier = 'first'
 
@@ -55,9 +57,21 @@ class ProfileSerializer(serializers.ModelSerializer):
             instance = models.UserActivityLog.objects.filter(
                 user=obj.user).latest('date')
         except:
-            return 1
+            return 0
         if instance.streak is 0:
-            streak = 1
+            streak = 0
+        else:
+            streak = instance.streak
+        return streak
+
+    def get_progress(self, obj):
+        try:
+            instance = models.UserActivityLog.objects.filter(
+                user=obj.user).latest('date')
+        except:
+            return 0
+        if instance.count is 0:
+            streak = 0
         else:
             streak = instance.streak
         return streak

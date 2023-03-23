@@ -22,7 +22,7 @@ const INITIAL_FORM_DATA = {
 	is_active: true,
 };
 
-function Habits({ denominator, logUserActivity, setProgress }) {
+function Habits({ denominator, logUserActivity, progress }) {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
@@ -58,10 +58,9 @@ function Habits({ denominator, logUserActivity, setProgress }) {
 		fetchHabits();
 	}, []);
 
-	if (habits === null || !habits.length) {
+	if (habits === null || habits.length <= 1) {
 		return <div>Loading...</div>;
 	}
-
 	// if (habits.length) {
 	// 	try {
 	// 		setHabitsCompleted(
@@ -338,6 +337,10 @@ function Habits({ denominator, logUserActivity, setProgress }) {
 					}row align-items-start habit-cards block`}
 				>
 					<h5>My Steps:</h5>
+					<h6>
+						You may add up to {denominator} steps at your current
+						tier
+					</h6>
 					{habits && habitHTML}
 
 					<Row className="align-items-start col-md-4 ">
@@ -350,6 +353,7 @@ function Habits({ denominator, logUserActivity, setProgress }) {
 								You can't add any more at your current tier
 							</div>
 							<Button
+								variant="none"
 								className={`${addHabit && "hide"}`}
 								onClick={() => setAddHabit(true)}
 							>

@@ -26,9 +26,26 @@ function Profile() {
 	const { profile } = useContext(AuthContext);
 	const [quote, setQuote] = useState(null);
 	const secretKey = process.env.REACT_APP_API_KEY;
-
+	const [date, setDate] = useState(null);
 	let denominator,
 		daysToComplete = 0;
+
+	useEffect(() => {
+		async function getCurrentDate() {
+			let currentDate = new Date();
+			const day = currentDate.getDate();
+			const month = currentDate.getMonth() + 1;
+			const year = currentDate.getFullYear();
+
+			if (month.length > 1 && day.length > 1) {
+				currentDate = `${month}-${day}-${year}`;
+			} else {
+				currentDate = `${month}-${day}-${year}`;
+			}
+			setDate(currentDate);
+		}
+		getCurrentDate();
+	}, []);
 
 	useEffect(() => {
 		const fetchQuotes = async () => {

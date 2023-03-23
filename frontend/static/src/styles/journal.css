@@ -1,3 +1,78 @@
 .journal-input {
 	background-color: none;
 }
+.journal-entry-wrapper {
+	color: #555;
+	font-family: "Handlee", sans-serif;
+	font-size: 1.1em;
+	margin: 2em auto;
+	overflow: hidden;
+	width: 50%;
+}
+
+h1 {
+	color: #fff;
+	text-align: center;
+}
+
+article {
+	box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.15);
+	margin: 2em auto;
+	padding: 1em 3em;
+	position: relative;
+	outline: 0;
+
+	background: #08f;
+	background: -webkit-linear-gradient(top, #8cb, #bde 2%);
+	background-size: 100% 45px;
+}
+
+article,
+article:before,
+article:after {
+	border-bottom-right-radius: 500px 1em;
+	border-bottom-left-radius: 20px 5em;
+	border-top-right-radius: 0.5em 2em;
+}
+
+article:focus {
+	border-radius: 0;
+	color: #000;
+	outline: 0;
+}
+
+article:focus::before,
+article:focus::after {
+	content: none;
+}
+
+article:before,
+article:after {
+	content: " ";
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
+}
+
+article:before {
+	background: #cef;
+	transform: rotate(4deg);
+}
+
+article:after {
+	background: #dff;
+	transform: rotate(-4deg);
+}
+
+article p {
+	line-height: 2.5em;
+	margin-bottom: 2.5em;
+}
+
+article h2 {
+	padding-top: 10px;
+	margin-bottom: -10px;
+}

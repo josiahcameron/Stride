@@ -75,3 +75,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         else:
             streak = instance.streak
         return streak
+
+
+class JournalSerializer(serializers.ModelSerializer):
+    # user_activity = models.UserActivityLog
+    class Meta:
+        model = models.Journal
+        fields = '__all__'

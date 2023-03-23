@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 
 from . import models
-from .serializers import UserSerializer, ActivitySerializer, ProfileSerializer
+from .serializers import UserSerializer, ActivitySerializer, ProfileSerializer, JournalSerializer
 
 # Create your views here.
 
@@ -87,6 +87,26 @@ class RemoveActivityRecordAPIView(APIView):
             user=self.request.user, date_completed=current_date)
         user_activity.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class JournalListCreateAPIView(generics.ListCreateAPIView):
+
+    serializer_class = JournalSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Journal.objects.all()
+        else:
+            return models.Journal.objects.filter(user=self.request.user)
+
+    def get_created_at(self):
+        created_date = models.Journal.objects.all()
+        date_time_str = created_date.strftime("%m - %d - %Y")
+        return date_time_str
+
+    def perform_create(self, serializer):
+        # serializer.save(user=get_object_or_404(User, id=1))
+        serializer.save(user=self.request.user)
 
 # @login_required
 # def send_friend_request(request, userID):

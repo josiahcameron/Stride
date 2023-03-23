@@ -22,7 +22,7 @@ function Header() {
 							isAuthenticated && "hide"
 						}`}
 					>
-						<NavLink className="nav-text" to="register">
+						<NavLink className="nav-text" to="/register">
 							Register
 						</NavLink>
 					</button>
@@ -32,13 +32,13 @@ function Header() {
 							isAuthenticated && "hide"
 						}`}
 					>
-						<NavLink className="nav-text" to="login">
+						<NavLink className="nav-text" to="/login">
 							Login
 						</NavLink>
 					</button>
 					<button
 						type="button"
-						className={`btn btn-danger btn-lg habits-link ${
+						className={`btn btn-danger btn-lg top-button ${
 							!isAuthenticated && "hide"
 						}`}
 					>
@@ -48,12 +48,22 @@ function Header() {
 					</button>
 					<button
 						type="button"
-						className={`btn btn-danger btn-lg habits-link ${
+						className={`btn btn-danger btn-lg top-button ${
 							!isAuthenticated && "hide"
 						}`}
 					>
 						<NavLink className="nav-text " to="/">
-							Habits
+							Steps
+						</NavLink>
+					</button>
+					<button
+						type="button"
+						className={`btn btn-danger btn-lg top-button ${
+							!isAuthenticated && "hide"
+						}`}
+					>
+						<NavLink className="nav-text " to="/journal">
+							Journals
 						</NavLink>
 					</button>
 					<button

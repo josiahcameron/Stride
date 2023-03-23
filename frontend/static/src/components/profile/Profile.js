@@ -107,7 +107,7 @@ function Profile() {
 	return (
 		<>
 			<div className="user-QOTD-wrapper">
-				<Card className="user-QOTD">
+				<div className="user-QOTD">
 					<div className="user-QOTD-container">
 						<div className="user-wrapper">
 							<div className="user-image">
@@ -127,8 +127,36 @@ function Profile() {
 										<p>Tier: {profile.tier}</p>
 									</div>
 								</div>
+								<div className="next-level">
+									{" "}
+									<p>
+										Days remaining until next Tier:{" "}
+										{daysToComplete - profile.progress}
+									</p>
+								</div>
 							</div>
 						</div>
+
+						<div className="progress-section">
+							<div className="progress-brief">
+								<h2>Progress</h2>
+							</div>
+							<ul className="list-group-flush progress-brief-info">
+								<li>
+									You've completed {profile.progress} days.
+								</li>
+								<li>
+									Your current streak is {profile.streak}{" "}
+									days.
+								</li>
+
+								<li>
+									At your current Tier, you can add up to{" "}
+									{denominator} steps a day.
+								</li>
+							</ul>
+						</div>
+
 						<div className="qotd-container">
 							<div className="qotd fade-in-text">
 								<p className="quote">{quote.text}</p>
@@ -136,29 +164,8 @@ function Profile() {
 							</div>
 						</div>
 					</div>
-				</Card>
+				</div>
 			</div>
-			<Card style={{}}>
-				<Card.Body>
-					<Card.Title>Progress</Card.Title>
-					<Card.Text>
-						At your current Tier, you can add up to {denominator}{" "}
-						steps a day.
-					</Card.Text>
-				</Card.Body>
-				<ListGroup className="list-group-flush">
-					<ListGroup.Item>
-						Your current streak is {profile.streak} current days.
-					</ListGroup.Item>
-					<ListGroup.Item>
-						You've completed {profile.progress} days.
-					</ListGroup.Item>
-					<ListGroup.Item>
-						Days remaining until next Tier:{" "}
-						{daysToComplete - profile.progress}
-					</ListGroup.Item>
-				</ListGroup>
-			</Card>
 		</>
 	);
 }

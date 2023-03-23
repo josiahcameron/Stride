@@ -58,7 +58,7 @@ class ProfileSerializer(serializers.ModelSerializer):
                 user=obj.user).latest('date')
         except:
             return 0
-        if instance.streak is 0:
+        if instance.streak == 0:
             streak = 0
         else:
             streak = instance.streak
@@ -70,7 +70,7 @@ class ProfileSerializer(serializers.ModelSerializer):
                 user=obj.user).latest('date')
         except:
             return 0
-        if instance.count is 0:
+        if instance.count == 0:
             streak = 0
         else:
             streak = instance.streak

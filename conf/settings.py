@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    'django_celery_beat',
+
 
 
     # Local
@@ -64,6 +66,8 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig',
     'habits.apps.HabitsConfig',
     'api.apps.ApiConfig',
+    'celery_tasks.apps.CeleryTasksConfig',
+
 ]
 
 REST_FRAMEWORK = {

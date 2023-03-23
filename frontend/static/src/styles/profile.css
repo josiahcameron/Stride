@@ -2,3 +2,38 @@
 	max-width: 100px;
 	max-height: 100px;
 }
+
+.next-level {
+	margin-top: 5px;
+}
+
+.progress-info-container {
+	width: 100%;
+	text-align: center;
+}
+.progress-brief {
+	margin-bottom: 50px;
+}
+
+.progress-brief h2 {
+	text-align: center;
+	text-decoration: underline;
+}
+
+.progress-brief p {
+	text-align: center;
+}
+.progress-section {
+	width: 33%;
+	font-size: 20px;
+	min-height: 100%;
+	border-right: 2px var(--dark-grey) solid;
+	border-left: 2px var(--dark-grey) solid;
+}
+.progress-brief-info {
+	margin-bottom: 50px;
+}
+.progress-brief-info li {
+	margin-bottom: 10px;
+	list-style: circle;
+}

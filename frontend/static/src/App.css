@@ -8,6 +8,10 @@
 @import url("./styles/_variables.css");
 @import url("./styles/habitHTML.css");
 
+li {
+	list-style: none;
+}
+
 .all-content-wrapper {
 	min-height: 100vh;
 	height: 100%;
@@ -15,6 +19,7 @@
 	background: linear-gradient(45deg, rgb(135 129 255), rgb(255 110 110));
 	padding-left: 5%;
 	padding-right: 5%;
+	padding-top: 30px;
 }
 .block {
 	flex-direction: column;

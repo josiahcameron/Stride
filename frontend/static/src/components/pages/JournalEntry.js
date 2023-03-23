@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { Form, Card, Button } from "react-bootstrap";
+import { Paper } from "@mui/material";
 
 const INITIAL_FORM_DATA = {
 	text: "",
@@ -76,35 +77,38 @@ function JournalEntry() {
 	));
 	return (
 		<div className="journal-entry-wrapper">
-			<div className="journal-header-wrapper">
-				<header>{date}</header>
-				<div className="journal-sprompt">
-					<p>
-						Take a moment and write to your future self. It can be a
-						few words or a few paragraphs. Encourage yourself, share
-						your fears, or tell that version of you how proud you
-						are of them. Whatever you want to tell them, go ahead.
-						The 'you' now will hold future 'you' accountable.
-					</p>
+			<Paper>
+				<div className="journal-header-wrapper">
+					<header>{date}</header>
+					<div className="journal-sprompt">
+						<p>
+							Take a moment and write to your future self. It can
+							be a few words or a few paragraphs. Encourage
+							yourself, share your fears, or tell that version of
+							you how proud you are of them. Whatever you want to
+							tell them, go ahead. The 'you' now will hold future
+							'you' accountable.
+						</p>
+					</div>
 				</div>
-			</div>
-			<div className="journal-body-container">
-				<Form onSubmit={createEntry}>
-					<Form.Label htmlFor=""></Form.Label>
-					<Form.Control
-						type="text"
-						name="text"
-						value={formData.text}
-						onChange={handleInput}
-						placeholder="Hello Future Me..."
-					/>
-					<Form.Text id="journal-prompt" muted></Form.Text>
-					<Button variant="primary" type="submit">
-						Submit Entry
-					</Button>
-				</Form>
-			</div>
-			{previousEntries && journalHTML}
+				<div className="journal-body-container">
+					<Form onSubmit={createEntry}>
+						<Form.Label htmlFor=""></Form.Label>
+						<Form.Control
+							type="text"
+							name="text"
+							value={formData.text}
+							onChange={handleInput}
+							placeholder="Hello Future Me..."
+						/>
+						<Form.Text id="journal-prompt" muted></Form.Text>
+						<Button variant="primary" type="submit">
+							Submit Entry
+						</Button>
+					</Form>
+				</div>
+				{previousEntries && journalHTML}
+			</Paper>
 		</div>
 	);
 }

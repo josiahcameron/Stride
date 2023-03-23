@@ -2,10 +2,6 @@ h5 {
 	text-decoration: underline;
 }
 
-.wrapper {
-	padding-top: 30px;
-}
-
 .habit-list-wrapper {
 	background-color: rgba(192, 219, 251, 75%);
 	padding: 20px 20px 50px 50px;
@@ -29,17 +25,17 @@ h5 {
 
 .user-QOTD-wrapper {
 	margin: 0 auto;
+	box-shadow: 1px 1px 1px 1px var(--dark-grey);
 }
 
 .user-QOTD-container {
 	display: flex;
 	width: 100%;
+	align-items: center;
 }
 .user-QOTD {
 	margin: 0 auto;
-	height: 400px;
-	border-radius: 25px;
-	padding: 40px 5% 40px 5%;
+	padding: 40px 2% 40px 2%;
 	background-color: rgba(192, 219, 251, 75%);
 	color: var(--dark-grey);
 }
@@ -82,7 +78,6 @@ h5 {
 }
 
 .qotd-container {
-	margin-left: 5%;
 }
 
 .qotd {
@@ -90,6 +85,7 @@ h5 {
 }
 .quote {
 	font-size: 40px;
+	text-align: end;
 }
 .quote-author {
 	font-size: 30px;

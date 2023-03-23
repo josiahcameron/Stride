@@ -22,6 +22,7 @@ function JournalEntry() {
 	useEffect(() => {
 		async function getCurrentDate() {
 			let currentDate = new Date();
+
 			const day = currentDate.getDate();
 			const month = currentDate.getMonth() + 1;
 			const year = currentDate.getFullYear();
@@ -70,7 +71,7 @@ function JournalEntry() {
 	const journalHTML = previousEntries.map((entry) => (
 		<>
 			<article>
-				<h2>{entry.created_at}</h2>
+				<h5>{entry.created_at.slice(0, 10)}</h5>
 				<p>{entry.text}</p>
 			</article>
 		</>
@@ -79,16 +80,9 @@ function JournalEntry() {
 		<div className="journal-entry-wrapper">
 			<Paper>
 				<div className="journal-header-wrapper">
-					<header>{date}</header>
-					<div className="journal-sprompt">
-						<p>
-							Take a moment and write to your future self. It can
-							be a few words or a few paragraphs. Encourage
-							yourself, share your fears, or tell that version of
-							you how proud you are of them. Whatever you want to
-							tell them, go ahead. The 'you' now will hold future
-							'you' accountable.
-						</p>
+					{/* <header>{date}</header> */}
+					<div className="journal-prompt">
+						<h4>How do you feel today?</h4>
 					</div>
 				</div>
 				<div className="journal-body-container">
@@ -107,6 +101,7 @@ function JournalEntry() {
 						</Button>
 					</Form>
 				</div>
+
 				{previousEntries && journalHTML}
 			</Paper>
 		</div>

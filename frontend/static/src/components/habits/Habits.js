@@ -325,11 +325,6 @@ function Habits({ denominator, logUserActivity, progress }) {
 	return (
 		<>
 			<div className="habit-list-wrapper">
-				<div className="habit-list-head">
-					<h4>
-						You may add {denominator} steps at your current tier.
-					</h4>
-				</div>
 				<div className="habits">
 					<div className="box habit-list">
 						<Col
@@ -401,6 +396,10 @@ function Habits({ denominator, logUserActivity, progress }) {
 													Cancel
 												</Button>
 											</form>
+											<p className="steps-available">
+												You may add {denominator} steps
+												at your current tier.
+											</p>
 										</Card>
 									</div>
 								</Row>

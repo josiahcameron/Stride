@@ -19,3 +19,8 @@
 	border: none;
 	font-size: 16px;
 }
+
+.steps-available {
+	text-align: center;
+	margin-bottom: 2px;
+}

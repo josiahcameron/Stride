@@ -1,32 +1,33 @@
-import { Button, Card, Col } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { BiAddToQueue } from "react-icons/bi";
 import { BsFillTrashFill } from "react-icons/bs";
 function BankedHabits({ handleDelete, habit, makeActive }) {
 	return (
 		<>
-			<Col key={habit.id} className="align-items-start col-md-4 ">
-				<Card className="single-post habit-card mt-5">
+			<div key={habit.id} className="habit-cards col-md-8">
+				<Card className="single-post habit-card mt-3">
 					{habit.title}
 					<div className="banked-habit-button">
 						<Button
-							className="danger delete-habit"
+							className="activate-habit"
 							onClick={() => {
 								makeActive(habit);
 							}}
 						>
 							<BiAddToQueue /> Add Habit
 						</Button>
+
 						<Button
 							className="btn-danger delete-habit"
 							onClick={() => {
 								handleDelete(habit);
 							}}
 						>
-							<BsFillTrashFill /> Delete Habit
+							<BsFillTrashFill />
 						</Button>
 					</div>
 				</Card>
-			</Col>
+			</div>
 		</>
 	);
 }

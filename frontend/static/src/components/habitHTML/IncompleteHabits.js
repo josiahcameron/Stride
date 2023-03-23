@@ -2,6 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 
+import { AiFillEdit } from "react-icons/ai";
+
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 function IncompleteHabits({
 	habit,
@@ -39,24 +41,26 @@ function IncompleteHabits({
 	};
 	return (
 		<>
-			<Row key={habit.id} className="align-items-start col-md-9 ">
-				<Card className="single-post habit-card mt-5">
-					<Form.Check
-						type="checkbox"
-						className=" habit-checkbox border-0"
-						onClick={() => {
-							completeHabit(habit);
-						}}
-					/>
-					<textarea
-						id="title"
-						name="title"
-						type="text"
-						className={`${!editMode && "input-preview"}`}
-						disabled={!editMode}
-						value={title}
-						onChange={(e) => setTitle(e.target.value)}
-					/>
+			<div key={habit.id} className="habit-cards col-md-8">
+				<Card className="single-post habit-card mt-3">
+					<div className="habit-check">
+						<Form.Check
+							type="checkbox"
+							className=" habit-checkbox border-0"
+							onClick={() => {
+								completeHabit(habit);
+							}}
+						/>
+						<textarea
+							id="title"
+							name="title"
+							type="text"
+							className={`${!editMode && "input-preview"}`}
+							disabled={!editMode}
+							value={title}
+							onChange={(e) => setTitle(e.target.value)}
+						/>
+					</div>
 					<div className="draft-options">
 						{editMode ? (
 							<button
@@ -72,21 +76,21 @@ function IncompleteHabits({
 								className="btn btn-primary edit-button"
 								onClick={() => setEditMode(true)}
 							>
-								Edit
+								<AiFillEdit />
 							</button>
 						)}
 
 						<Button
-							className="danger delete-habit"
+							className="danger deactivate-button"
 							onClick={() => {
 								makeInactive(habit);
 							}}
 						>
-							Send to bank
+							Send to storage
 						</Button>
 					</div>
 				</Card>
-			</Row>
+			</div>
 		</>
 	);
 }

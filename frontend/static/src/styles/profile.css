@@ -27,8 +27,8 @@
 	width: 33%;
 	font-size: 20px;
 	min-height: 100%;
-	border-right: 2px var(--dark-grey) solid;
-	border-left: 2px var(--dark-grey) solid;
+	border-right: 5px var(--dark-grey) solid;
+	border-left: 5px var(--dark-grey) solid;
 }
 .progress-brief-info {
 	margin-bottom: 50px;

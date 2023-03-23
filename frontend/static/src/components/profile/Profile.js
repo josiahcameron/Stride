@@ -130,7 +130,8 @@ function Profile() {
 								<div className="next-level">
 									{" "}
 									<p>
-										Days remaining until next Tier:{" "}
+										Days to complete to unlock the next
+										Tier:{" "}
 										{daysToComplete - profile.progress}
 									</p>
 								</div>

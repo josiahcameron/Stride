@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { Button, Form, Card, Col, Row, Collapse } from "react-bootstrap";
 
 import { AiFillPlusCircle } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 
 import {
 	CircularProgressbar,
@@ -323,10 +324,12 @@ function Habits({ denominator, logUserActivity, progress }) {
 	//
 	return (
 		<>
-			<div className="habit-list-head">
-				<h4>You may add {denominator} steps at your current tier.</h4>
-			</div>
 			<div className="habit-list-wrapper">
+				<div className="habit-list-head">
+					<h4>
+						You may add {denominator} steps at your current tier.
+					</h4>
+				</div>
 				<div className="habits">
 					<div className="box habit-list">
 						<Col
@@ -335,79 +338,85 @@ function Habits({ denominator, logUserActivity, progress }) {
 							}row align-items-start habit-cards block`}
 						>
 							<h5>My Steps:</h5>
-							{habits && habitHTML}
-							<Row className="align-items-start col-md-4 ">
-								<Card className="single-post mt-5 habit-card add-habit">
-									<div
-										className={`${
-											habitLimit ? "hide-form" : "hide"
-										}`}
-									>
-										You can't add any more at your current
-										tier
+
+							<div className="align-items-start col-md-9">
+								<Row className="align-items-start habit-cards ">
+									{habits && habitHTML}
+									<div className="habit-cards col-md-8">
+										<Card className="mt-5 habit-card">
+											<div
+												className={`${
+													habitLimit
+														? "hide-form"
+														: "hide"
+												}`}
+											>
+												You can't add any more at your
+												current tier
+											</div>
+											<Button
+												variant="none"
+												className={`${
+													addHabit && "hide"
+												}`}
+												onClick={() =>
+													setAddHabit(true)
+												}
+											>
+												<AiFillPlusCircle /> Add Habit
+												{/* Click here to add a new step */}
+											</Button>
+											<form
+												className={`${
+													addHabit
+														? "show-form"
+														: "hide"
+												}`}
+											>
+												<div
+													id="input-box"
+													className="form-group input-box"
+												>
+													<input
+														className="form-control"
+														id="title"
+														type="text"
+														name="title"
+														// value={formData.title}
+														onChange={handleInput}
+													/>
+													<label>Add Habit</label>
+												</div>
+												<Button
+													onClick={handleSubmit}
+													className="btn btn-primary btn-block "
+												>
+													Submit
+												</Button>
+												<Button
+													onClick={() =>
+														setAddHabit(false)
+													}
+												>
+													Cancel
+												</Button>
+											</form>
+										</Card>
 									</div>
-									<Button
-										variant="none"
-										className={`${addHabit && "hide"}`}
-										onClick={() => setAddHabit(true)}
-									>
-										<AiFillPlusCircle /> Add Habit
-										{/* Click here to add a new step */}
-									</Button>
-									<form
-										className={`${
-											addHabit ? "show-form" : "hide"
-										}`}
-									>
-										<div
-											id="input-box"
-											className="form-group input-box"
-										>
-											<input
-												className="form-control"
-												id="title"
-												type="text"
-												name="title"
-												// value={formData.title}
-												onChange={handleInput}
-											/>
-											<label>Add Habit</label>
-										</div>
-										<Button
-											onClick={handleSubmit}
-											className="btn btn-primary btn-block "
-										>
-											Submit
-										</Button>
-										<Button
-											onClick={() => setAddHabit(false)}
-										>
-											Cancel
-										</Button>
-									</form>
-								</Card>
-							</Row>
+								</Row>
+							</div>
 						</Col>
-						<Row className="box banked-habits block">
-							<h5>Stored Steps:</h5>
-							<Button
-								onClick={() => setOpen(!open)}
-								aria-controls="example-collapse-text"
-								aria-expanded={open}
-							>
-								Show Stored Steps
-							</Button>
-							<Collapse in={open}>
-								<div id="example-collapse-text">
-									<Row className=" row align-items-start habit-cards ">
-										{habits && inactiveHabitsHTML}
-									</Row>
-								</div>
-							</Collapse>
-						</Row>
+						<Col>
+							<div className="banked-habits block">
+								<h5>Stored Steps:</h5>
+								<Row className=" row align-items-start habit-cards ">
+									{habits && inactiveHabitsHTML}
+								</Row>
+							</div>
+						</Col>
 						<Col className="box completed-habits block">
 							<h5>Completed Steps:</h5>
-							<Row className=" row align-items-start habit-cards ">
+							<Row className="align-items-start habit-cards ">
 								{habits && completedHabitsHTML}
 							</Row>
 						</Col>

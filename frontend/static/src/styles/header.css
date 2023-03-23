@@ -1,8 +1,8 @@
 .header-wrapper {
-	padding-left: 2%;
-	padding-right: 2%;
 	display: flex;
 	justify-content: space-between;
+	padding-left: 2%;
+	padding-right: 2%;
 	width: 100%;
 	align-items: center;
 	color: white;
@@ -34,6 +34,18 @@
 	width: 150px;
 	height: auto;
 }
+.user {
+	display: flex;
+
+	text-transform: uppercase;
+}
+.user h2:nth-child(1) {
+	border-right: 2px solid var(--);
+	padding-right: 10px;
+}
+.user h2:nth-child(2) {
+	margin-left: 10px;
+}
 .nav-container {
 	margin-right: 10px;
 }
@@ -42,4 +54,8 @@
 }
 .nav-text {
 	color: white;
+}
+
+.top-button {
+	margin-right: 5px;
 }

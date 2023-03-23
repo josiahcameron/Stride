@@ -109,8 +109,8 @@ function HabitPage() {
 	};
 
 	return (
-		<div className="habit-page wrapper">
-			<div className="habits-wrapper fade-in-text-longer">
+		<div className="wrapper">
+			<div className="habits-wrapper fade-in-text">
 				<Habits
 					denominator={denominator}
 					logUserActivity={logUserActivity}

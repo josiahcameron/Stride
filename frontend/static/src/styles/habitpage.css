@@ -1,10 +1,30 @@
+h5 {
+	text-decoration: underline;
+}
+
 .wrapper {
-	position: relative;
+	padding-top: 30px;
+}
+
+.habit-list-wrapper {
+	background-color: rgba(192, 219, 251, 75%);
+	padding: 20px 20px 50px 50px;
 	width: 100%;
-	color: var(--highlight);
-	position: relative;
-	padding: 20px 5% 50px 5%;
-	min-height: 100vh;
+	color: var(--darker-grey);
+}
+.habit-list-head {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.habits {
+	min-width: 100%;
+}
+.habit-list {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	height: 75%;
+	width: 100%;
 }
 
 .user-QOTD-wrapper {
@@ -133,10 +153,6 @@
 	display: none;
 }
 
-.habit-list {
-	display: flex;
-}
-
 .habit-card {
 	justify-content: center;
 	font-size: larger;
@@ -146,9 +162,8 @@
 }
 
 .habits-wrapper {
-	background-color: rgba(192, 219, 251, 75%);
 	color: var(--darker-grey);
-	border-radius: 25px;
+
 	padding: 10px 5% 10px 5%;
 }
 
@@ -247,4 +262,5 @@
 .banked-habits {
 	margin-top: 30px;
 	margin-bottom: 30px;
+	max-width: 75%;
 }

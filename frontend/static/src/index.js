@@ -10,6 +10,7 @@ import "d3-ease";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/free-solid-svg-icons";
+import "react-icons";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";

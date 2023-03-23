@@ -2,17 +2,25 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import stride_logo from "../../assets/stride_logo.jpg";
-
+import { CgProfile } from "react-icons/cg";
+import { IoFootstepsSharp } from "react-icons/io5";
+import { IoJournalSharp } from "react-icons/io5";
+import { MdLogout } from "react-icons/md";
 // import {} from "../../assets/stride-logo";
 
 function Header() {
-	const { logout, isAuthenticated } = useContext(AuthContext);
+	const { logout, isAuthenticated, profile } = useContext(AuthContext);
 
 	return (
 		<div className="header-wrapper">
 			<div className="logo-wrapper">
 				<h1 className="title">STRIDE</h1>
+
 				{/* <img src={stride_logo} alt="" /> */}
+			</div>
+			<div className="user">
+				<h2>{profile.display_name}</h2>
+				<h2>Tier: {profile.tier}</h2>
 			</div>
 			<div className="nav-container">
 				<nav className="top-nav">
@@ -43,7 +51,7 @@ function Header() {
 						}`}
 					>
 						<NavLink className="nav-text " to="/profile">
-							Profile
+							<CgProfile /> Profile
 						</NavLink>
 					</button>
 					<button
@@ -53,7 +61,7 @@ function Header() {
 						}`}
 					>
 						<NavLink className="nav-text " to="/">
-							Steps
+							<IoFootstepsSharp /> Steps
 						</NavLink>
 					</button>
 					<button
@@ -63,7 +71,7 @@ function Header() {
 						}`}
 					>
 						<NavLink className="nav-text " to="/journal">
-							Journals
+							<IoJournalSharp /> Journal
 						</NavLink>
 					</button>
 					<button
@@ -77,11 +85,11 @@ function Header() {
 					<button
 						onClick={logout}
 						type="button"
-						className={`btn btn-danger btn-lg logout ${
+						className={`btn btn-danger btn-lg top-button logout ${
 							!isAuthenticated && "hide"
 						}`}
 					>
-						Logout
+						<MdLogout /> Logout
 					</button>
 				</nav>
 			</div>

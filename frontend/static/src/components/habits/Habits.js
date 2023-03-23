@@ -3,7 +3,9 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 
 import Cookies from "js-cookie";
-import { Button, Form, Card, Col, Row } from "react-bootstrap";
+import { Button, Form, Card, Col, Row, Collapse } from "react-bootstrap";
+
+import { AiFillPlusCircle } from "react-icons/ai";
 
 import {
 	CircularProgressbar,
@@ -39,6 +41,7 @@ function Habits({ denominator, logUserActivity, progress }) {
 	const [addHabit, setAddHabit] = useState(false);
 	// const [activeHabits, setActiveHabits] = useState(0);
 	const [habitLimit, setHabitLimit] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	//
 	// ------------------Axios requests------------------
@@ -320,90 +323,97 @@ function Habits({ denominator, logUserActivity, progress }) {
 	//
 	return (
 		<>
-			{/* <div className="progress">
-				<CircularProgressbarWithChildren
-					value={45}
-					strokeWidth={8}
-					styles={buildStyles({
-						pathColor: "#f00",
-						trailColor: "transparent",
-					})}
-				></CircularProgressbarWithChildren>
-			</div> */}
-			<div className="box habit-list">
-				<Col
-					className={`${
-						habitLimit ? "hide-form" : "hide"
-					}row align-items-start habit-cards block`}
-				>
-					<h5>My Steps:</h5>
-					<h6>
-						You may add up to {denominator} steps at your current
-						tier
-					</h6>
-					{habits && habitHTML}
-
-					<Row className="align-items-start col-md-4 ">
-						<Card className="single-post mt-5 habit-card add-habit">
-							<div
-								className={`${
-									habitLimit ? "hide-form" : "hide"
-								}`}
-							>
-								You can't add any more at your current tier
-							</div>
-							<Button
-								variant="none"
-								className={`${addHabit && "hide"}`}
-								onClick={() => setAddHabit(true)}
-							>
-								Click here to add a new step
-							</Button>
-							<form
-								className={`${addHabit ? "show-form" : "hide"}`}
-							>
-								<div
-									id="input-box"
-									className="form-group input-box"
-								>
-									<input
-										className="form-control"
-										id="title"
-										type="text"
-										name="title"
-										// value={formData.title}
-										onChange={handleInput}
-									/>
-									<label>Add Habit</label>
-								</div>
-								<Button
-									onClick={handleSubmit}
-									className="btn btn-primary btn-block "
-								>
-									Submit
-								</Button>
-								<Button onClick={() => setAddHabit(false)}>
-									Cancel
-								</Button>
-							</form>
-						</Card>
-					</Row>
-				</Col>
-
-				<Col className="box completed-habits block">
-					<h5>Completed Steps:</h5>
-					<Row className=" row align-items-start habit-cards ">
-						{habits && completedHabitsHTML}
-					</Row>
-				</Col>
+			<div className="habit-list-head">
+				<h4>You may add {denominator} steps at your current tier.</h4>
 			</div>
-			<Row className="box banked-habits block">
-				<h5>Habit Bank:</h5>
-
-				<Row className=" row align-items-start habit-cards ">
-					{habits && inactiveHabitsHTML}
-				</Row>
-			</Row>
+			<div className="habit-list-wrapper">
+				<div className="habits">
+					<div className="box habit-list">
+						<Col
+							className={`${
+								habitLimit ? "hide-form" : "hide"
+							}row align-items-start habit-cards block`}
+						>
+							<h5>My Steps:</h5>
+							{habits && habitHTML}
+							<Row className="align-items-start col-md-4 ">
+								<Card className="single-post mt-5 habit-card add-habit">
+									<div
+										className={`${
+											habitLimit ? "hide-form" : "hide"
+										}`}
+									>
+										You can't add any more at your current
+										tier
+									</div>
+									<Button
+										variant="none"
+										className={`${addHabit && "hide"}`}
+										onClick={() => setAddHabit(true)}
+									>
+										<AiFillPlusCircle /> Add Habit
+										{/* Click here to add a new step */}
+									</Button>
+									<form
+										className={`${
+											addHabit ? "show-form" : "hide"
+										}`}
+									>
+										<div
+											id="input-box"
+											className="form-group input-box"
+										>
+											<input
+												className="form-control"
+												id="title"
+												type="text"
+												name="title"
+												// value={formData.title}
+												onChange={handleInput}
+											/>
+											<label>Add Habit</label>
+										</div>
+										<Button
+											onClick={handleSubmit}
+											className="btn btn-primary btn-block "
+										>
+											Submit
+										</Button>
+										<Button
+											onClick={() => setAddHabit(false)}
+										>
+											Cancel
+										</Button>
+									</form>
+								</Card>
+							</Row>
+						</Col>
+						<Row className="box banked-habits block">
+							<h5>Stored Steps:</h5>
+							<Button
+								onClick={() => setOpen(!open)}
+								aria-controls="example-collapse-text"
+								aria-expanded={open}
+							>
+								Show Stored Steps
+							</Button>
+							<Collapse in={open}>
+								<div id="example-collapse-text">
+									<Row className=" row align-items-start habit-cards ">
+										{habits && inactiveHabitsHTML}
+									</Row>
+								</div>
+							</Collapse>
+						</Row>
+						<Col className="box completed-habits block">
+							<h5>Completed Steps:</h5>
+							<Row className=" row align-items-start habit-cards ">
+								{habits && completedHabitsHTML}
+							</Row>
+						</Col>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 }

@@ -19,8 +19,6 @@ export const AuthContextProvider = ({ children }) => {
 		console.warn(err);
 	};
 	const [user, setUser] = useState(null);
-	const [habits, setHabits] = useState(null);
-	const [profile, setProfile] = useState(null);
 
 	const login = async (user) => {
 		const response = await axios.post("/dj-rest-auth/login/", user);
@@ -74,41 +72,6 @@ export const AuthContextProvider = ({ children }) => {
 		getUser();
 	}, []);
 
-	// Fetch habits
-	useEffect(() => {
-		const fetchHabits = async () => {
-			const res = await axios.get("/api_v1/habits/");
-			if (!res.status) {
-				throw new Error("Network response was not OK");
-			}
-			const data = await res.data;
-			setHabits(data);
-		};
-		// Trigger the API Call
-		fetchHabits();
-	}, []);
-
-	useEffect(() => {
-		const fetchProfile = async () => {
-			try {
-				const response = await axios.get(`/api_v1/profile/`);
-				const data = await response.data[0];
-				setProfile(data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		// Trigger the API Call
-		fetchProfile();
-	}, []);
-	if (profile === null) {
-		return <div>Loading...</div>;
-	}
-
-	if (habits === null || !habits.length) {
-		return <div>Loading...</div>;
-	}
-
 	if (isAuthenticated === null) {
 		return <div>Is loading ...</div>;
 	}
@@ -121,8 +84,6 @@ export const AuthContextProvider = ({ children }) => {
 				register,
 				logout,
 				user,
-				habits,
-				profile,
 			}}
 		>
 			{children}

@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthContextProvider } from "./components/context/AuthContext";
+import { ProfileContextProvider } from "./components/context/ProfileContext";
+import { HabitContextProvider } from "./components/context/HabitContext";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-circular-progressbar/dist/styles.css";
@@ -21,8 +23,13 @@ root.render(
 	<React.StrictMode>
 		<Router>
 			{/* Context provider wraps around the root component  */}
+
 			<AuthContextProvider>
+				{/* <ProfileContextProvider> */}
+				{/* <HabitContextProvider> */}
 				<App />
+				{/* </HabitContextProvider> */}
+				{/* </ProfileContextProvider> */}
 			</AuthContextProvider>
 		</Router>
 	</React.StrictMode>

@@ -23,29 +23,44 @@ function Profile() {
 	const handleError = (err) => {
 		console.warn(err);
 	};
-	const { profile } = useContext(AuthContext);
+
 	const [quote, setQuote] = useState(null);
 	const secretKey = process.env.REACT_APP_API_KEY;
 	const [date, setDate] = useState(null);
 	let denominator,
 		daysToComplete = 0;
+	const [profile, setProfile] = useState(null);
 
 	useEffect(() => {
-		async function getCurrentDate() {
-			let currentDate = new Date();
-			const day = currentDate.getDate();
-			const month = currentDate.getMonth() + 1;
-			const year = currentDate.getFullYear();
-
-			if (month.length > 1 && day.length > 1) {
-				currentDate = `${month}-${day}-${year}`;
-			} else {
-				currentDate = `${month}-${day}-${year}`;
+		const fetchProfile = async () => {
+			try {
+				const response = await axios.get(`/api_v1/profile/`);
+				const data = await response.data[0];
+				setProfile(data);
+			} catch (err) {
+				console.log(err);
 			}
-			setDate(currentDate);
-		}
-		getCurrentDate();
+		};
+		// Trigger the API Call
+		fetchProfile();
 	}, []);
+
+	// useEffect(() => {
+	// 	async function getCurrentDate() {
+	// 		let currentDate = new Date();
+	// 		const day = currentDate.getDate();
+	// 		const month = currentDate.getMonth() + 1;
+	// 		const year = currentDate.getFullYear();
+
+	// 		if (month.length > 1 && day.length > 1) {
+	// 			currentDate = `${month}-${day}-${year}`;
+	// 		} else {
+	// 			currentDate = `${month}-${day}-${year}`;
+	// 		}
+	// 		setDate(currentDate);
+	// 	}
+	// 	getCurrentDate();
+	// }, []);
 
 	useEffect(() => {
 		const fetchQuotes = async () => {
@@ -108,6 +123,12 @@ function Profile() {
 		<>
 			<div className="user-QOTD-wrapper">
 				<div className="user-QOTD">
+					<div className="qotd-container">
+						<div className="qotd fade-in-text">
+							<p className="quote">{quote.text}</p>
+							<p className="quote-author">- {quote.author}</p>
+						</div>
+					</div>
 					<div className="user-QOTD-container">
 						<div className="user-wrapper">
 							<div className="user-image">
@@ -119,28 +140,26 @@ function Profile() {
 										<b>{profile.display_name}</b>
 									</h4>
 								</div>
-								<div className="user-info-wrapper fade-in-text">
-									<div className="streak">
-										<p>Streak: {profile.streak}</p>
-									</div>
-									<div className="tier fade-in-text">
-										<p>Tier: {profile.tier}</p>
-									</div>
-								</div>
-								<div className="next-level">
-									{" "}
-									<p>
-										Days to complete to unlock the next
-										Tier:{" "}
-										{daysToComplete - profile.progress}
-									</p>
-								</div>
 							</div>
 						</div>
 
 						<div className="progress-section">
 							<div className="progress-brief">
 								<h2>Progress</h2>
+							</div>
+							<div className="user-info-wrapper fade-in-text">
+								<div className="streak">
+									<p>Streak: {profile.streak}</p>
+								</div>
+								<div className="tier fade-in-text">
+									<p>Tier: {profile.tier}</p>
+								</div>
+							</div>
+							<div className="next-level">
+								<p>
+									Days to complete to unlock the next Tier:{" "}
+									{daysToComplete - profile.progress}
+								</p>
 							</div>
 							<ul className="list-group-flush progress-brief-info">
 								<li>
@@ -156,13 +175,6 @@ function Profile() {
 									{denominator} steps a day.
 								</li>
 							</ul>
-						</div>
-
-						<div className="qotd-container">
-							<div className="qotd fade-in-text">
-								<p className="quote">{quote.text}</p>
-								<p className="quote-author">- {quote.author}</p>
-							</div>
 						</div>
 					</div>
 				</div>

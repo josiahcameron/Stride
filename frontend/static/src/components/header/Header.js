@@ -64,7 +64,7 @@ function Header() {
 							<IoFootstepsSharp /> Steps
 						</NavLink>
 					</button>
-					{/* <button
+					<button
 						type="button"
 						className={`btn btn-danger btn-lg top-button ${
 							!isAuthenticated && "hide"
@@ -73,7 +73,7 @@ function Header() {
 						<NavLink className="nav-text " to="/journal">
 							<IoJournalSharp /> Journal
 						</NavLink>
-					</button> */}
+					</button>
 					<button
 						type="button"
 						className="btn btn-primary top-button btn-lg hide"

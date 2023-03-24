@@ -5,6 +5,7 @@
 
 .next-level {
 	margin-top: 5px;
+	text-align: center;
 }
 
 .progress-info-container {
@@ -12,7 +13,7 @@
 	text-align: center;
 }
 .progress-brief {
-	margin-bottom: 50px;
+	margin-bottom: 20px;
 }
 
 .progress-brief h2 {
@@ -26,9 +27,9 @@
 .progress-section {
 	width: 33%;
 	font-size: 20px;
+
 	min-height: 100%;
-	border-right: 5px var(--dark-grey) solid;
-	border-left: 5px var(--dark-grey) solid;
+	/* border-left: 5px var(--dark-grey) solid; */
 }
 .progress-brief-info {
 	margin-bottom: 50px;

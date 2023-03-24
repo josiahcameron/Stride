@@ -1,18 +1,11 @@
 import axios from "axios";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
-import { Button, Form, Card, Col, Row, Collapse } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 
 import { AiFillPlusCircle } from "react-icons/ai";
-import { AiFillEdit } from "react-icons/ai";
-
-import {
-	CircularProgressbar,
-	CircularProgressbarWithChildren,
-	buildStyles,
-} from "react-circular-progressbar";
 
 import IncompleteHabits from "../habitHTML/IncompleteHabits";
 import CompletedHabits from "../habitHTML/CompletedHabits";
@@ -25,7 +18,7 @@ const INITIAL_FORM_DATA = {
 	is_active: true,
 };
 
-function Habits({ denominator, logUserActivity, progress }) {
+function Habits({ denominator, logUserActivity }) {
 	const csrftoken = Cookies.get("csrftoken");
 	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
 	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
@@ -40,10 +33,7 @@ function Habits({ denominator, logUserActivity, progress }) {
 	const [editMode, setEditMode] = useState(false);
 	const [title, setTitle] = useState("");
 	const [addHabit, setAddHabit] = useState(false);
-	// const [activeHabits, setActiveHabits] = useState(0);
 	const [habitLimit, setHabitLimit] = useState(false);
-	const [open, setOpen] = useState(false);
-
 	//
 	// ------------------Axios requests------------------
 	//
@@ -96,9 +86,6 @@ function Habits({ denominator, logUserActivity, progress }) {
 	};
 
 	const completeHabit = async (habit) => {
-		// console.log({ firing: habit });
-		// setHabitsCompleted()
-
 		habit.is_completed = true;
 		const completedHabits = habits.filter(
 			(habit) => habit.is_completed === true
@@ -225,10 +212,6 @@ function Habits({ denominator, logUserActivity, progress }) {
 		} catch (err) {
 			console.log(err);
 		}
-		// const index = habits.indexOf(habit);
-		// habits.splice([index, 1]);
-		// console.log(habits);
-		// setHabits(habits);
 	};
 
 	const handleInput = (event) => {

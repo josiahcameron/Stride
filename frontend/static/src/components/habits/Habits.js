@@ -308,6 +308,9 @@ function Habits({ denominator, logUserActivity }) {
 	return (
 		<>
 			<div className="habit-list-wrapper">
+				<h3 className="habits-title">
+					Taking Steps Towards a Better You
+				</h3>
 				<div className="habits">
 					<div className="box habit-list">
 						<Col

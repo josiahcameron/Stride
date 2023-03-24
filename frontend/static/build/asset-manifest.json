@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.5d14cd2a.css",
-    "main.js": "/static/js/main.68a3ef98.js",
+    "main.css": "/static/css/main.cbb50450.css",
+    "main.js": "/static/js/main.b9fe6017.js",
     "static/js/787.9661e67c.chunk.js": "/static/js/787.9661e67c.chunk.js",
     "static/media/stride_logo.jpg": "/static/media/stride_logo.21354ad87cd7d2356a85.jpg",
     "index.html": "/index.html",
-    "main.5d14cd2a.css.map": "/static/css/main.5d14cd2a.css.map",
-    "main.68a3ef98.js.map": "/static/js/main.68a3ef98.js.map",
+    "main.cbb50450.css.map": "/static/css/main.cbb50450.css.map",
+    "main.b9fe6017.js.map": "/static/js/main.b9fe6017.js.map",
     "787.9661e67c.chunk.js.map": "/static/js/787.9661e67c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5d14cd2a.css",
-    "static/js/main.68a3ef98.js"
+    "static/css/main.cbb50450.css",
+    "static/js/main.b9fe6017.js"
   ]
 }

@@ -19,7 +19,6 @@ export const ProfileContextProvider = ({ children }) => {
 		console.warn(err);
 	};
 	const [profile, setProfile] = useState(null);
-	const [denominator, setDenominator] = useState(null);
 
 	useEffect(() => {
 		const fetchProfile = async () => {

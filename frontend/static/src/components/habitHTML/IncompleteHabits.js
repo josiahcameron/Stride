@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 
 import { AiFillEdit } from "react-icons/ai";
+import { GrStorage } from "react-icons/gr";
 
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 
@@ -76,17 +77,17 @@ function IncompleteHabits({
 							className="btn btn-primary edit-button"
 							onClick={() => setEditMode(true)}
 						>
-							<AiFillEdit />
+							<AiFillEdit /> Edit Step
 						</button>
 					)}
 
 					<Button
-						className="danger deactivate-button"
+						className="danger deactivate-habit"
 						onClick={() => {
 							makeInactive(habit);
 						}}
 					>
-						Send to storage
+						<GrStorage /> Store Step
 					</Button>
 				</div>
 			</Card>

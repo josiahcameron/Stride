@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { ProfileContext } from "../context/ProfileContext";
 import { useContext } from "react";
 import stride_logo from "../../assets/stride_logo.jpg";
 import { CgProfile } from "react-icons/cg";
@@ -10,6 +11,7 @@ import { MdLogout } from "react-icons/md";
 
 function Header() {
 	const { logout, isAuthenticated } = useContext(AuthContext);
+	const { profile } = useContext(ProfileContext);
 
 	return (
 		<div className="header-wrapper">
@@ -19,8 +21,8 @@ function Header() {
 				{/* <img src={stride_logo} alt="" /> */}
 			</div>
 			<div className="user">
-				{/* <h2>{profile.display_name}</h2>
-				<h2>Tier: {profile.tier}</h2> */}
+				{profile && <h2>{profile.display_name}</h2>}
+				{profile && <h2>Tier: {profile.tier}</h2>}
 			</div>
 			<div className="nav-container">
 				<nav className="top-nav">

@@ -1,6 +1,6 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 
-import { BiAddToQueue } from "react-icons/bi";
+import { GoDiffAdded } from "react-icons/go";
 import { BsFillTrashFill } from "react-icons/bs";
 
 function BankedHabits({ handleDelete, habit, makeActive }) {
@@ -15,7 +15,7 @@ function BankedHabits({ handleDelete, habit, makeActive }) {
 							makeActive(habit);
 						}}
 					>
-						<BiAddToQueue /> Add Habit
+						<GoDiffAdded /> Add Step
 					</Button>
 
 					<Button
@@ -24,7 +24,7 @@ function BankedHabits({ handleDelete, habit, makeActive }) {
 							handleDelete(habit);
 						}}
 					>
-						<BsFillTrashFill />
+						<BsFillTrashFill /> Trash Step
 					</Button>
 				</div>
 			</Card>

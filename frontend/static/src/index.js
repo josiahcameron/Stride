@@ -25,11 +25,11 @@ root.render(
 			{/* Context provider wraps around the root component  */}
 
 			<AuthContextProvider>
-				<ProfileContextProvider>
-					{/* <HabitContextProvider> */}
-					<App />
-					{/* </HabitContextProvider> */}
-				</ProfileContextProvider>
+				{/* <ProfileContextProvider> */}
+				{/* <HabitContextProvider> */}
+				<App />
+				{/* </HabitContextProvider> */}
+				{/* </ProfileContextProvider> */}
 			</AuthContextProvider>
 		</Router>
 	</React.StrictMode>

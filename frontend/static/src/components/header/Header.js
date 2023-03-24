@@ -1,7 +1,9 @@
+import Cookies from "js-cookie";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { ProfileContext } from "../context/ProfileContext";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import stride_logo from "../../assets/stride_logo.jpg";
 import { CgProfile } from "react-icons/cg";
 import { IoFootstepsSharp } from "react-icons/io5";
@@ -11,8 +13,34 @@ import { MdLogout } from "react-icons/md";
 
 function Header() {
 	const { logout, isAuthenticated } = useContext(AuthContext);
-	const { profile } = useContext(ProfileContext);
+	// Front-end authentication filter for conditional rendering in React
+	const csrftoken = Cookies.get("csrftoken");
+	axios.defaults.headers.post["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.get["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.delete["X-CSRFToken"] = csrftoken;
+	axios.defaults.headers.patch["X-CSRFToken"] = csrftoken;
 
+	const handleError = (err) => {
+		console.warn(err);
+	};
+	const [profile, setProfile] = useState(null);
+
+	useEffect(() => {
+		const fetchProfile = async () => {
+			try {
+				const response = await axios.get(`/api_v1/profile/`);
+				const data = await response.data[0];
+				setProfile(data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		// Trigger the API Call
+		fetchProfile();
+	}, []);
+	if (profile === null) {
+		return <div>Loading...</div>;
+	}
 	return (
 		<div className="header-wrapper">
 			<div className="logo-wrapper">

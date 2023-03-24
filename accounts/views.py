@@ -11,6 +11,12 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from twilio.rest import Client
+from django.conf import settings
+
+
+# Create your tests here.
+
 
 from . import models
 from .serializers import UserSerializer, ActivitySerializer, ProfileSerializer, JournalSerializer
@@ -49,6 +55,17 @@ class ActivityRecordCreateAPIView(generics.ListCreateAPIView):
         return models.UserActivityLog.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
+        # This function uses the Twilio Python library to create a new Client instance, and then sends an SMS message using the messages.create() method.
+        # The function takes two parameters: to_number(the phone number of the recipient) and body(the message to be sent).
+        def send_sms(to_number, body):
+            client = Client(settings.TWILIO_ACCOUNT_SID,
+                            settings.TWILIO_AUTH_TOKEN)
+            message = client.messages.create(
+                to=to_number,
+                from_=settings.TWILIO_PHONE_NUMBER,
+                body=body
+            )
+            return message.sid
         streak = 0  # consecutive
         count = 0  # not consecutive
 
@@ -76,6 +93,8 @@ class ActivityRecordCreateAPIView(generics.ListCreateAPIView):
 
         serializer.save(user=self.request.user,
                         streak=streak, count=count)
+        send_sms(
+            18436173957, "Well done on walking all of your steps for the day, keep up the good work!")
 
 
 class RemoveActivityRecordAPIView(APIView):

@@ -70,6 +70,11 @@ INSTALLED_APPS = [
 
 ]
 
+TWILIO_ACCOUNT_SID = 'AC302722bf9148e7502f2ddbb7bc036720'
+TWILIO_AUTH_TOKEN = 'a4e5c09ffef4a9978b96a068e1a29aa0'
+TWILIO_PHONE_NUMBER = '+18775915037'
+
+
 REST_FRAMEWORK = {
     # Setting the permission policy
     # https://www.django-rest-framework.org/api-guide/permissions/#setting-the-permission-policy

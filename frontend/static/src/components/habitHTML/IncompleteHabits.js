@@ -8,8 +8,7 @@ import { Button, Form, Card, Col, Row } from "react-bootstrap";
 function IncompleteHabits({
 	habit,
 	incompleteHabit,
-	setEditMode,
-	editMode,
+
 	habits,
 	completeHabit,
 	setHabits,
@@ -23,6 +22,7 @@ function IncompleteHabits({
 	axios.defaults.headers.patch["X-CSRFToken"] = csrftoken;
 
 	const [title, setTitle] = useState(habit.title);
+	const [editMode, setEditMode] = useState(false);
 
 	const saveEdit = async (e) => {
 		const updatedHabit = { ...habit };

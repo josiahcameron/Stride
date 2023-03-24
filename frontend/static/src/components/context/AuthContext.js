@@ -110,6 +110,7 @@ export const AuthContextProvider = ({ children }) => {
 	}
 
 	if (isAuthenticated === null) {
+		return <div>Is loading ...</div>;
 	}
 
 	return (

@@ -9,7 +9,7 @@ import { MdLogout } from "react-icons/md";
 // import {} from "../../assets/stride-logo";
 
 function Header() {
-	const { logout, isAuthenticated, profile } = useContext(AuthContext);
+	const { logout, isAuthenticated } = useContext(AuthContext);
 
 	return (
 		<div className="header-wrapper">
@@ -19,8 +19,8 @@ function Header() {
 				{/* <img src={stride_logo} alt="" /> */}
 			</div>
 			<div className="user">
-				<h2>{profile.display_name}</h2>
-				<h2>Tier: {profile.tier}</h2>
+				{/* <h2>{profile.display_name}</h2>
+				<h2>Tier: {profile.tier}</h2> */}
 			</div>
 			<div className="nav-container">
 				<nav className="top-nav">

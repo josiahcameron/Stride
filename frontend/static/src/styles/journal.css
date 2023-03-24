@@ -8,8 +8,11 @@
 	left: 0;
 	background: rgba(192, 219, 251, 75%);
 	color: var(--dark-grey);
+	padding: 100px 5% 30px 5%;
 }
-
+.journal-prompt {
+	color: var(--dark-grey);
+}
 .entry-date {
 	font-size: large;
 	border-radius: 10px;
@@ -41,7 +44,17 @@
 	align-content: center;
 	color: white;
 }
+.add-entry {
+	position: absolute;
+	top: 25px;
+	left: 15%;
+}
 
+.show-previous {
+	position: absolute;
+	top: 25px;
+	left: 5%;
+}
 /* .journal-entry-wrapper {
 	color: #555;
 	font-family: "Handlee", sans-serif;

@@ -52,7 +52,7 @@ function Habits({ denominator, logUserActivity }) {
 		fetchHabits();
 	}, []);
 
-	if (habits === null || habits.length <= 1) {
+	if (habits === null || habits.length < 1) {
 		return <div>Loading...</div>;
 	}
 	// if (habits.length) {

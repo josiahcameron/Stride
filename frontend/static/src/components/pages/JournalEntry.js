@@ -76,6 +76,7 @@ function JournalEntry() {
 	};
 
 	const chooseEntry = (entry) => {
+		console.log(entry);
 		setEntry(entry);
 	};
 
@@ -119,7 +120,11 @@ function JournalEntry() {
 				</div>
 			</div>
 
-			<Button variant="primary" onClick={handleShow}>
+			<Button
+				variant="primary"
+				className="show-previous"
+				onClick={handleShow}
+			>
 				Previous Entries
 			</Button>
 			<Offcanvas

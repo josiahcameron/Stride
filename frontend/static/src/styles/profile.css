@@ -38,3 +38,11 @@
 	margin-bottom: 10px;
 	list-style: circle;
 }
+
+.edit-icon {
+	position: absolute;
+	left: 45%;
+	bottom: 45%;
+	color: var(--highlight);
+	font-size: xxx-large;
+}

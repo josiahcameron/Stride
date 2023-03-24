@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AuthContext } from "../context/AuthContext";
+import Tooltip from "@mui/material/Tooltip";
+import { AiFillEdit } from "react-icons/ai";
 
 function Profile() {
 	const csrftoken = Cookies.get("csrftoken");
@@ -132,8 +134,12 @@ function Profile() {
 					<div className="user-QOTD-container">
 						<div className="user-wrapper">
 							<div className="user-image">
+								<Tooltip className="edit-icon" title="edit">
+									<AiFillEdit />
+								</Tooltip>
 								<img src={profile.avatar} alt="" />
 							</div>
+
 							<div className="user-meta-wrapper">
 								<div className="username fade-in-text">
 									<h4>

@@ -58,6 +58,7 @@ function HabitPage() {
 		// Trigger the API Call
 		fetchQuotes();
 	}, [secretKey]);
+
 	useEffect(() => {
 		const fetchProfile = async () => {
 			try {
@@ -72,7 +73,7 @@ function HabitPage() {
 		fetchProfile();
 	}, []);
 	if (profile === null || quote === null) {
-		return <div>Loading...</div>;
+		return <div>Loading ...</div>;
 	}
 	const setDenominator = (tier) => {
 		switch (tier) {

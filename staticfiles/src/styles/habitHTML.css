@@ -1,0 +1,36 @@
+.delete-habit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0;
+	background: 0;
+	color: black;
+	border: none;
+	font-size: 20px;
+}
+
+.activate-habit {
+	position: absolute;
+
+	right: 0;
+	padding: 0;
+	background: 0;
+	color: black;
+	border: none;
+	font-size: 20px;
+}
+
+.steps-available {
+	text-align: center;
+	margin-bottom: 2px;
+}
+.deactivate-habit {
+	position: absolute;
+	right: 0;
+	padding: 0;
+	background: 0;
+	bottom: 0;
+	color: black;
+	border: none;
+	font-size: 20px;
+}

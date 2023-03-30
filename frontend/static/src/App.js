@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, lazy, Suspense } from "react";
 import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
@@ -11,6 +11,7 @@ import RegisterForm from "./components/auth/RegisterForm";
 import HomePage from "./components/home/HomePage";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Header from "./components/header/Header";
+// const
 import Profile from "./components/profile/Profile";
 import HabitPage from "./components/pages/HabitPage";
 import CreateProfile from "./components/pages/CreateProfile";

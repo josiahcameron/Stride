@@ -36,7 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'ccs-final-project-josiahcamero.herokuapp.com',
+    'stride-goal-builder.herokuapp.com/',
 ]
 
 

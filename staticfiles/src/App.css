@@ -1,0 +1,32 @@
+@import url("./styles/profile.css");
+@import url("./styles/home.css");
+@import url("./styles/header.css");
+@import url("./styles/login.css");
+@import url("./styles/register.css");
+@import url("./styles/habitpage.css");
+@import url("./styles/journal.css");
+@import url("./styles/_variables.css");
+@import url("./styles/habitHTML.css");
+
+li {
+	list-style: none;
+}
+
+.all-content-wrapper {
+	min-height: 100vh;
+	height: 100%;
+	/* background: linear-gradient(45deg, rgb(60, 40, 115), rgb(40, 85, 210)); */
+	background: linear-gradient(45deg, rgb(135 129 255), rgb(255 110 110));
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 30px;
+}
+.block {
+	flex-direction: column;
+}
+.dark-text {
+	color: var(---darker-grey);
+}
+.navigate-text {
+	text-align: center;
+}

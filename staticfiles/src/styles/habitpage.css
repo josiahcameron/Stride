@@ -1,0 +1,299 @@
+h5 {
+	text-decoration: underline;
+}
+
+.habit-list-wrapper {
+	background-color: rgba(192, 219, 251, 75%);
+	padding: 20px 20px 50px 50px;
+	box-shadow: 1px 1px 1px 1px var(--dark-grey);
+	border-radius: 10px;
+	width: 100%;
+	height: 750px;
+	color: var(--darker-grey);
+}
+.habit-list-head {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.habits {
+	min-width: 100%;
+}
+.habit-list {
+	display: flex;
+	justify-content: space-between;
+	flex: 1 1 0px;
+	height: 75%;
+	width: 100%;
+}
+.habits-title {
+	text-align: center;
+	margin-bottom: 20px;
+	text-decoration: underline;
+}
+.user-QOTD-wrapper {
+	margin: 0 auto;
+	box-shadow: 1px 1px 1px 1px var(--dark-grey);
+}
+
+.user-QOTD-container {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 15%;
+}
+.user-QOTD {
+	margin: 0 auto;
+	padding: 1px 2% 40px 2%;
+	background-color: rgba(192, 219, 251, 75%);
+	color: var(--dark-grey);
+	min-height: 750px;
+}
+.user-wrapper {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.user-image {
+	position: relative;
+	width: 100%;
+}
+.user-image img {
+	width: 100%;
+	border-radius: 50%;
+}
+.user-meta-wrapper {
+	margin-top: 10px;
+	text-transform: uppercase;
+	text-decoration: underline;
+	margin-top: 20px;
+}
+.username {
+	text-align: center;
+}
+.user-info-wrapper {
+	display: flex;
+	justify-content: center;
+	height: 30px;
+	font-size: 20px;
+	font-weight: 600;
+}
+.user-info-wrapper div {
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.streak {
+	border-right: 1px solid black;
+}
+
+.qotd {
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+.quote {
+	font-size: 40px;
+	text-align: center;
+}
+.quote-author {
+	font-size: 30px;
+	margin-right: 20%;
+	text-align: end;
+}
+
+.habit-type-selection-wrapper {
+	margin-top: 40px;
+}
+.habit-cards {
+	width: 100%;
+}
+.habit-container {
+	padding: 0px;
+}
+
+.progress {
+	width: 10%;
+	height: 100%;
+	background: transparent;
+}
+
+.habit-card {
+	height: 100px;
+	position: relative;
+}
+
+.input-preview {
+	border: none;
+	margin-left: 0;
+	background-color: white;
+	padding: 0;
+	color: black;
+	resize: none;
+	font-size: 25px;
+}
+
+.hide-form {
+	position: absolute;
+	background-color: white;
+	color: black;
+	height: 100%;
+	width: 100%;
+}
+
+.logo-wrapper img {
+	height: 100px;
+	width: 100px;
+}
+/* #input-box {
+	display: block;
+	height: 100%;
+	width: 100%;
+} */
+.show-button {
+	display: inline-block;
+}
+.hide-button {
+	display: none;
+}
+.hide {
+	display: none;
+}
+
+.habit-card {
+	justify-content: center;
+	font-size: larger;
+	background: white;
+	box-shadow: 1px 0px 2px 2px var(--dark-grey);
+	color: var(--darker-grey);
+}
+
+.habits-wrapper {
+	color: var(--darker-grey);
+	padding-bottom: 30px;
+}
+
+.fade-in-text {
+	animation: fadeIn 5s;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.fade-in-text-longer {
+	animation: fadeIn 8s;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.progress-bar-wrap {
+	width: 150px;
+	height: 150px;
+	background: #fefcff;
+	border-radius: 50%;
+	border: 1px solid #cdcbd0;
+}
+
+.progress-bar-wrap .progress-bar .mask,
+.progress-bar-wrap .progress-bar .fill {
+	top: 23px;
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	border-radius: 50%;
+}
+
+.mask .fill {
+	clip: rect(0px, 75px, 150px, 0px);
+	background-color: #227ded;
+}
+
+.progress-bar-wrap .progress-bar .mask {
+	clip: rect(0px, 150px, 150px, 75px);
+}
+
+.mask.full,
+.progress-bar .fill {
+	animation: fill ease-in-out 3s;
+	transform: rotate(135deg);
+}
+
+@keyframes fill {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(135deg);
+	}
+}
+.progress-bar-wrap .inside-circle {
+	width: 122px;
+	height: 122px;
+	border-radius: 50%;
+	background: #d2eaf1;
+	line-height: 120px;
+	text-align: center;
+	margin-top: 14px;
+	margin-left: 14px;
+	color: #1e51dc;
+	position: absolute;
+	z-index: 100;
+	font-weight: 700;
+	font-size: 2em;
+}
+
+.text-center,
+.show-password {
+	color: var(--darker-grey);
+}
+
+.account-check {
+	text-decoration: none;
+}
+.dark-text {
+	color: var(--darker-grey);
+}
+
+.banked-habits {
+	margin-bottom: 30px;
+	max-width: 75%;
+}
+
+.edit-button {
+	margin-right: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: black;
+	background: none;
+	border: none;
+	padding: 0;
+	font-size: 20px;
+}
+
+.habit-check {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+.deactivate-button {
+	position: absolute;
+	right: 0;
+	padding: 0;
+	bottom: 0;
+}
+.habit-checkbox {
+	margin-bottom: 35px;
+}

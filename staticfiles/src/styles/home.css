@@ -1,0 +1,23 @@
+.homepage-wrapper {
+	margin-top: 30px;
+
+	color: black;
+}
+.homepage-top-container {
+	padding: 15px;
+	display: flex;
+	width: 100%;
+	background: rgba(51, 191, 235, 0.2);
+}
+
+.img-circle {
+	right: 97px;
+	width: 275px;
+	height: 275px;
+	border-radius: 50%;
+	margin: 20px;
+	border: 10px solid white;
+}
+.homepage-top {
+	width: 100%;
+}

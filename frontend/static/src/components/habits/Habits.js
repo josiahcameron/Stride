@@ -313,6 +313,14 @@ function Habits({ denominator, logUserActivity }) {
 				</h3>
 				<div className="habits">
 					<div className="box habit-list">
+						<Col>
+							<div className="banked-habits block">
+								<h5>Stored Steps:</h5>
+								<Row className=" row align-items-start habit-cards ">
+									{habits && inactiveHabitsHTML}
+								</Row>
+							</div>
+						</Col>
 						<Col
 							className={`${
 								habitLimit ? "hide-form" : "hide"
@@ -391,14 +399,7 @@ function Habits({ denominator, logUserActivity }) {
 								</Row>
 							</div>
 						</Col>
-						<Col>
-							<div className="banked-habits block">
-								<h5>Stored Steps:</h5>
-								<Row className=" row align-items-start habit-cards ">
-									{habits && inactiveHabitsHTML}
-								</Row>
-							</div>
-						</Col>
+
 						<Col className="box completed-habits block">
 							<h5>Completed Steps:</h5>
 							<Row className="align-items-start habit-cards ">

@@ -22,7 +22,7 @@ function JournalEntry() {
 	const [date, setDate] = useState(null);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	const [open, setOpen] = useState(false);
-	const [show, setShow] = useState(false);
+	const [show, setShow] = useState(true);
 	const [entry, setEntry] = useState([]);
 	const [editMode, setEditMode] = useState(false);
 
@@ -131,6 +131,7 @@ function JournalEntry() {
 				show={show}
 				onHide={handleClose}
 				className="entry-list-canvas"
+				backdrop={false}
 			>
 				<Offcanvas.Header className="entries-title" closeButton>
 					<Offcanvas.Title>

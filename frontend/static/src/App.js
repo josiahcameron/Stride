@@ -8,7 +8,6 @@ import APITest from "./apitest/APITest";
 
 import LoginForm from "./components/auth/LoginForm";
 import RegisterForm from "./components/auth/RegisterForm";
-import HomePage from "./components/home/HomePage";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Header from "./components/header/Header";
 // const

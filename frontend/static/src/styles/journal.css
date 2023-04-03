@@ -22,7 +22,8 @@
 	height: 70px;
 }
 .entry-list-canvas {
-	background-color: var(--primary);
+	margin-top: 55px;
+	background-color: var(--highlight);
 }
 .entry-list {
 	margin-top: 20px;

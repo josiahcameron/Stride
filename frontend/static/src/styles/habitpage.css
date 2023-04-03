@@ -254,11 +254,6 @@ h5 {
 	font-size: 2em;
 }
 
-.text-center,
-.show-password {
-	color: var(--darker-grey);
-}
-
 .account-check {
 	text-decoration: none;
 }

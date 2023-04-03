@@ -40,8 +40,8 @@ const LoginForm = () => {
 			<div className="wrapper">
 				<Container>
 					<Row className="vh-100 d-flex justify-content-center align-items-center">
-						<Col md={8} lg={6} xs={12}>
-							<Card className="px-4">
+						<Col>
+							<Card className="px-4 login-card">
 								<Card.Body>
 									<div className="mb-3 mt-md-4">
 										<h2 className="fw-bold mb-2 text-center text-uppercase ">
@@ -50,11 +50,11 @@ const LoginForm = () => {
 										<div className="mb-3">
 											<Form className="registration-form">
 												<Form.Group
-													className="mb-3"
+													className="mb-4 mt-3"
 													controlId="username"
 												>
 													<Form.Label className="text-center">
-														Username
+														<h4>Username</h4>
 													</Form.Label>
 													<Form.Control
 														type="username"
@@ -69,11 +69,11 @@ const LoginForm = () => {
 												</Form.Group>
 
 												<Form.Group
-													className="mb-3"
+													className="mb-4"
 													controlId="formBasicPassword"
 												>
 													<Form.Label className="text-center">
-														Password
+														<h4>Password</h4>
 													</Form.Label>
 													<Form.Control
 														type={
@@ -93,7 +93,7 @@ const LoginForm = () => {
 														<Form.Check
 															type="checkbox"
 															id="custom-switch"
-															className="show-password"
+															className="show-password mt-3"
 															label="Show password?"
 															onClick={() =>
 																passwordShown
@@ -120,17 +120,16 @@ const LoginForm = () => {
 												<div className="d-grid">
 													<Button
 														onClick={handleSubmit}
-														variant="dark"
+														variant="primary"
 														type="submit"
 													>
 														Log In
 													</Button>{" "}
 												</div>
 											</Form>
-											<div className="mt-3 navigate-text">
+											<div className="mt-3 ">
 												<NavLink
-													className="nav-text text-center dark-text account-check"
-													id="dark-text"
+													className="nav-text text-center"
 													to="/register"
 												>
 													Don't have an account?

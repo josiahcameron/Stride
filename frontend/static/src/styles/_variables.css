@@ -9,6 +9,7 @@
 	--light-gold: rgb(172, 154, 92);
 	--dark-grey: rgb(65, 65, 65);
 	--darker-grey: rgb(40, 40, 40);
+	--gradient: linear-gradient(45deg, #845ec2, #d65db1, #ff6f91, #ff9671);
 
 	/* --overlay: rgba(218, 82, 32, 0.75);
     --primary-font: "Lato", sans-serif;

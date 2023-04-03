@@ -1,7 +1,28 @@
-@import url("./_variables.css");
-
 .login-wrapper {
+	position: absolute;
 	color: var(---darker-grey);
+	width: 100vw;
+	right: 0;
+	top: 55px;
+	background: var(--gradient);
+	background-size: 400%;
+	animation: bg-animation 10s infinite alternate;
+}
+/* Animation to move bg gradient position  */
+@keyframes bg-animation {
+	0% {
+		background-position: left;
+	}
+	100% {
+		background-position: right;
+	}
+}
+
+.login-card {
+	height: 500px;
+	width: 500px;
+	margin: 0 auto;
+	filter: drop-shadow(0.75rem 0.75rem 0 var(--dark-grey));
 }
 /*
 .login-dark {

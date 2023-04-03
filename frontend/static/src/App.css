@@ -5,9 +5,8 @@
 @import url("./styles/register.css");
 @import url("./styles/habitpage.css");
 @import url("./styles/journal.css");
-@import url("./styles/_variables.css");
 @import url("./styles/habitHTML.css");
-
+@import url("./styles/_variables.css");
 li {
 	list-style: none;
 }
@@ -16,11 +15,12 @@ li {
 	min-height: 100vh;
 	height: 100%;
 	/* background: linear-gradient(45deg, rgb(60, 40, 115), rgb(40, 85, 210)); */
-	background: linear-gradient(45deg, rgb(135 129 255), rgb(255 110 110));
+	background: var(--gradient);
 	padding-left: 5%;
 	padding-right: 5%;
 	padding-top: 30px;
 }
+
 .block {
 	flex-direction: column;
 }
@@ -29,4 +29,9 @@ li {
 }
 .navigate-text {
 	text-align: center;
+}
+
+.text-center,
+.show-password {
+	color: var(--darker-grey);
 }

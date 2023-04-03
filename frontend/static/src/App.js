@@ -24,12 +24,12 @@ const App = () => {
 
 	return (
 		<>
-			{/* {isAuthenticated ? (
+			{isAuthenticated ? (
 				<AuthenticatedHeader />
 			) : (
 				<UnauthenticatedHeader />
-			)} */}
-			<Header />
+			)}
+			{/* <Header /> */}
 			<div className="all-content-wrapper">
 				<Routes>
 					<Route path="login" element={<LoginForm />} />

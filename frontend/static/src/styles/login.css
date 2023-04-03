@@ -19,11 +19,12 @@
 }
 
 .login-card {
-	height: 500px;
+	height: 450px;
 	width: 500px;
 	margin: 0 auto;
 	filter: drop-shadow(0.75rem 0.75rem 0 var(--dark-grey));
 }
+
 /*
 .login-dark {
 	position: absolute;

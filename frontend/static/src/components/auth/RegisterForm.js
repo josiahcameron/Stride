@@ -45,7 +45,7 @@ const RegisterForm = () => {
 				<Container>
 					<Row className="vh-100 d-flex justify-content-center align-items-center">
 						<Col md={8} lg={6} xs={12}>
-							<Card className="px-4">
+							<Card className="px-4 register-card">
 								<Card.Body>
 									<div className="mb-3 mt-md-4">
 										<h2 className="fw-bold mb-2 text-center text-uppercase ">
@@ -57,11 +57,11 @@ const RegisterForm = () => {
 												onSubmit={registerUser}
 											>
 												<Form.Group
-													className="mb-3"
+													className="mb-3 mt-3"
 													controlId="username"
 												>
 													<Form.Label className="text-center">
-														Username
+														<h4>Username</h4>
 													</Form.Label>
 													<Form.Control
 														type="username"
@@ -76,11 +76,11 @@ const RegisterForm = () => {
 												</Form.Group>
 
 												<Form.Group
-													className="mb-3"
+													className="mb-4"
 													controlId="formBasicEmail"
 												>
 													<Form.Label className="text-center">
-														Email address
+														<h4>Email address</h4>
 													</Form.Label>
 													<Form.Control
 														type="email"
@@ -93,11 +93,11 @@ const RegisterForm = () => {
 												</Form.Group>
 
 												<Form.Group
-													className="mb-3"
+													className="mb-4"
 													controlId="formBasicPassword"
 												>
 													<Form.Label className="text-center">
-														Password
+														<h4>Password</h4>
 													</Form.Label>
 													<Form.Control
 														type="password"
@@ -111,11 +111,13 @@ const RegisterForm = () => {
 													/>
 												</Form.Group>
 												<Form.Group
-													className="mb-3"
+													className="mb-4"
 													controlId="formBasicPassword2"
 												>
 													<Form.Label className="text-center">
-														Confirm Password
+														<h4>
+															Confirm Password
+														</h4>
 													</Form.Label>
 													<Form.Control
 														type="password"
@@ -135,7 +137,7 @@ const RegisterForm = () => {
 													)}
 												</Form.Group>
 												<Form.Group
-													className="mb-3"
+													className="mb-4"
 													controlId="formBasicCheckbox"
 												></Form.Group>
 												<div className="d-grid">

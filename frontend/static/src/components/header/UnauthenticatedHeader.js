@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { Navbar } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { useContext, useState } from "react";
 
@@ -12,7 +13,7 @@ function Header() {
 	const [profile, setProfile] = useState(null);
 
 	return (
-		<div className="header-wrapper">
+		<Navbar fixed="top" className="header-wrapper">
 			<div className="logo-wrapper">
 				<h1 className="title">STRIDE</h1>
 
@@ -39,7 +40,7 @@ function Header() {
 					</button>
 				</nav>
 			</div>
-		</div>
+		</Navbar>
 	);
 }
 

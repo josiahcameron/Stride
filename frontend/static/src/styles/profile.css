@@ -1,11 +1,95 @@
-.add-profile-image {
-	max-width: 100px;
-	max-height: 100px;
+#profile-container {
+	background: none;
+
+	padding: 30px 20px 20px 0px;
+	margin-top: 69px;
+	width: 25%;
+}
+
+.user-image {
+	width: 50%;
+	text-align: center;
+}
+.user-image img {
+	border-radius: 10px;
+}
+.user-wrapper {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	gap: 10px;
+}
+
+.user-meta-wrapper {
+	margin-top: 20px;
+	text-transform: uppercase;
+	text-decoration: underline;
+}
+
+.user-info-wrapper {
+	display: flex;
+	justify-content: center;
+	height: 30px;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.tier {
+	font-size: large;
+}
+
+.progress-section {
+	width: 100%;
+	font-size: 20px;
+	min-height: 100%;
+	margin-top: 20px;
+	/* border-left: 5px var(--dark-grey) solid; */
 }
 
 .next-level {
 	margin-top: 5px;
-	text-align: center;
+}
+
+.right-container {
+	margin-left: 25%;
+}
+
+.qotd-container {
+	padding-top: 80px;
+}
+
+.qotd {
+	/* margin-top: 50px;
+	margin-bottom: 20px; */
+	display: flex;
+	background: var(--highlight);
+	border-radius: 15px;
+	border: 1px solid var(--dark-grey);
+	align-items: center;
+	flex-direction: column;
+}
+.quote {
+	font-size: 40px;
+}
+.quote-author {
+	font-size: 30px;
+
+	align-self: flex-end;
+	margin-right: 15%;
+}
+
+.journal-container {
+	margin-top: 30px;
+}
+/* ******************************************************** */
+
+.streak {
+	border-right: 1px solid black;
+}
+
+.add-profile-image {
+	max-width: 100px;
+	max-height: 100px;
 }
 
 .progress-info-container {
@@ -17,20 +101,13 @@
 }
 
 .progress-brief h2 {
-	text-align: center;
 	text-decoration: underline;
 }
 
 .progress-brief p {
 	text-align: center;
 }
-.progress-section {
-	width: 33%;
-	font-size: 20px;
 
-	min-height: 100%;
-	/* border-left: 5px var(--dark-grey) solid; */
-}
 .progress-brief-info {
 	margin-bottom: 50px;
 }
@@ -39,10 +116,10 @@
 	list-style: circle;
 }
 
-.edit-icon {
+/* .edit-icon {
 	position: absolute;
 	left: 45%;
 	bottom: 45%;
 	color: var(--highlight);
 	font-size: xxx-large;
-}
+} */

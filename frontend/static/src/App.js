@@ -17,6 +17,7 @@ import CreateProfile from "./components/pages/CreateProfile";
 import JournalEntry from "./components/pages/JournalEntry";
 import AuthenticatedHeader from "./components/header/AuthenticatedHeader";
 import UnauthenticatedHeader from "./components/header/UnauthenticatedHeader";
+import Journal from "./components/pages/Journal";
 
 const App = () => {
 	const { isAuthenticated } = useContext(AuthContext);

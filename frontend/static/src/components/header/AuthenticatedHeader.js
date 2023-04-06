@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { Navbar } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { ProfileContext } from "../context/ProfileContext";
 import { useContext, useState, useEffect } from "react";
@@ -42,7 +43,7 @@ function Header() {
 		return <div>Loading...</div>;
 	}
 	return (
-		<div className="header-wrapper">
+		<Navbar fixed="top" className="header-wrapper">
 			<div className="logo-wrapper">
 				<h1 className="title">STRIDE</h1>
 
@@ -96,7 +97,7 @@ function Header() {
 					</button>
 				</nav>
 			</div>
-		</div>
+		</Navbar>
 	);
 }
 

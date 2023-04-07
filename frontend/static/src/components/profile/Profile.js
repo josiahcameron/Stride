@@ -275,6 +275,14 @@ function Profile() {
 
 				<div className="journal-container">
 					<h2>Journal</h2>
+					<Button
+						onClick={() =>
+							!editMode ? setEditMode(true) : setEditMode(false)
+						}
+						className="add-entry"
+					>
+						<TfiWrite /> {`${!editMode ? "Add entry" : "cancel"}`}
+					</Button>
 					<div className="journal-body-container">
 						<Form
 							className={`${editMode ? "show" : "hide"}`}
@@ -302,17 +310,6 @@ function Profile() {
 								Cancel
 							</Button>
 						</Form>
-						<Button
-							onClick={() =>
-								!editMode
-									? setEditMode(true)
-									: setEditMode(false)
-							}
-							className="add-entry"
-						>
-							<TfiWrite />{" "}
-							{`${editMode ? "Add entry" : "cancel"}`}
-						</Button>
 					</div>
 					{journalList}
 				</div>

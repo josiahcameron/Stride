@@ -24,7 +24,7 @@ function JournalEntry() {
 	const [open, setOpen] = useState(false);
 	const [show, setShow] = useState(true);
 	const [entry, setEntry] = useState([]);
-	const [editMode, setEditMode] = useState(true);
+	const [editMode, setEditMode] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -163,9 +163,6 @@ function JournalEntry() {
 					<Form.Text id="journal-prompt" muted></Form.Text>
 					<Button variant="primary" type="submit">
 						Submit Entry
-					</Button>
-					<Button variant="danger" onClick={() => setEditMode(false)}>
-						Cancel
 					</Button>
 				</Form>
 				<Button

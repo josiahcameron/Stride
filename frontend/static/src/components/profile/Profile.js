@@ -21,6 +21,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { TfiWrite } from "react-icons/tfi";
 
 const INITIAL_FORM_DATA = {
+	title: "",
 	text: "",
 };
 
@@ -128,32 +129,34 @@ function Profile() {
 			...prevFormData,
 			[name]: value,
 		}));
+		console.log(formData);
 	};
+
 	const createEntry = async (event) => {
 		event.preventDefault();
 		const response = await axios.post("/api_v1/journal/", formData);
+		if (!response.status) {
+			throw new Error("Network response was not OK");
+		}
 		const data = await response.data;
 		setPreviousEntries([...previousEntries, data]);
 	};
 
 	const chooseEntry = (entry) => {
 		console.log(entry);
-		setEntry(entry);
+		setEntry([entry]);
 	};
 
 	const journalHTML = entry?.map((entry) => (
 		<div key={entry.id}>
-			<article>
-				<Button
-					onClick={() => setOpen(!open)}
-					aria-controls="example-collapse-text"
-					aria-expanded={open}
-				>
-					{entry.created_at.slice(0, 10)}
-				</Button>
-				<Collapse in={open}>
-					<div id="example-collapse-text">{entry.text}</div>
-				</Collapse>
+			<article className="journal-entry">
+				<div className="entry-header">
+					<h5>{entry.title}</h5>
+					<p>Date: {entry.created_at.slice(0, 10)}</p>
+				</div>
+				<div className="entry-body">
+					<p>{entry.text}</p>
+				</div>
 			</article>
 		</div>
 	));
@@ -161,12 +164,13 @@ function Profile() {
 	const journalList = previousEntries.map((entry) => (
 		<Button
 			key={entry.id}
-			className="entry-date"
+			className="entry"
 			variant="light"
 			action
 			onClick={() => chooseEntry(entry)}
 		>
-			<div className="entry-container">
+			<div className="entry-container" id="entry-text">
+				<h5>{entry.title}</h5>
 				<p>{entry.created_at.slice(0, 10)}</p>
 				<IoIosArrowForward className="arrow" />
 			</div>
@@ -275,43 +279,47 @@ function Profile() {
 
 				<div className="journal-container">
 					<h2>Journal</h2>
-					<Button
-						onClick={() =>
-							!editMode ? setEditMode(true) : setEditMode(false)
-						}
-						className="add-entry"
+					<Form
+						className={`${editMode ? "show" : "hide"}`}
+						onSubmit={createEntry}
 					>
-						<TfiWrite /> {`${!editMode ? "Add entry" : "cancel"}`}
-					</Button>
-					<div className="journal-body-container">
-						<Form
-							className={`${editMode ? "show" : "hide"}`}
-							onSubmit={() => {
-								createEntry();
-							}}
+						<Form.Label>
+							<h4>Add Journal Entry</h4>
+						</Form.Label>
+						<Form.Control
+							type="text"
+							name="title"
+							value={formData.title}
+							onChange={handleInput}
+							placeholder="Enter Title"
+						/>
+						<Form.Control
+							type="text"
+							name="text"
+							value={formData.text}
+							onChange={handleInput}
+							placeholder="Hello Future Me..."
+						/>
+						<Form.Text id="journal-prompt" muted></Form.Text>
+						<Button variant="primary" type="submit">
+							Submit Entry
+						</Button>
+						<Button
+							variant="danger"
+							onClick={() => setEditMode(false)}
 						>
-							<Form.Label htmlFor=""></Form.Label>
-
-							<Form.Control
-								type="text"
-								name="text"
-								value={formData.text}
-								onChange={handleInput}
-								placeholder="Hello Future Me..."
-							/>
-							<Form.Text id="journal-prompt" muted></Form.Text>
-							<Button variant="primary" type="submit">
-								Submit Entry
-							</Button>
-							<Button
-								variant="danger"
-								onClick={() => setEditMode(false)}
-							>
-								Cancel
-							</Button>
-						</Form>
+							Cancel
+						</Button>
+					</Form>
+					<div className="previous-entries">
+						{" "}
+						<h4>Previous Entries:</h4>
+						{journalList}
 					</div>
-					{journalList}
+					<div className="selected-entry">
+						<h4>Selected Entry</h4>
+						{entry && journalHTML}
+					</div>
 				</div>
 			</div>
 

@@ -79,7 +79,30 @@
 }
 
 .journal-container {
-	margin-top: 30px;
+	margin-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+}
+.journal-container > * {
+	margin-bottom: 30px;
+}
+
+.journal-entry {
+	background-color: antiquewhite;
+	margin-top: 20px;
+	padding: 15px;
+	border-radius: 10px;
+}
+.entry {
+	margin-right: 10px;
+}
+#entry-text {
+	flex-direction: column;
+	align-items: start;
+}
+
+.entry-header p {
+	justify-content: center;
 }
 /* ******************************************************** */
 

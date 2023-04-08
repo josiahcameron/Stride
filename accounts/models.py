@@ -74,8 +74,12 @@ class UserActivityLog(models.Model):
 class Journal(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+    title = models.CharField(max_length=255, default="No Title")
     created_at = models.DateTimeField(null=True, auto_now=True)
     text = models.TextField(blank=True)
+
+    def __str__(self):
+        return (f"{self.user.username}-{self.title}-{self.created_at}")
 
 
 class Friend_Request(models.Model):

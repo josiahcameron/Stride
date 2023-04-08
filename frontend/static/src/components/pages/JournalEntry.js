@@ -8,6 +8,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { TfiWrite } from "react-icons/tfi";
 
 const INITIAL_FORM_DATA = {
+	title: "",
 	text: "",
 };
 

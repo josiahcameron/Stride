@@ -62,7 +62,7 @@ function Header() {
 						}`}
 					>
 						<NavLink className="nav-text " to="/profile">
-							<CgProfile /> Profile
+							<CgProfile /> Profile & Journal
 						</NavLink>
 					</button>
 					<button
@@ -73,16 +73,6 @@ function Header() {
 					>
 						<NavLink className="nav-text " to="/">
 							<IoFootstepsSharp /> Steps
-						</NavLink>
-					</button>
-					<button
-						type="button"
-						className={`btn btn-danger btn-lg top-button ${
-							!isAuthenticated && "hide"
-						}`}
-					>
-						<NavLink className="nav-text " to="/journal">
-							<IoJournalSharp /> Journal
 						</NavLink>
 					</button>
 

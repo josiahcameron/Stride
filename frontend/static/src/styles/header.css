@@ -59,3 +59,8 @@
 .top-button {
 	margin-right: 5px;
 }
+
+.user h2:nth-child(1) {
+	border-right: 5px solid var(--darker-grey);
+	padding-right: 10px;
+}

@@ -5,7 +5,15 @@ import { useState, useEffect } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { GrStorage } from "react-icons/gr";
 
-import { Button, Form, Card, Col, Row } from "react-bootstrap";
+import {
+	Button,
+	Form,
+	Card,
+	Col,
+	Row,
+	OverlayTrigger,
+	Tooltip,
+} from "react-bootstrap";
 
 function IncompleteHabits({
 	habit,
@@ -72,23 +80,32 @@ function IncompleteHabits({
 							Save
 						</button>
 					) : (
-						<button
-							type="button"
-							className="btn btn-primary edit-button"
-							onClick={() => setEditMode(true)}
+						<OverlayTrigger
+							placement="top"
+							overlay={<Tooltip>Edit</Tooltip>}
 						>
-							<AiFillEdit /> Edit Step
-						</button>
+							<button
+								type="button"
+								className="btn btn-primary edit-button"
+								onClick={() => setEditMode(true)}
+							>
+								<AiFillEdit />
+							</button>
+						</OverlayTrigger>
 					)}
-
-					<Button
-						className="danger deactivate-habit"
-						onClick={() => {
-							makeInactive(habit);
-						}}
+					<OverlayTrigger
+						placement="top"
+						overlay={<Tooltip>Send to Storage</Tooltip>}
 					>
-						<GrStorage /> Store Step
-					</Button>
+						<Button
+							className="danger deactivate-habit"
+							onClick={() => {
+								makeInactive(habit);
+							}}
+						>
+							<GrStorage />
+						</Button>
+					</OverlayTrigger>
 				</div>
 			</Card>
 		</div>

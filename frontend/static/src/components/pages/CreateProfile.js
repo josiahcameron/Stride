@@ -4,6 +4,7 @@ import { Button, Form, Card, Col, Row, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+
 const INITIAL_FORM_DATA = {
 	title: "",
 
@@ -27,7 +28,7 @@ function CreateProfile() {
 	});
 	const [habits, setHabits] = useState(null);
 	const [preview, setPreview] = useState("");
-	const [addHabitMode, setAddHabitMode] = useState(false);
+	const [addHabitMode, setAddHabitMode] = useState(true);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	let { profileId } = useParams();
 	console.log({ profileId });
@@ -150,38 +151,99 @@ function CreateProfile() {
 						</Col>
 					</Row>
 				</Container>
+
+				{/* ------------------------ Add initial habit -------------------------- */}
 				<Container>
-					<Card>
-						<form
-							className={`${addHabitMode ? "show-form" : "hide"}`}
-						>
-							<label className="text-center">
-								Let's add a daily goal to set! Keep it simple
-								for now - add a simple goal you can check off
-								during your day
-							</label>
-							<div
-								id="input-box"
-								className="form-group input-box"
-							>
-								<input
-									className="form-control"
-									id="title"
-									type="text"
-									name="title"
-									placeholder="Enter goal here"
-									// value={formData.title}
-									onChange={handleHabit}
-								/>
-							</div>
-							<Button
-								onClick={handleSubmit}
-								className="btn btn-primary btn-block "
-							>
-								Submit
-							</Button>
-						</form>
-					</Card>
+					<Row className="vh-100 d-flex justify-content-center align-items-center">
+						<Col>
+							<Card className="px-4 login-card">
+								<form
+									className={`${
+										addHabitMode ? "show-form" : "hide"
+									}`}
+								>
+									<label className="text-center">
+										Let's add a daily goal to set! Keep it
+										simple for now - add a simple goal you
+										can check off during your day
+									</label>
+									<div
+										id="input-box"
+										className="form-group input-box"
+									>
+										<input
+											className="form-control"
+											id="title"
+											type="text"
+											name="title"
+											placeholder="Enter habit here"
+											onChange={handleHabit}
+										/>
+									</div>
+									<Button
+										onClick={handleSubmit}
+										className="btn btn-primary btn-block "
+									>
+										Submit
+									</Button>
+								</form>
+								<Card.Body>
+									<div className="mb-3 mt-md-4">
+										<h2 className="fw-bold mb-2 text-center text-uppercase ">
+											Login Here
+										</h2>
+										<div className="mb-3">
+											<Form className="registration-form">
+												<Form.Group
+													className="mb-4 mt-3"
+													controlId="username"
+												>
+													<Form.Label className="text-center">
+														<h4>Username</h4>
+													</Form.Label>
+													<Form.Control
+														type="username"
+														placeholder="Enter username"
+														name="username"
+														value={
+															formData.username
+														}
+														onChange={handleHabit}
+														autoComplete="off"
+													/>
+												</Form.Group>
+
+												<Form.Group
+													className="mb-4"
+													controlId="formBasicPassword"
+												>
+													<Form.Label className="text-center">
+														<h4>Password</h4>
+													</Form.Label>
+
+													<div className="password_checkbox"></div>
+												</Form.Group>
+
+												<Form.Group
+													className="mb-3"
+													controlId="formBasicCheckbox"
+												></Form.Group>
+												<div className="d-grid">
+													<Button
+														onClick={handleSubmit}
+														variant="primary"
+														type="submit"
+													>
+														Log In
+													</Button>{" "}
+												</div>
+											</Form>
+										</div>
+									</div>
+								</Card.Body>
+							</Card>
+						</Col>
+					</Row>
 				</Container>
 			</div>
 		</>

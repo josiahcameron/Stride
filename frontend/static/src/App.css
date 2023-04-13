@@ -13,6 +13,7 @@ li {
 
 .all-content-wrapper {
 	min-height: 100vh;
+	padding-top: 75px;
 	height: 100%;
 	/* background: linear-gradient(45deg, rgb(60, 40, 115), rgb(40, 85, 210)); */
 	background: var(--gradient);

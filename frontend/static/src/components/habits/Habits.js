@@ -3,7 +3,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import {
+	Button,
+	Card,
+	Col,
+	Row,
+	OverlayTrigger,
+	Tooltip,
+} from "react-bootstrap";
 
 import { AiFillPlusCircle } from "react-icons/ai";
 
@@ -315,7 +322,7 @@ function Habits({ denominator, logUserActivity }) {
 					<div className="box habit-list">
 						<Col>
 							<div className="banked-habits block">
-								<h5>Stored Steps:</h5>
+								<h5>Stored Goals:</h5>
 								<Row className=" row align-items-start habit-cards ">
 									{habits && inactiveHabitsHTML}
 								</Row>
@@ -326,7 +333,7 @@ function Habits({ denominator, logUserActivity }) {
 								habitLimit ? "hide-form" : "hide"
 							}row align-items-start habit-cards block`}
 						>
-							<h5>My Steps:</h5>
+							<h5>Today's Goals:</h5>
 
 							<div className="align-items-start col-md-9">
 								<Row className="align-items-start habit-cards ">
@@ -401,7 +408,7 @@ function Habits({ denominator, logUserActivity }) {
 						</Col>
 
 						<Col className="box completed-habits block">
-							<h5>Completed Steps:</h5>
+							<h5>Completed Goals:</h5>
 							<Row className="align-items-start habit-cards ">
 								{habits && completedHabitsHTML}
 							</Row>

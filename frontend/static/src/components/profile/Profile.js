@@ -263,7 +263,7 @@ function Profile() {
 
 							<li>
 								At your current Tier, you can add up to{" "}
-								{denominator} steps a day.
+								{denominator} goals a day.
 							</li>
 						</ul>
 					</div>

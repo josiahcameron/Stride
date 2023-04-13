@@ -62,7 +62,8 @@ function Header() {
 						}`}
 					>
 						<NavLink className="nav-text " to="/profile">
-							<CgProfile /> Profile & Journal
+							<CgProfile />
+							Profile & Journal
 						</NavLink>
 					</button>
 					<button
@@ -72,7 +73,8 @@ function Header() {
 						}`}
 					>
 						<NavLink className="nav-text " to="/">
-							<IoFootstepsSharp /> Steps
+							<IoFootstepsSharp />
+							Goals
 						</NavLink>
 					</button>
 

@@ -176,7 +176,7 @@ function CreateProfile() {
 											id="title"
 											type="text"
 											name="title"
-											placeholder="Enter habit here"
+											placeholder="Enter goal here"
 											onChange={handleHabit}
 										/>
 									</div>
@@ -187,60 +187,6 @@ function CreateProfile() {
 										Submit
 									</Button>
 								</form>
-								<Card.Body>
-									<div className="mb-3 mt-md-4">
-										<h2 className="fw-bold mb-2 text-center text-uppercase ">
-											Login Here
-										</h2>
-										<div className="mb-3">
-											<Form className="registration-form">
-												<Form.Group
-													className="mb-4 mt-3"
-													controlId="username"
-												>
-													<Form.Label className="text-center">
-														<h4>Username</h4>
-													</Form.Label>
-													<Form.Control
-														type="username"
-														placeholder="Enter username"
-														name="username"
-														value={
-															formData.username
-														}
-														onChange={handleHabit}
-														autoComplete="off"
-													/>
-												</Form.Group>
-
-												<Form.Group
-													className="mb-4"
-													controlId="formBasicPassword"
-												>
-													<Form.Label className="text-center">
-														<h4>Password</h4>
-													</Form.Label>
-
-													<div className="password_checkbox"></div>
-												</Form.Group>
-
-												<Form.Group
-													className="mb-3"
-													controlId="formBasicCheckbox"
-												></Form.Group>
-												<div className="d-grid">
-													<Button
-														onClick={handleSubmit}
-														variant="primary"
-														type="submit"
-													>
-														Log In
-													</Button>{" "}
-												</div>
-											</Form>
-										</div>
-									</div>
-								</Card.Body>
 							</Card>
 						</Col>
 					</Row>

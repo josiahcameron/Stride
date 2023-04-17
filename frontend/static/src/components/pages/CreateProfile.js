@@ -154,19 +154,20 @@ function CreateProfile() {
 
 				{/* ------------------------ Add initial habit -------------------------- */}
 				<Container>
-					<Row className="vh-100 d-flex justify-content-center align-items-center">
+					<Row className="vh-100 d-flex justify-content-center">
 						<Col>
-							<Card className="px-4 login-card">
+							<Card className="px-4 first-habit-card">
 								<form
 									className={`${
 										addHabitMode ? "show-form" : "hide"
-									}`}
+									} `}
 								>
-									<label className="text-center">
-										Let's add a daily goal to set! Keep it
-										simple for now - add a simple goal you
-										can check off during your day
-									</label>
+									<div>
+										<label className="">
+											Add a simple goal you can commit to
+											checking off each day.
+										</label>
+									</div>
 									<div
 										id="input-box"
 										className="form-group input-box"

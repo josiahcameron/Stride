@@ -7,6 +7,7 @@
 @import url("./styles/journal.css");
 @import url("./styles/habitHTML.css");
 @import url("./styles/_variables.css");
+@import url("./styles/addHabit.css");
 li {
 	list-style: none;
 }

@@ -1,0 +1,13 @@
+.first-habit-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 200px;
+	width: 500px;
+	margin: 100px auto;
+	filter: drop-shadow(0.75rem 0.75rem 0 var(--dark-grey));
+}
+
+#input-box {
+	margin: 20px 0 10px 0;
+}

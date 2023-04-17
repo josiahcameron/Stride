@@ -217,3 +217,12 @@ h5 {
 .habit-checkbox {
 	margin-bottom: 35px;
 }
+
+#goal-category-title {
+	width: fit-content;
+}
+
+#goal-category-tooltip {
+	opacity: 1;
+	transition: opacity 2s ease-in-out;
+}

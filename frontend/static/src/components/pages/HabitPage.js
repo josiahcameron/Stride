@@ -3,16 +3,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Habits from "../habits/Habits";
 import { AuthContext } from "../context/AuthContext";
-import {
-	CircularProgressbar,
-	CircularProgressbarWithChildren,
-	buildStyles,
-} from "react-circular-progressbar";
-import { easeQuadInOut } from "d3-ease";
 
-import { Card, Form, Col, Row, Container, Button } from "react-bootstrap";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "react-bootstrap";
 
 function HabitPage() {
 	const csrftoken = Cookies.get("csrftoken");
@@ -24,7 +16,7 @@ function HabitPage() {
 	const handleError = (err) => {
 		console.warn(err);
 	};
-
+	const [show, setShow] = useState(false);
 	const [profile, setProfile] = useState(null);
 
 	const [quote, setQuote] = useState(null);
@@ -102,6 +94,7 @@ function HabitPage() {
 	setDenominator(profile.tier);
 
 	const logUserActivity = async () => {
+		setShow(true);
 		const response = await axios.post(`/api_v1/add-user-record/`);
 		if (!response.status) {
 			throw new Error("Network response was not OK");
@@ -112,6 +105,28 @@ function HabitPage() {
 	return (
 		<div className="wrapper">
 			<div className="habits-wrapper fade-in-text">
+				{show && (
+					<div
+						className="modal show"
+						style={{ display: "block", position: "initial" }}
+					>
+						<Modal.Dialog>
+							<Modal.Header closeButton>
+								<Modal.Title>
+									Congrats on completing all of your goals
+									today!
+								</Modal.Title>
+							</Modal.Header>
+							<Modal.Body>
+								<p>
+									You're another step improved, check out your
+									profile page to check on your progress!
+								</p>
+							</Modal.Body>
+						</Modal.Dialog>
+					</div>
+				)}
+
 				<Habits
 					denominator={denominator}
 					logUserActivity={logUserActivity}

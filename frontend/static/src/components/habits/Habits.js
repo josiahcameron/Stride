@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
 import {
+	Alert,
 	Button,
 	Card,
 	Col,
@@ -35,12 +36,14 @@ function Habits({ denominator, logUserActivity }) {
 		console.warn(err);
 	};
 
-	const [habits, setHabits] = useState(null);
+	const [habits, setHabits] = useState([]);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	const [editMode, setEditMode] = useState(false);
 	const [title, setTitle] = useState("");
 	const [addHabit, setAddHabit] = useState(false);
 	const [habitLimit, setHabitLimit] = useState(false);
+	const [isVisible, setIsVisible] = useState(true);
+
 	//
 	// ------------------Axios requests------------------
 	//
@@ -309,6 +312,7 @@ function Habits({ denominator, logUserActivity }) {
 				makeActive={makeActive}
 			/>
 		));
+
 	//
 	// ------------------Render------------------
 	//
@@ -322,7 +326,19 @@ function Habits({ denominator, logUserActivity }) {
 					<div className="box habit-list">
 						<Col>
 							<div className="banked-habits block">
-								<h5>Stored Goals:</h5>
+								<OverlayTrigger
+									placement="right"
+									overlay={
+										<Tooltip>
+											Goals that you may want add to
+											'Today's Goals' or delete.
+										</Tooltip>
+									}
+								>
+									<h5 id="goal-category-title">
+										Stored Goals:
+									</h5>
+								</OverlayTrigger>
 								<Row className=" row align-items-start habit-cards ">
 									{habits && inactiveHabitsHTML}
 								</Row>
@@ -333,8 +349,17 @@ function Habits({ denominator, logUserActivity }) {
 								habitLimit ? "hide-form" : "hide"
 							}row align-items-start habit-cards block`}
 						>
-							<h5>Today's Goals:</h5>
-
+							<OverlayTrigger
+								placement="right"
+								overlay={
+									<Tooltip>
+										Goals that you must complete today in
+										order to gain a step.
+									</Tooltip>
+								}
+							>
+								<h5 id="goal-category-title">Today's Goals:</h5>
+							</OverlayTrigger>
 							<div className="align-items-start col-md-9">
 								<Row className="align-items-start habit-cards ">
 									{habits && habitHTML}
@@ -408,7 +433,20 @@ function Habits({ denominator, logUserActivity }) {
 						</Col>
 
 						<Col className="box completed-habits block">
-							<h5>Completed Goals:</h5>
+							<OverlayTrigger
+								placement="right"
+								overlay={
+									<Tooltip>
+										Goals that you've checked off for today.
+										If any are checked off on accident, just
+										uncheck them.
+									</Tooltip>
+								}
+							>
+								<h5 id="goal-category-title">
+									Completed Goals:
+								</h5>
+							</OverlayTrigger>
 							<Row className="align-items-start habit-cards ">
 								{habits && completedHabitsHTML}
 							</Row>

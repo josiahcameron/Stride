@@ -94,7 +94,7 @@ class ActivityRecordCreateAPIView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user,
                         streak=streak, count=count)
         send_sms(
-            18436173957, "Well done on walking all of your steps for the day, keep up the good work!")
+            18436173957, "Well done on meeting all of your goals for today! That's another step forward, keep up the good work!")
 
 
 class RemoveActivityRecordAPIView(APIView):

@@ -330,7 +330,7 @@ function Habits({ denominator, logUserActivity }) {
 									placement="right"
 									overlay={
 										<Tooltip>
-											Goals that you may want add to
+											Goals that you may want to add to
 											'Today's Goals' or delete.
 										</Tooltip>
 									}

@@ -28,7 +28,7 @@ function CreateProfile() {
 	});
 	const [habits, setHabits] = useState(null);
 	const [preview, setPreview] = useState("");
-	const [addHabitMode, setAddHabitMode] = useState(true);
+	const [addHabitMode, setAddHabitMode] = useState(false);
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 	let { profileId } = useParams();
 	console.log({ profileId });

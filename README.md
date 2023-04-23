@@ -1,4 +1,4 @@
-Stride is a full-stack website that propels you to reach your goals with a focus on self-accountability. Keep completing your daily habits (or steps) to level up and add more as you make strides toward your goals!
+Stride is a full-stack habit-tracking web application that propels you to reach your goals with a focus on self-accountability. Keep completing your daily goals to level up and add more as you make strides toward your best self!
 
 Objectives/Outcomes:
 

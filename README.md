@@ -24,10 +24,6 @@ API's:
 
 Technologies:
 
+Axios to handle HTTP requests
+
 -   https://axios-http.com/
-
-Packages:
-
--   https://pypi.org/project/django-recurrence/
-
--   https://www.npmjs.com/package/react-circular-progressbar

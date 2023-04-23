@@ -273,7 +273,12 @@ function Profile() {
 				<div className="qotd-container">
 					<div className="qotd fade-in-text">
 						<p className="quote">{quote.text}</p>
-						<p className="quote-author">- {quote.author}</p>
+						<p className="quote-author">
+							-
+							{quote.author === ""
+								? "Anonymous Author"
+								: quote.author}
+						</p>
 					</div>
 				</div>
 
